@@ -58,4 +58,3 @@ The user will be able to view their dashboard and change the way their info is d
 **Security Implemntations:**
 - Rate limiiting to prevent abuse of APIs
 - Implement secure password requirements and standards
-- 
