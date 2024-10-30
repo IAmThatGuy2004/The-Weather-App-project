@@ -1,9 +1,19 @@
 # Project Description: Web-based Weather Application
 ## The document below outlines the goals and features to be implemented. This document also includes assumptions, constraints and requirements associated with the project.  
 
+### Jimi Ademola, Aliasgar Sakarwala, Mandira Samarasekara, Ali Afoud
+
+
+
 The goal of the site in simple terms is to provide an application which can display and share weather based on a user-inputted location. 
 The application has a user database and users have login credentials. 
 The user will be able to view their dashboard and change the way their info is displayed within the application.
+
+### Goals
+- Provide up-to-date real time weather updates.
+- Ensure security for customer information including location data, password and email information.
+- Allow users to customize the applicatino to their preferences. Include display changes, application units and other accessability features.
+
 
 ### User Details
 
@@ -18,10 +28,6 @@ The user will be able to view their dashboard and change the way their info is d
 
 ### Display
 
-*Question for group 1:* How can our application be accesed by a user not logged in. Walled off, or location able to be viewed without customization or ability to share information.
-
-*Question for group 2:* Will we take in user's location through any geolocation methods?
-
 **Features:**
 
 - The user will be greeted with a dashboard upon login, the dashboard will be set to favourite location if one is set in user's account. 
@@ -32,6 +38,8 @@ The user will be able to view their dashboard and change the way their info is d
 - The dashboard can be edited to display information in various orders or remove some other forecasts 
 - The user can switch from dashboard display to a list of saved, favourited locations
 - In the favourites tab, the list can be managed allowing the user to delete and add any locations to the list.
+- Display provides warning for severe weather such as thunderstorm and high heat
+- Display shows sunset/sunrise times
   
 
 **Contraints:**
@@ -44,3 +52,10 @@ The user will be able to view their dashboard and change the way their info is d
 - The back end will use Java to handle accounts.
 - The database will be relational and SQL based to store user preferences and location history.
 - Users should be able to set their preferred setting. Includes changing units between Metric and Imperial.
+- The system should be easily accesabile with a clear and simple layout.
+- Page load time under 2 seconds
+
+**Security Implemntations:**
+- Rate limiiting to prevent abuse of APIs
+- Implement secure password requirements and standards
+- 
