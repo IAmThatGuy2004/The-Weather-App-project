@@ -29,7 +29,7 @@ The user will be able to view their dashboard and change the way their info is d
 ### Display
 
 **Features:**
-
+- If user is not logged in all features pertaining to sharing or customization will not be accessible.
 - The user will be greeted with a dashboard upon login, the dashboard will be set to favourite location if one is set in user's account. 
 - The dashboard will display the current weather in said location. If no favourite location is entered, the user can input a city throughout the world. 
 - The dashboard will then display that city's current forecast and conditions. An option will be visible (a star) which adds the location to a list of user favourited cities.
@@ -40,8 +40,10 @@ The user will be able to view their dashboard and change the way their info is d
 - In the favourites tab, the list can be managed allowing the user to delete and add any locations to the list.
 - Display provides warning for severe weather such as thunderstorm and high heat
 - Display shows sunset/sunrise times
+- A user will be able to add friends, they can be found using usernames
+- Users can share their dashboard with their friends
+- Users can update their profile (includes profile picture, username, email and password)
   
-
 **Contraints:**
 - Stable network is required for real-time data updates.
 - The application should work smoothly across various devices and browsers
