@@ -13,7 +13,7 @@
 
 - **Account Management:** Users will be able to Create, Delete, and Edit account information
 - **Dashboard Customization:** Users can edit and cutomize their respective dashboards trhough display and theme changes, units and icon selections, recieving notifications and type of, and more...
-- **City search and selection:** Users will be able to search for different worldwide cities and check their weather info as well as select them as their favourite to add them to a list they can later check, The favourite city list should also contain a search bar for more ease of use.
+- **City search and selection:** Users will be able to search for different worldwide cities and check their weather info as well as select them as their favourite to add them to a list they can later check, The favourite city list must also contain a search bar for more ease of use.
 - **Dashboard Sharing:**: User can share their dashboards with other users 
 
 ### FUNCTIONAL Requirements
@@ -27,18 +27,17 @@
 
 ### NON-FUNCTIONAL Requirements
 
-- **Performance:** Weather data retrieval should complete in under 2 seconds, using efficient data parsing and caching where possible. System architecture should support concurrency to handle multiple data requests without performance degradation.
+- **Performance:** Weather data retrieval will complete in under 2 seconds, using efficient data parsing and caching where possible. System architecture will support concurrency to handle multiple data requests without performance degradation.
 
-- **Scalability:** API request handling should adapt to peak times without exceeding rate limits or affecting performance.
+- **Scalability:** API request handling must adapt to peak times without exceeding rate limits or affecting performance.
 
-
-- **Usability and Accessibility:** The UI should be intuitive, with clear navigation, readable fonts, and accessible icons representing weather conditions. Accessibility standards such as WCAG will be followed, including keyboard navigation, screen reader compatibility, and contrast settings.
+- **Usability and Accessibility:** The UI must be intuitive, with clear navigation, readable fonts, and accessible icons representing weather conditions. Accessibility standards such as WCAG will be followed, including keyboard navigation, screen reader compatibility, and contrast settings.
 
 - **Reliability:** The system must be constantly available and running, with fallbacks in case the weather API is down. Error handling will be in place to provide meaningful feedback if issues arise, such as “Location not found” or “Weather data temporarily unavailable.”
 
 - **Security and Data Privacy:** Sensitive data will be encrypted in transit and at rest, with secure password handling and token-based user authentication. Compliance with data privacy conventions will ensure user data is managed responsibly.
 
-- **Device Compatibility:** The application should be responsive and compatible with major browsers ***(and maybe mobile devices)***. Mobile optimization will support compact layout adaptations, enabling seamless user experience across various screen sizes.
+- **Device Compatibility:** The application must be responsive and compatible with major browsers, nabling seamless user experience.
 
 
 
@@ -48,4 +47,4 @@
 
 
 
-CI/CD and Automated Testing: The system should have automated tests covering core functionalities and implement CI to streamline the deployment process.
+CI/CD and Automated Testing: The system will have automated tests covering core functionalities and implement CI to streamline the deployment process.
