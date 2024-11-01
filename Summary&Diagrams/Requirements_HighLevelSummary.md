@@ -1,50 +1,39 @@
+# High-Level Summary
 
-# High Level Summary
-
-- The weather app will be a user-focused, **customizable platform** that offers **real-time weather data and a 5-day forecast** for any city worldwide. The application will enable users to **search for the weather of different cities by name**, allowing users to view the cities' current weather conditions, and monitor upcoming weather patterns.
-- Through an *in app dashboard* users will be able to **view their current geolocation weather and temperature**, access a personalized list of favourite cities to view. Users will be able to **add cities of their liking into their list of favourite** by searching for them in the general search bar or through a custom add city to favourites button
-- Users will be able to **customize and select various display formats** such as *backround colour and theme, text fonts and size, style of displayed icons , moving information box around and even potentialy icon animation*, of the dashboard and cities weather display page. With such customizibility, users will be able to share their creative dashboards with other users by sending their account (***up for debate how to share account, we can make it like a search for username, or submiting custimisibility settings so other users can replicate and view on their end...***)
-- The application integrates key software design patterns—Adapter, Singleton, and Facade—ensuring a smooth and adaptable interface with a public weather API, while Continuous Integration (CI) and automated testing promote reliability and performance.
-
+- The weather app will be a user-focused, **customizable platform** that offers **real-time weather data and a 5-day forecast** for any city worldwide. The application will enable users to **search for the weather of different cities by name**, allowing them to view each city’s current weather conditions and monitor upcoming weather patterns.
+- Through an *in-app dashboard*, users will be able to **view their current geolocation weather and temperature** and access a personalized list of favorite cities. Users can **add cities to their favorites** by searching for them in the general search bar or through a custom "add city to favorites" button.
+- Users will be able to **customize and select various display formats** such as *background color and theme, text fonts and size, style of displayed icons, moving information boxes, and potentially icon animation*, for the dashboard and city weather display page. With such customizability, users can share their creative dashboards with others by sharing their account (***up for debate on how to share accounts; options include searching by username or submitting customizability settings so others can replicate the dashboard -> (This will further be explored as the project development continues)***).
+- The application integrates key software design patterns, such as Adapter, Singleton, and Facade, ensuring a smooth and adaptable interface with a public weather API, while Continuous Integration (CI) and automated testing promote reliability and performance.
 
 # Requirements
 
-### USER Requirements
+### User Requirements
 
-- **Account Management:** Users will be able to Create, Delete, and Edit account information
-- **Dashboard Customization:** Users can edit and cutomize their respective dashboards trhough display and theme changes, units and icon selections, recieving notifications and type of, and more...
-- **City search and selection:** Users will be able to search for different worldwide cities and check their weather info as well as select them as their favourite to add them to a list they can later check, The favourite city list must also contain a search bar for more ease of use.
-- **Dashboard Sharing:**: User can share their dashboards with other users 
+- **Account Management:** Users can create, delete, and edit account information.
+- **Dashboard Customization:** Users can edit and customize their dashboards through display and theme changes, units and icon selections, receiving notifications, type of weather display, and more.
+- **City Search and Selection:** Users can search for cities worldwide, check their weather info, and select them as favorites to add to a list. The favorite city list will also include a search bar for easier navigation.
+- **Dashboard Sharing:** Users can share their dashboards with others.
 
-### FUNCTIONAL Requirements
+### Functional Requirements
 
-- **User Authentication:** The system must provide account management functionalities, including login, registration, and secure user authentication through encryption of sensitive information during log-ins, account creation and deletion.
-- **Weather Data Retrieval:** The system must retrieve weather data from an external API and handle various conditions such as location not found or data retrieval issues. Through the use of the Adapter design Pattern, the system will be able to interact with the weather API, allowing future flexibility in switching API providers.
-- **Functioning search feature:** The system will have 2 well functioning search bar that help users to find wanted cities. One main general search bar that iss easily accessed fro dashboard to browse and discover new cities, while a more specialised search bar resides in the favourite list segment , allowing for easy searching of cities within an already exisitng lit of favourite cities selected by user.
-- **Weather forecast:** Within every city page the system will provide the temperature and weather of the current hour, the temp & Weather of the next 24 hours in interval of 1 hours. and the expected average weather and temperature of the following 5 days of said city.***(We can include detailed info of wind speed, UV index,Visibility and humidiy of the current day)***. While on the dashboard and search the system will only have a short box to showcase the current weather and temperature of the viewable city.
-- **Identifying users and cities & dashboards:** Every user will be identifiable by their username and unique incremental userId, Every city will be recognizable by city name and unique ID. Every Dashboard will be dependent on their user , the dashboard will be identifiable by their display settings, User's ID.
+- **User Authentication:** The system must provide account management functionalities, including login, registration, and secure authentication through encryption of sensitive information during logins, account creation, and deletion.
+- **Weather Data Retrieval:** The system must retrieve weather data from an external API and handle conditions such as location not found or data retrieval issues. Using the Adapter Pattern, the system will interact with the weather API, allowing future flexibility in switching providers.
+- **Functioning Search Feature:** The system will have two well-functioning search bars to help users find desired cities. One main general search bar, easily accessible from the dashboard to browse and discover new cities, and a specialized search bar within the favorites list segment for easy searching of cities already added to the user's favorites list.
+- **Weather Forecast:** Each city page will provide the current hour's temperature and weather, a 24-hour forecast in 1-hour intervals, and an average weather and temperature forecast for the following 5 days and  details of wind speed, UV index, visibility, and humidity for the current day. The dashboard and search views will show a short box with the current weather and temperature.
+- **Identifying Users, Cities, and Dashboards:** Every user will have a unique username and incremental user ID. Each city will be identifiable by its name and unique ID, and each dashboard will be associated with its user, identifiable by display settings and the user's ID.
 
+### Non-Functional Requirements
 
-### NON-FUNCTIONAL Requirements
-
-- **Performance:** Weather data retrieval will complete in under 2 seconds, using efficient data parsing and caching where possible. System architecture will support concurrency to handle multiple data requests without performance degradation.
-
+- **Performance:** Weather data retrieval will complete in under 2 seconds, with efficient data parsing and caching. The system architecture will support concurrency to handle multiple data requests without degradation.
 - **Scalability:** API request handling must adapt to peak times without exceeding rate limits or affecting performance.
+- **Usability and Accessibility:** The UI must be intuitive, with clear navigation, readable fonts, and accessible icons for weather conditions. Accessibility standards, such as WCAG, will be followed, including keyboard navigation, screen reader compatibility, and contrast settings.
+- **Reliability:** The system must be consistently available, with fallbacks in case of weather API downtime. Error handling will provide feedback such as “Location not found” or “Weather data temporarily unavailable.”
+- **Security and Data Privacy:** Sensitive data will be encrypted in transit and at rest, with secure password handling and token-based user authentication. Compliance with data privacy standards will ensure responsible management of user data.
+- **Device Compatibility:** The application must be responsive and compatible with major browsers, enabling a seamless user experience.
 
-- **Usability and Accessibility:** The UI must be intuitive, with clear navigation, readable fonts, and accessible icons representing weather conditions. Accessibility standards such as WCAG will be followed, including keyboard navigation, screen reader compatibility, and contrast settings.
+### Design Patterns
 
-- **Reliability:** The system must be constantly available and running, with fallbacks in case the weather API is down. Error handling will be in place to provide meaningful feedback if issues arise, such as “Location not found” or “Weather data temporarily unavailable.”
-
-- **Security and Data Privacy:** Sensitive data will be encrypted in transit and at rest, with secure password handling and token-based user authentication. Compliance with data privacy conventions will ensure user data is managed responsibly.
-
-- **Device Compatibility:** The application must be responsive and compatible with major browsers, nabling seamless user experience.
-
-
-
-### Design Patterns:
-- **Singleton design:** The system will implement the Singleton Pattern to ensure that a single instance of the API client is created for handling all API requests efficiently. This design will maintain centralized control over the API client, allowing for consistent behavior and state management. It provides a global access point to the API data, ensuring optimal efficiency in resource usage and enhanced security by managing authentication and configuration in a single location.
-- **Facade pattern for interface:** Using the facade pattern the system will produce an easy use weather application that offers many different funnctionalities and information by the many different complex subsystems that will be used to develop all the different component of the application system. Creating a more intuitive system with easier maintianibility.
-
-
-
-CI/CD and Automated Testing: The system will have automated tests covering core functionalities and implement CI to streamline the deployment process.
+- **Singleton Design:** The system will implement the Singleton Pattern to ensure a single instance of the API client handles all API requests efficiently. This design maintains centralized control over the API client, providing consistent behavior, resource efficiency, and enhanced security by managing authentication and configuration centrally.
+- **Facade Pattern for Interface:** Using the Facade Pattern, the system will create a user-friendly weather application that offers various functionalities and information from complex subsystems. This approach creates a more intuitive and easily maintainable system.
+- **Adapter Pattern:** With the Adapter Pattern, the weather app can integrate multiple APIs seamlessly by converting unique API data into a standardized format for ease of use and maintainability. This allows for an easy switch between APIs in case of issues or changes to the codebase in future updates.
+- **CI/CD and Automated Testing:** The system will have automated tests covering core functionalities and use CI to streamline the deployment process.
