@@ -78,8 +78,8 @@ flowchart LR
     access-->|user access|lf
     fav-->|new fav cities|lf
 
-    access-->search
-    access-->share
+    access-->|wanted city to view|search
+    access-->|dahsboard customization info|share
     search-->|slected city|view
 
 
@@ -87,10 +87,5 @@ flowchart LR
 %% functionality to be added. 
 %%Databse for user info can be seperated to more instances for clarity
 end
-
-  
-   
-
-subId[["`This box represents a datastore`"]] 
 
 ```
