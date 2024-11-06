@@ -111,6 +111,18 @@ The user will be able to view their dashboard and change the way their info is d
 
 <br><br>
 
+### Class diagram
+
+![fig-1: simple Use Case UML](MILESTONE-3-Documents/UML-class-diagram.png "fig-1: simple Use Case UML")
+
+<br><br>
+
+### Architecture diagram
+
+![fig-1: simple Use Case UML](MILESTONE-3-Documents/Architecture-Diagram.png "fig-1: simple Use Case UML")
+
+<br><br>
+
 # RECALL THE PROJECT ASSIGNEMENT:
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/HWOPiRJG)
