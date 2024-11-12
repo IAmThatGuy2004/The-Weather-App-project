@@ -23,6 +23,7 @@ dasboardwindow(["`create dahsboard window`"])
 dashboardcust["`customizing dahsboard feature`"] 
 testdashboard{"`testing customizibility function`"} 
 
+subgraph MileStone4
 web -->api
 apitest -->api
 
@@ -32,9 +33,11 @@ api-->webfeatures
 wfeaturedesc -->webfeatures
 
 userdbtest-->userdb
-
 connectuserdb-->userdb
 connectuserdb-->web
+end
+
+subgraph MileStone5
 
 userdbdesc-->login
 webfeatures-->login
@@ -42,7 +45,9 @@ logintest-->login
 
 login-->favfeature
 testfav-->favfeature
+end
 
+subgraph MileStone6
 login-->dasboardwindow
 dasboardwindow-->dashboardcust
 testdashboard-->dashboardcust
@@ -57,5 +62,6 @@ dashboardcust-->favlist
 
 favlistdesc-->favlist
 favlisttest-->favlist
+end
 
 ```
