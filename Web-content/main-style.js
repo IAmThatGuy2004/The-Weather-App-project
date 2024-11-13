@@ -1,4 +1,7 @@
 
+//we create array containing different images, we have a random number ranging from 0 to size of our image array
+//our function then randomly calls a picture from the array to become our bakcround 
+//this allows for different picture to become our backround as page gets refreshed.
 const backimage = [];
 
 

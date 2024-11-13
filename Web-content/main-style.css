@@ -8,7 +8,8 @@ body {
     position: relative;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover; /*make sure all of bakcround picture appears on screen*/
+	zoom: 1.1; /*zoom in on web page so content doesnt look too small*/
 }
 
 body::before {
@@ -30,22 +31,20 @@ body::before {
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-.container{
+.container{/*general postion of our search bar making sure its centered veticallyh and slightly a top*/
     position: relative;
     top: 10%;
-    
     right: 8%;
-    
 }
 
-.search-bar-wrap{
+.search-bar-wrap{/* details of size and text position of actual search bar*/
     width: 500px;
 	margin: 38px auto;
     text-align: center;
     
 }
 
-.search-bar-wrap .input-text{
+.search-bar-wrap .input-text{/*info of the box of search bar making sure it looks smooth*/
 	border: 0;
 	outline: none;
 	color: #8b7d77;
@@ -107,15 +106,18 @@ body::before {
 
 
 
-.tab .geo-loc,.tab .dashboard,  .tab .register{
-	display: grid;
-    border-radius: 10px;
-    background-color: rgba(255,255,255,.3); 
-	backdrop-filter: blur(20px);
-    text-align: center;
+.tab .geo-loc,.tab .dashboard,  .tab .register{ /*segment contains general details of button boxes*/
+	
+	display: grid; /*makes rectangle into a grid , makes it easier to moce around*/
+    border-radius: 10px; /*rounds corners of rectangle*/
+
+    background-color: rgba(255,255,255,.3); /*main backround colour of boc*/
+	backdrop-filter: blur(20px); /*create blur effect which is the main component of glasmorphism*/
+	background-image: linear-gradient(120deg, rgba(255,255,255,0.3), rgba(0,0,0,0.2));/*simulate light and shadow within box*/
+   
+	/*align text center vertically and horizontaly: to be changed as more details get added to box*/
+	text-align: center;
     align-items: center;
-
-
 
 }
 
