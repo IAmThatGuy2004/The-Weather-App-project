@@ -107,3 +107,47 @@ body::before {
 
 
 
+.tab .geo-loc,.tab .dashboard,  .tab .register{
+	display: grid;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,.3); 
+	backdrop-filter: blur(20px);
+    text-align: center;
+    align-items: center;
+
+
+
+}
+
+
+
+.tab .geo-loc {
+    height: 125px;
+    width: 250px;
+    
+	position: fixed;
+    bottom: 30%; /* 40% from the bottom */
+	left: 20%;
+
+}
+.tab .dashboard,  .tab .register {
+
+    height: 100px;
+    width: 200px;
+}
+
+.tab .dashboard {
+    position: fixed;
+    right: 20%; /* Stays on the right side of the screen */
+    bottom: 40%; /* 45% from the bottom */
+}
+
+.tab .register {
+	
+    position: fixed;
+    right: 20%; /* Stays on the right side of the screen */
+    bottom: 20%; /* 35% from the bottom */
+}
+
+
+
