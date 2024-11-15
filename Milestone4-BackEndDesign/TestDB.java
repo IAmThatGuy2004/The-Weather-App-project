@@ -67,14 +67,14 @@ public class TestDB {
 
         String result = q.listAllUsers();
 
-        String answer = "UserId, Username" + 
+        String expected = "UserId, Username" + 
                         "\n1, John Doe" +
                         "\n2, Mike Wazowski" +
                         "\n3, Sarah Lynn" +
                         "\n4, Jodie Landon";
 
         System.out.println(result);
-        assertEquals(result, answer);
+        assertEquals(expected, result);
 
 
     }
@@ -93,14 +93,14 @@ public class TestDB {
 
         String result = q.listUserLocations();
 
-        String answer = "UserId, Username, Current Location" + 
+        String expected = "UserId, Username, Current Location" + 
                         "\n1, John Doe, Vancouver" +
                         "\n2, Mike Wazowski, Melbourne" +
                         "\n3, Sarah Lynn, Montreal" +
                         "\n4, Jodie Landon, Florida";
 
         System.out.println(result);
-        assertEquals(result, answer);
+        assertEquals(expected, result);
         
     }
 
@@ -119,14 +119,14 @@ public class TestDB {
 
         String result = q.listUserFavourites();
 
-        String answer = "UserId, Username, Favourite Location(s)"+
+        String expected = "UserId, Username, Favourite Location(s)"+
                         "\n1, John Doe, Miami, San Francisco" +
-                        "\n2, Mike Wazowski, New York, Boston" +
-                        "\n3, Sarah Lynn, Seattle, Denver" +
-                        "\n4, Jodie Landon, San Diego, Las Vegas";
+                        "\n2, Mike Wazowski, Boston, New York" +
+                        "\n3, Sarah Lynn, Denver, Seattle" +
+                        "\n4, Jodie Landon, Las Vegas, San Diego";
 
         System.out.println(result);
-        assertEquals(result, answer);
+        assertEquals(expected, result);
     }
 
     /**
@@ -140,13 +140,17 @@ public class TestDB {
         // Re-initialize database
         q.init();
 
+        // Ensure table does not have added values from previous test
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM User WHERE userId = 5 OR userId = 6");
+
         System.out.println("\nTest add user");
 
-        q.addUser(5, "Fred Smith", "Edmonton");
-        q.addUser(6, "Rachel Evans", "Victoria");
+        q.addUser(5, "Fred Smith",  "passkey456", "fredsmith@gmail.com", 27, "Edmonton" );
+        q.addUser(6, "Rachel Evans", "rachelDog1", "rachel.evans@gmail.com", 34, "Victoria");
 
         // Verify result
-        String answer = "UserId, Username" + 
+        String expected = "UserId, Username" + 
                         "\n1, John Doe" +
                         "\n2, Mike Wazowski" +
                         "\n3, Sarah Lynn" +
@@ -157,7 +161,7 @@ public class TestDB {
         // Verify user is added
         String result = q.listAllUsers();
         System.out.println(result);
-        assertEquals(answer, result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -176,7 +180,7 @@ public class TestDB {
         q.deleteUser(3);
 
         // Verify result
-        String answer = "UserId, Username" + 
+        String expected = "UserId, Username" + 
                         "\n1, John Doe" +
                         "\n2, Mike Wazowski" +
                         "\n4, Jodie Landon";
@@ -184,7 +188,7 @@ public class TestDB {
         // verify user is deleted
         String result = q.listAllUsers();
         System.out.println(result);
-        assertEquals(answer, result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -200,11 +204,15 @@ public class TestDB {
 
         System.out.println("\nTest update user");
 
-        q.addUser(5, "Fred Smith", "Edmonton");
+        // Ensure table does not have added values from previous test
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM User WHERE userId = 5 OR userId = 6");
+
+        q.addUser(5, "Fred Smith",  "passkey456", "fredsmith@gmail.com", 27, "Edmonton" );
         q.updateUser(5, "Freddy Smithers");
 
         // Verify result
-        String answer = "UserId, Username" + 
+        String expected = "UserId, Username" + 
         "\n1, John Doe" +
         "\n2, Mike Wazowski" +
         "\n3, Sarah Lynn" +
@@ -213,7 +221,7 @@ public class TestDB {
 
         // Verify updated
         String result = q.listAllUsers();
-        assertEquals(answer, result);
+        assertEquals(expected, result);
 
     }
 
@@ -230,16 +238,16 @@ public class TestDB {
 
         System.out.println("\nTest update location");
 
-        // Ensure table does not have added tables from previous test
+        // Ensure table does not have added values from previous test
         Statement stmt = con.createStatement();
         stmt.executeUpdate("DELETE FROM User WHERE userId = 5 OR userId = 6");
 
         // Add user then update current location
-        q.addUser(5,"Fred Smith", "Edmonton");
+        q.addUser(5, "Fred Smith",  "passkey456", "fredsmith@gmail.com", 27, "Edmonton" );
         q.updateLocation(5, "Calgary");
 
         // Verify result
-        String answer = "UserId, Username, Current Location" + 
+        String expected = "UserId, Username, Current Location" + 
                         "\n1, John Doe, Vancouver" +
                         "\n2, Mike Wazowski, Melbourne" +
                         "\n3, Sarah Lynn, Montreal" +
@@ -248,7 +256,7 @@ public class TestDB {
         
         // Verify updated location
         String result = q.listUserLocations();
-        assertEquals(result, answer);
+        assertEquals(expected, result);
     }
 
     /**
@@ -264,13 +272,17 @@ public class TestDB {
 
         System.out.println("\nTest add favourite location");
 
+        // Ensure table does not have added values from previous test
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM User WHERE userId = 5 OR userId = 6");
+
         // Add favourite location
-        q.addUser(5,"Fred Smith", "Edmonton");
+        q.addUser(5, "Fred Smith",  "passkey456", "fredsmith@gmail.com", 27, "Edmonton" );
         q.addFavourite(5, "Sydney");
         q.addFavourite(5, "Perth");
 
         // Verify result
-        String answer = "UserId, Username, Favourite Location(s)"+
+        String expected = "UserId, Username, Favourite Location(s)"+
                         "\n1, John Doe, Miami, San Francisco" +
                         "\n2, Mike Wazowski, New York, Boston" +
                         "\n3, Sarah Lynn, Seattle, Denver" +
@@ -279,7 +291,7 @@ public class TestDB {
 
         // Verify added favourites
         String result = q.listUserFavourites();
-        assertEquals(result, answer);
+        assertEquals(expected, result);
     }
 
     /**
@@ -295,12 +307,16 @@ public class TestDB {
 
         System.out.println("\nTest delete favourite location");
 
+        // Ensure table does not have added values from previous test
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM User WHERE userId = 5 OR userId = 6");
+
         
         // Delete user's favourite location
         q.deleteFavourite(3, "Denver");
 
-        // Verify answer
-        String answer = "UserId, Username, Favourite Location(s)"+
+        // Verify expected
+        String expected = "UserId, Username, Favourite Location(s)"+
                         "\n1, John Doe, Miami, San Francisco" +
                         "\n2, Mike Wazowski, New York, Boston" +
                         "\n3, Sarah Lynn, Seattle" +
@@ -308,7 +324,7 @@ public class TestDB {
 
         // Verify favourite is deleted
         String result = q.listUserFavourites();
-        assertEquals(result, answer);
+        assertEquals(expected, result);
 
     }
 

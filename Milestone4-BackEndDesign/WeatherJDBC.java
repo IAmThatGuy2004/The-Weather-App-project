@@ -56,7 +56,7 @@ public class WeatherJDBC {
 	 */
 	public void init()
 	{
-	    String fileName = "order.ddl";
+	    String fileName = "weather.ddl";
 		
 	    try
 	    {
@@ -107,7 +107,7 @@ public class WeatherJDBC {
         StringBuilder output = new StringBuilder();
 
         Statement stmt = con.createStatement();
-        ResultSet rst = stmt.executeQuery("SELECT UserId, Username, Location FROM User JOIN CurrentLocation ON User.UserId = CurrentLocation.UserId");
+        ResultSet rst = stmt.executeQuery("SELECT User.UserId, Username, Location FROM User JOIN CurrentLocation ON User.UserId = CurrentLocation.UserId");
 
         output.append("UserId, Username, Current Location");
 
@@ -127,7 +127,7 @@ public class WeatherJDBC {
         Statement stmt = con.createStatement();
         ResultSet rst = stmt.executeQuery("SELECT UserId, Username FROM User");
 
-        String SQL = "SELECT FavouriteLocation FROM FavouriteLocation WHERE UserId = ?";
+        String SQL = "SELECT FavouriteLocation FROM FavouriteLocation WHERE UserId = ? ORDER BY FavouriteLocation ASC";
         PreparedStatement pstmt = con.prepareStatement(SQL);
 
         output.append("UserId, Username, Favourite Location(s)");
@@ -146,13 +146,13 @@ public class WeatherJDBC {
         return output.toString();
     }
 
-    public void addUser(int userId, String username, String currentLocation) throws SQLException
+    public void addUser(int userId, String username, String password, String email, int age, String currentLocation) throws SQLException
     {
 
         System.out.println("Adding user to database");
 
         // Create statements 
-        String SQL = "INSERT INTO User (UserId, Username) VALUES (?,?)";
+        String SQL = "INSERT INTO User (UserId, Username, Password, Email, Age) VALUES (?,?,?,?,?)";
         String SQL2 = "INSERT INTO CurrentLocation (UserId, Location) VALUES (?,?)";
         PreparedStatement pstmt = con.prepareStatement(SQL);
         PreparedStatement pstmt2 = con.prepareStatement(SQL2);
@@ -160,6 +160,9 @@ public class WeatherJDBC {
         // input values into the statements
         pstmt.setInt(1, userId);
         pstmt.setString(2, username);
+        pstmt.setString(3, password);
+        pstmt.setString(4, email);
+        pstmt.setInt(5, age);
         pstmt2.setInt(1, userId);
         pstmt2.setString(2, currentLocation);
 
