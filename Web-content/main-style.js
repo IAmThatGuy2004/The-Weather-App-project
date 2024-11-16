@@ -19,7 +19,11 @@ async function fetchcity() {
     let url = 'https://ipinfo.io/json?token=10176eb7d5bfd1';
     let response = await fetch(url);
     let data = await response.json();
+  
     console.log(data);
+    console.log("This is your city & country: "+data.city+", "+data.country);
+
+    document.getElementById('city-weather').textContent = `This is your city & country: ${data.city}, ${data.country}`;
 }
 fetchcity();
 
