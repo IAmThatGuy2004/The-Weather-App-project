@@ -1,13 +1,8 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

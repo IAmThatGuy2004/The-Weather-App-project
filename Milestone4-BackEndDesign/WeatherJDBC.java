@@ -1,10 +1,8 @@
 import java.io.File;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -12,6 +10,52 @@ import java.util.Scanner;
 public class WeatherJDBC {
     
     private Connection con;
+
+    /**
+     * Lists all users after each method has been run to see the change
+     * 
+     * @param args
+     *      none
+     * @throws SQLException
+     *      with database exception
+     */
+    public static void main(String[] args) throws SQLException {
+        
+        // create an object that will be used to print results of each method and initialize
+        WeatherJDBC q = new WeatherJDBC();
+        q.connect();
+        q.init();
+
+        System.out.println("List Users Method");
+        System.out.println(q.listAllUsers());
+        
+        System.out.println("List Locations Method");
+        System.out.println(q.listUserLocations());
+
+        System.out.println("List Favourites Method");
+        System.out.println(q.listUserFavourites());
+
+        System.out.println("Add Users Method");
+        System.out.println(q.addUser(5, "Fred Smith",  "passkey456", "fredsmith@gmail.com", 27, "Edmonton" ));
+
+        System.out.println("Delete Users Method");
+        System.out.println(q.deleteUser(5));
+
+        System.out.println("Update Location Method");
+        System.out.println(q.updateLocation(1, "Cancun"));
+
+        System.out.println("Delete Favourite Method");
+        System.out.println(q.deleteFavourite(5, "Perth"));
+
+        System.out.println("Update Username Method");
+        System.out.println(q.updateUser(2, "Micheal Wazowski"));
+
+        System.out.println("Add Favourite Users Method");
+        System.out.println(q.addFavourite(3, "Accra")); 
+        
+        q.close();
+
+    }
 
     /**
 	 * Makes a connection to the database and returns connection to caller.
@@ -146,7 +190,7 @@ public class WeatherJDBC {
         return output.toString();
     }
 
-    public void addUser(int userId, String username, String password, String email, int age, String currentLocation) throws SQLException
+    public String addUser(int userId, String username, String password, String email, int age, String currentLocation) throws SQLException
     {
 
         System.out.println("Adding user to database");
@@ -169,10 +213,12 @@ public class WeatherJDBC {
         // execute the queries
         int rowcount = pstmt.executeUpdate();
         int rowcount2 = pstmt2.executeUpdate();
+
+        return listAllUsers();
         
     }
 
-    public void deleteUser(int userId) throws SQLException
+    public String deleteUser(int userId) throws SQLException
     {
 
         System.out.println("Deleting user from database");
@@ -187,9 +233,10 @@ public class WeatherJDBC {
         // execute the queries
         int rowcount = pstmt.executeUpdate();
 
+        return listAllUsers();
     }
 
-    public void updateUser(int userId, String username) throws SQLException
+    public String updateUser(int userId, String username) throws SQLException
     {
 
         System.out.println("Updating user name in database");
@@ -204,9 +251,11 @@ public class WeatherJDBC {
 
         // execute the queries
         int rowcount = pstmt.executeUpdate();
+
+        return listAllUsers();
     }
 
-    public void updateLocation(int userId, String currentLocation) throws SQLException
+    public String updateLocation(int userId, String currentLocation) throws SQLException
     {
 
         System.out.println("Updating user location in database");
@@ -221,9 +270,11 @@ public class WeatherJDBC {
 
         // execute the queries
         int rowcount = pstmt.executeUpdate();
+
+        return listUserLocations();
     }
 
-    public void addFavourite(int userId, String favourite) throws SQLException
+    public String addFavourite(int userId, String favourite) throws SQLException
     {
 
         System.out.println("Adding favourite location for user to database");
@@ -239,9 +290,10 @@ public class WeatherJDBC {
         // execute the queries
         int rowcount = pstmt.executeUpdate();
         
+        return listUserFavourites();
     }
 
-    public void deleteFavourite(int userId, String location) throws SQLException
+    public String deleteFavourite(int userId, String location) throws SQLException
     {
 
         System.out.println("Deleting favourite from user");
@@ -257,5 +309,6 @@ public class WeatherJDBC {
         // execute the queries
         int rowcount = pstmt.executeUpdate();
 
+        return listUserFavourites();
     }
 }
