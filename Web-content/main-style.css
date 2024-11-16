@@ -106,7 +106,7 @@ body::before {
 
 
 
-.tab .geo-loc,.tab .dashboard,  .tab .register{ /*segment contains general details of button boxes*/
+.tab .geoloc,.tab .dashboard,  .tab .register{ /*segment contains general details of button boxes*/
 	
 	display: grid; /*makes rectangle into a grid , makes it easier to moce around*/
     border-radius: 10px; /*rounds corners of rectangle*/
@@ -125,7 +125,7 @@ body::before {
 
 
 
-.tab .geo-loc {
+.tab .geoloc {
     height: 300px;
     width: 250px;
     
@@ -152,7 +152,7 @@ body::before {
     bottom: 20%; /* 35% from the bottom */
 }
 
-.geo-loc:hover,.dashboard:hover,.register:hover{
+.geoloc:hover,.dashboard:hover,.register:hover{
 	background-color: aqua;
 	transform: translateY(-10px)
 }

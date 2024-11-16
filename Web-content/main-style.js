@@ -1,4 +1,8 @@
 
+
+let geoloc = document.getElementById('city-weather');
+
+
 //we create array containing different images, we have a random number ranging from 0 to size of our image array
 //our function then randomly calls a picture from the array to become our bakcround 
 //this allows for different picture to become our backround as page gets refreshed.
@@ -47,6 +51,43 @@ async function getweatherdata() {
     let data = await response2.json();
     
     console.log("Weather data:", data);
+
+
+    const {name: city, 
+      main: {temp, humidity}, 
+      weather: [{description, id}]} = data;
+
+      geoloc.textContent = "";
+
+      console.log(city);
+      console.log(`${(temp - 273.15).toFixed(1)}°C`);
+      console.log(`Humidity: ${humidity}%`);
+      console.log(description);
+      
+  
+      const cityDisplay = document.createElement("h1");
+      const tempDisplay = document.createElement("p");
+      const humidityDisplay = document.createElement("p");
+      const descDisplay = document.createElement("p");
+      const weatherEmoji = document.createElement("p");
+  
+      cityDisplay.textContent = city;
+      tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
+      humidityDisplay.textContent = `Humidity: ${humidity}%`;
+      descDisplay.textContent = description;
+      
+  
+      cityDisplay.classList.add("cityDisplay");
+      tempDisplay.classList.add("tempDisplay");
+      humidityDisplay.classList.add("humidityDisplay");
+      descDisplay.classList.add("descDisplay");
+      
+  
+      geoloc.appendChild(cityDisplay);
+      geoloc.appendChild(tempDisplay);
+      geoloc.appendChild(humidityDisplay);
+      geoloc.appendChild(descDisplay);
+      //card.appendChild(weatherEmoji);
 
 }
 
