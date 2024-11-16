@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS CurrentLocation;
 DROP TABLE IF EXISTS FavouriteLocation;
+DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
     UserId INT PRIMARY KEY AUTO_INCREMENT,
@@ -9,7 +9,6 @@ CREATE TABLE User (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Age INT NOT NULL
 );
-
 
 CREATE TABLE CurrentLocation (
     UserId INT,

@@ -284,10 +284,10 @@ public class TestDB {
         // Verify result
         String expected = "UserId, Username, Favourite Location(s)"+
                         "\n1, John Doe, Miami, San Francisco" +
-                        "\n2, Mike Wazowski, New York, Boston" +
-                        "\n3, Sarah Lynn, Seattle, Denver" +
-                        "\n4, Jodie Landon, San Diego, Las Vegas" +
-                        "\n5, Fred Smith, Sydney, Perth";
+                        "\n2, Mike Wazowski, Boston, New York" +
+                        "\n3, Sarah Lynn, Denver, Seattle" +
+                        "\n4, Jodie Landon, Las Vegas, San Diego" +
+                        "\n5, Fred Smith, Perth, Sydney";
 
         // Verify added favourites
         String result = q.listUserFavourites();
@@ -318,9 +318,9 @@ public class TestDB {
         // Verify expected
         String expected = "UserId, Username, Favourite Location(s)"+
                         "\n1, John Doe, Miami, San Francisco" +
-                        "\n2, Mike Wazowski, New York, Boston" +
+                        "\n2, Mike Wazowski, Boston, New York" +
                         "\n3, Sarah Lynn, Seattle" +
-                        "\n4, Jodie Landon, San Diego, Las Vegas";
+                        "\n4, Jodie Landon, Las Vegas, San Diego";
 
         // Verify favourite is deleted
         String result = q.listUserFavourites();
