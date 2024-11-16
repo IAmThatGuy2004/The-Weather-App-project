@@ -118,4 +118,4 @@ function getWeatherEmoji(weatherId){
 
 
 
-//module.exports = { fetchCity };
+module.exports = { fetchCity };
