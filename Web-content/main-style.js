@@ -14,3 +14,15 @@ window.onload  = function(){
     
     document.body.style.backgroundImage = `url(${backimage[random]})`;
 }
+
+async function fetchcity() {
+    let url = 'https://ipinfo.io/json?token=10176eb7d5bfd1';
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+}
+fetchcity();
+
+
+
+
