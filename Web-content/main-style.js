@@ -4,29 +4,15 @@
 //this allows for different picture to become our backround as page gets refreshed.
 const backimage = [];
 
+// Add your images
+backimage[0] = 'images/weather-rainbow.jpg';
+backimage[1] = 'images/snowy-nature-weather.jpg';
+backimage[2] = 'images/rainy-wallpaper.jpg';
 
-backimage[0]='images/weather-rainbow.jpg';
-backimage[1]='images/snowy-nature-weather.jpg';
-backimage[2]='images/rainy-wallpaper.jpg';
-
-window.onload  = function(){
+// Only set window.onload if we're in a browser environment
+if (typeof window !== 'undefined') {
+  window.onload = function() {
     const random = Math.floor(Math.random() * backimage.length);
-    
     document.body.style.backgroundImage = `url(${backimage[random]})`;
+  };
 }
-
-async function fetchcity() {
-    let url = 'https://ipinfo.io/json?token=10176eb7d5bfd1';
-    let response = await fetch(url);
-    let data = await response.json();
-  
-    console.log(data);
-    console.log("This is your city & country: "+data.city+", "+data.country);
-
-    document.getElementById('city-weather').textContent = `This is your city & country: ${data.city}, ${data.country}`;
-}
-fetchcity();
-
-
-
-
