@@ -11,7 +11,7 @@ describe('Basic math test', () => {
   describe('fetchCity', () => {
     it('should return city and country correctly', async () => {
       const result = await fetchCity();
-      expect(result).toBe('This is your city & country: Kelowna, CA');
+      expect(result).toBe('Kelowna');
     });
   });
 

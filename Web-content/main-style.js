@@ -21,11 +21,29 @@ async function fetchCity() {
   let url = 'https://ipinfo.io/json?token=10176eb7d5bfd1';
   let response = await fetch(url);  // Fetch data from the URL
   let data = await response.json();  // Parse the JSON response
-  return `This is your city & country: ${data.city}, ${data.country}`;  // Corrected string interpolation with backticks
+  console.log(data.city);
+  return `${data.city}`;  // Corrected string interpolation with backticks
 }
 
-fetchCity().then(cityWeatherText => {
-  document.getElementById('city-weather').innerText = cityWeatherText;
-})
+//fetchCity().then(cityWeatherText => {
+ // document.getElementById('city-weather').innerText = cityWeatherText;
+//})
 // Export the function so it can be used elsewhere
-module.exports = { fetchCity };
+//module.exports = { fetchCity };
+
+const weatherkey = "6d7d8491e5e2c3a0173e9d4c2ff5ddbd";
+const city = "kelowna"; // Directly get the city
+
+async function getweatherdata(city) {
+
+    let apiurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherkey}`;
+    let response2 = await fetch(apiurl);
+
+    // Parse the JSON response
+    let data = await response2.json();
+    
+    console.log("Weather data:", data);
+
+}
+
+getweatherdata(city); // Ensure you call the function to initiate the request

@@ -113,7 +113,7 @@ body::before {
 
     background-color: rgba(255,255,255,.2); /*main backround colour of boc*/
 	backdrop-filter: blur(10px); /*create blur effect which is the main component of glasmorphism*/
-	background-image: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(0,0,0,0.1));/*simulate light and shadow within box*/
+	background-image: linear-gradient(120deg, rgba(12, 171, 235, 0.2), rgba(11, 14, 237, 0.1));/*simulate light and shadow within box*/
    
 	/*align text center vertically and horizontaly: to be changed as more details get added to box*/
 	text-align: center;
@@ -126,12 +126,11 @@ body::before {
 
 
 .tab .geo-loc {
-    height: 125px;
+    height: 300px;
     width: 250px;
     
-	position: fixed;
-    bottom: 30%; /* 40% from the bottom */
-	left: 20%;
+	position: relative;
+   
 
 }
 .tab .dashboard,  .tab .register {
