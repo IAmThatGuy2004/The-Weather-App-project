@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- favicon image-->
+    <link rel="icon" type="image/png" href="images/weather-icon.png" />
+    <!--remix icon link: will give us free to use icon img-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!--links to our css stylinkg file -->
+    <link rel="stylesheet" href="main-style.css" />
+    <!-- title of website-->
+    <title>JA^2M Weather</title>
+  </head>
+
+  <body>
+    
+    <!--contains items for our search bar, a wrap of the search , a text input for where we write what we want to search-->
+    <!--an icon button that acts as our search button-->
+    <div class="container">
+    <div class="search-bar-wrap">
+        <div class="search-box">
+            <div class="search-btn">
+                <i class="ri-search-2-line"></i>
+            </div>
+
+            <input type="text" class="input-text" placeholder="Search city name..." >
+        </div>
+    </div>
+    </div>
+
+    <!--tab div will act as buttons to move to different locations of the website-->
+    <!--geo-loc will take us to window of weather info of our current city location-->
+    <div class="tab" >
+        <div class="geo-loc">
+            Current location info
+        </div>
+    </div>
+
+    <div class="tab" >
+        <div class="dashboard">
+            go Dashboard
+        </div>
+
+        <div class="register">
+            Create Account
+        </div>
+
+    </div>
+
+
+    <script src="main-style.js"></script>
+  </body>
+</html>
