@@ -1,4 +1,4 @@
-import { describe, test ,it, expect } from 'vitest';
+import { describe, test ,it, expect, vi } from 'vitest';
 import { fetchCity } from './main-style';  // Adjust the path as needed
 
 describe('Basic math test', () => {
@@ -14,3 +14,10 @@ describe('Basic math test', () => {
       expect(result).toBe('This is your city & country: Kelowna, CA');
     });
   });
+
+
+  global.document = {
+    getElementById: vi.fn().mockReturnValue({
+      innerText: ''
+    })
+  };

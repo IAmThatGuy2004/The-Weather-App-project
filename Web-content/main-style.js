@@ -16,3 +16,16 @@ if (typeof window !== 'undefined') {
     document.body.style.backgroundImage = `url(${backimage[random]})`;
   };
 }
+
+async function fetchCity() {
+  let url = 'https://ipinfo.io/json?token=10176eb7d5bfd1';
+  let response = await fetch(url);  // Fetch data from the URL
+  let data = await response.json();  // Parse the JSON response
+  return `This is your city & country: ${data.city}, ${data.country}`;  // Corrected string interpolation with backticks
+}
+
+fetchCity().then(cityWeatherText => {
+  document.getElementById('city-weather').innerText = cityWeatherText;
+})
+// Export the function so it can be used elsewhere
+module.exports = { fetchCity };
