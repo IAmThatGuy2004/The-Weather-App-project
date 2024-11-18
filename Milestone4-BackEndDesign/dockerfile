@@ -1,0 +1,11 @@
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+COPY TestDB.java WeatherJDBC.java weather.ddl /app/
+
+RUN javac TestDB.java WeatherJDBC.java
+
+EXPOSE 8080
+
+CMD ["java", "TestDB"]
