@@ -4,7 +4,7 @@
 - **Jimi**: 
   - Set up database connections and dependencies.
   - Created tests to ensure accurate database access.
-- **Maddy**: 
+- **Mandira**: 
   - Created Docker and YAML files.
   - Implemented DDL file with table information.
   - Updated container names in `docker-compose.yml`.
@@ -12,7 +12,7 @@
   - Developed the main page of the weather app with non-functional buttons for login, registration, and city search.
   - Established connection with IP API for geolocation and tested the geo-locator function.
   - Created a function to fetch weather information from a public weather API (temperature, humidity, etc.) and display corresponding weather emojis.
-- **Alisagard**:
+- **Aliasgar**:
   - Developed a search window that retrieves city documentation and matches search input with appropriate city names.
 
 ## **Progress Relative to Requirements**
