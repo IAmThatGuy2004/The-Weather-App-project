@@ -100,7 +100,8 @@ public class WeatherJDBC {
 	 */
 	public void init()
 	{
-	    String fileName = "weather.ddl";
+	    String fileName = "Milestone4-BackEndDesign/ddl/weather.ddl";
+        System.out.println(new File(fileName).getAbsolutePath());
 		
 	    try
 	    {

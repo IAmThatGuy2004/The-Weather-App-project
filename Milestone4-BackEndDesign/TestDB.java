@@ -32,7 +32,7 @@ public class TestDB {
 		}
 		catch (Exception e)
 		{
-			System.out.println("Failed to initialize connection and database. Verify OrderJDBC.connect() method has your user id and password.");
+			System.out.println("Failed to initialize connection and database. Verify WeatherJDBC.connect() method has your user id and password.");
 			throw e;
 		}
 	}
