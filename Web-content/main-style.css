@@ -106,14 +106,14 @@ body::before {
 
 
 
-.tab .geo-loc,.tab .dashboard,  .tab .register{ /*segment contains general details of button boxes*/
+.tab .geoloc,.tab .dashboard,  .tab .register{ /*segment contains general details of button boxes*/
 	
 	display: grid; /*makes rectangle into a grid , makes it easier to moce around*/
     border-radius: 10px; /*rounds corners of rectangle*/
 
     background-color: rgba(255,255,255,.2); /*main backround colour of boc*/
 	backdrop-filter: blur(10px); /*create blur effect which is the main component of glasmorphism*/
-	background-image: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(0,0,0,0.1));/*simulate light and shadow within box*/
+	background-image: linear-gradient(120deg, rgba(12, 171, 235, 0.2), rgba(11, 14, 237, 0.1));/*simulate light and shadow within box*/
    
 	/*align text center vertically and horizontaly: to be changed as more details get added to box*/
 	text-align: center;
@@ -125,13 +125,12 @@ body::before {
 
 
 
-.tab .geo-loc {
-    height: 125px;
+.tab .geoloc {
+    height: 300px;
     width: 250px;
     
-	position: fixed;
-    bottom: 30%; /* 40% from the bottom */
-	left: 20%;
+	position: relative;
+   
 
 }
 .tab .dashboard,  .tab .register {
@@ -153,7 +152,7 @@ body::before {
     bottom: 20%; /* 35% from the bottom */
 }
 
-.geo-loc:hover,.dashboard:hover,.register:hover{
+.geoloc:hover,.dashboard:hover,.register:hover{
 	background-color: aqua;
 	transform: translateY(-10px)
 }
