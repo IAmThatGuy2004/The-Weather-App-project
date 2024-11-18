@@ -70,7 +70,7 @@ public class WeatherJDBC {
 	    // TODO: Verify connection information is correct
 		String uid = "testuser";
 		String url = "jdbc:mysql://localhost/testuser"; 		
-		String pw = "304testpw";
+		String pw = "310testpw";
 	    
 		System.out.println("Connecting to database.");
 		// Note: Must assign connection to instance variable as well as returning it back to the caller
