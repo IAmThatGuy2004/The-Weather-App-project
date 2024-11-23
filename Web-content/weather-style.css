@@ -1,0 +1,74 @@
+
+:root {
+
+    /*Fonts*/
+    --ff-nunito-sans: 'Nunito Sans', sans-serif;
+    --ff-poppins: 'Poppins', sans-serif;
+    --ff-new-roman: 'Times New Roman', Times, serif;
+
+    /*font size*/
+    --heading: 5.6rem;
+    --title-1: 2rem;
+    --title-2: 1.8rem;
+    --title-3: 1.6rem;
+    --body-1: 2.2rem;
+    --body-2: 2rem;
+    --body-3: 1.6rem;
+    --label-1: 1.4rem;
+    --label-2: 1.2rem;
+
+    /*font weight*/
+    --weight-regular: 400;
+    --weight-semiBold: 600;
+}
+
+
+/*----------------------------------*\
+    Base general set up
+\*----------------------------------*/
+
+*,
+*::after,
+*::before{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a,
+img,
+span,
+input,
+button{
+    display:block;
+}
+
+sup {vertical-align: top;}
+sub {vertical-align: baseline;}
+sup,sub{font-size: 0.75em;}
+
+html{
+    font-family: var(--ff-new-roman);
+    font-size: 11px;
+    scroll-behavior: smooth;
+}
+
+body {
+
+    /*demo backround for now*/
+    /*background-image: url('images/subback.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;  */
+
+    background-color: black;
+
+    font-size: var(--body-3);
+    overflow: hidden;
+    color: rgb(224, 223, 232);
+    
+}
+
+
+
