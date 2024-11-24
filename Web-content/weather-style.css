@@ -20,6 +20,45 @@
     /*font weight*/
     --weight-regular: 400;
     --weight-semiBold: 600;
+
+    /*borders*/
+    --radius-28: 28px;
+    --radius-16: 16px;
+    --radius-pill: 500px;
+    --radius-circle: 50%;
+
+    /*Shadow*/
+    --shadow-1: 0px 1px 3px hsla(0, 0%, 0%, 0.5);
+    --shadow-2: 0px 3px 6px hsla(0, 0%, 0%, 0.4);
+
+    /*Colours*/
+    --primary: #B5A1E5; 
+--on-primary: #100E17; 
+--background: #131214;
+--on-background: #EAE6F2;
+--surface: #1D1C1F;
+--on-surface: #DDDAE5;
+--on-surface-variant: #7B7980; 
+--on-surface-variant-2: #B9B6BF;
+--outline: #3E3D40;
+--bg-aqi-1: #89E589;
+--on-bg-aqi-1: #1F331F;
+--bg-aqi-2: #E5DD89;
+--on-bg-aqi-2: #33311F;
+--bg-aqi-3: #E5C089;
+--on-bg-aqi-3: #332B1F;
+--bg-aqi-4: #E58989;
+--on-bg-aqi-4: #331F1F;
+--bg-aqi-5: #E589B7;
+--on-bg-aqi-5: #331F29;
+--white: hsl(0, 0%, 100%);
+--white-alpha-4: hsla(0, 0%, 100%, 0.04);
+--white-alpha-8: hsla(0, 0%, 100%, 0.08);
+--black-alpha-10: hsla(0, 0%, 0%, 0.1);
+
+/*transitions*/
+--transition-short: 100ms ease;
+
 }
 
 
@@ -43,6 +82,18 @@ button{
     display:block;
 }
 
+img{ height: auto;}
+
+input,
+button{
+    background: none;
+    border: none;
+    color: inherit; 
+    font : inherit;
+}
+input{width: 100%;}
+button{cursor: pointer;}
+
 sup {vertical-align: top;}
 sub {vertical-align: baseline;}
 sup,sub{font-size: 0.75em;}
@@ -62,13 +113,121 @@ body {
     background-position: center;
     background-size: cover;  */
 
-    background-color: black;
+    background-color: var(--background);
 
     font-size: var(--body-3);
     overflow: hidden;
-    color: rgb(224, 223, 232);
-    
+    color: rgb(224, 223, 232);  
 }
 
+:focus-visible{
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+}
+
+::selection{
+    background-color: var(--white-alpha-8);
+}
+
+::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--white-alpha-8);
+    border-radius: var(--radius-pill)
+
+}
+/*----------------------------------*\
+    Material Icon
+\*----------------------------------*/
+@font-face{
+    font-family: 'Material Symbols Rounded';
+    font-style: normal;
+    font-weight: 400;
+    src: url(Web-content\material-symbol-rounded.woff2)
+}
+
+.m-icon{
+    font-family:'Material Symbols Rounded';
+    font-weight: normal;
+    font-style:normal;
+    font-size: 2.4rem;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform:none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    height:1em;
+    width: 1em;
+    overflow:hidden;
+}
+
+/*----------------------------------*\
+    Header
+\*----------------------------------*/
+
+.container{
+    max-width: 1600px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 16px;
+}
+
+.icon-btn{
+    background-color: var(--white-alpha-8);
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius:var(--radius-circle);
+}
+
+.has-state{ position: relative;}
+.has-state:hover{box-shadow: var(--shadow-1);}
+.has-state:is(:focus, :focus-visible){box-shadow: none;}
+.has-state::before{
+    content:"";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    clip-path: circle(100% at 50% 50%);
+    transition: var(--transition-short);
+}
+.has-state:hover::before{ background-color: var(--white-alpha-4);}
+.has-state:is(:focus, :focus-visible)::before{
+    background-color: var(--white-alpha-8);
+    animation: ripple 250ms ease forwards;
+}
+
+@keyframes ripple{
+    0%{clip-path: circle(0% at 50% 50%);}
+    100%{clip-path: circle(100% at 50% 50%); }
+}
+
+.btn-primary{
+    background-color: var(--primary);
+    color: var(--on-primary);
+    height:48px;
+    line-height: 40px;
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-inline: 16px;
+    border-radius: var(--radius-pill);
+}
+
+.btn-primary .span{font-weight: var(--weight-semiBold );}
+.btn-primary[disabled]{
+    background-color:  var(var(--outline));
+    color: var(--on-surface-variant);
+    cursor: not-allowed;
+}
+.btn-primary[disabled]::before{display:none;}
 
 
