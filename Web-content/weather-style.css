@@ -129,7 +129,7 @@ body {
   background-color: var(--background);
 
   font-size: var(--body-3);
-  overflow: hidden;
+  overflow: auto;
   color: rgb(224, 223, 232);
 }
 
@@ -446,7 +446,7 @@ body {
 \*----------------------------------*/
 main{
     height: calc(100vh-80px);
-    overflow: hidden;
+    overflow: auto;
 }
 
 article.container{
@@ -454,7 +454,7 @@ article.container{
     display: grid;
     grid-template-columns: minmax(0,1fr);
     gap:20px;
-    height:100%;
+    height:auto;
     overflow-y: auto; /*for firefox*/
     overflow-y: overlay;
 }
@@ -504,3 +504,24 @@ article.container::before{
   margin-block-end: 12px;  
 }
 .current-weather-card .meta-text{color: var(--on-surface-variant);}
+
+
+/*----------------------------------*\
+  5d-Forecast
+\*----------------------------------*/
+.forecast-card .title-2{margin-block-end: 0;}
+.forecast-card :is(.card-item, .icon-wrapper){
+    display:flex;
+    align-items:center;
+}
+
+.forecast-card .card-item:not(:last-child){margin-block-end: 12px;}
+.forecast-card .icon-wrapper{gap:8px;}
+.forecast-card .label-1{
+    color: var(--on-surface-variant);
+    font-weight: var(--weight-semiBold);
+}
+.forecast-card .card-item > .label-1{
+    width: 100%;
+    text-align: right;
+}
