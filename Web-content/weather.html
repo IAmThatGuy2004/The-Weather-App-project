@@ -17,63 +17,63 @@
     <!-- title of website-->
     <title>JA^2M Weather</title>
   </head>
-
   <body>
     <header class="header">
-    <div class="container">
+      <div class="container">
+        <h2>JA<sup>2</sup>M Weather</h2>
 
-      <h2>JA<sup>2</sup>M Weather</h2>
+        <div class="search-view active" data-search-view>
+          <div class="search-wrapper">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search city name..."
+              autocomplete="off"
+              class="search-field searching"
+              
+              data-search-field
+            />
 
-      <div class="search-view" data-search-view>
-        <div class="search-wrapper">
-          <input
-            type="search"
-            name="search"
-            class="search-field searching"
-            placeholder="Search city name..."
-            autocomplete="off"
-            data-search-field
-          />
+            <span class="m-icon"><i class="ri-search-line"></i></span>
 
-          <span class="m-icon"><i class="ri-search-line"></i></span>
+            <button class="icon-btn leading-icon has-state" data-search-toggler>
+              <span class="m-icon"><i class="ri-arrow-left-line"></i></span>
+            </button>
+          </div>
 
-          <button class="icon-btn leading-icon has-state" data-search-btn>
-            <span class="m-icon"><i class="ri-arrow-left-line"></i></span>
+          <div class="search-result" data-search-result>
+            <ul class="view-list" data-search-list>
+
+              <li class="view-item">
+                <span class="m-icon"><i class="ri-map-pin-line"></i></span>
+
+                <div>
+                  <p class="item-title">Kelowna</p>
+                  <p class="label-2 item-subtitle">BC, Canada</p>
+                </div>
+
+                <a href="#" class="item-link has-state" data-search-result></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--header action is location-->
+        <div class="location">
+          <button class="icon-btn has-state" data-search-toggler>
+            <span class="m-icon icon"><i class="ri-search-line"></i></i></span>
           </button>
+
+          <a
+            href="#/current-location"
+            class="btn-primary has-state"
+            data-current-location-btn 
+          >
+            <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+            <span class="span">My location</span>
+          </a>
         </div>
-
-        <div class="search-result" data-search-result>
-          <ul class="view-list" data-search-list>
-            <li class="view-item">
-              <span class="m-icon"><i class="ri-map-pin-line"></i></span>
-
-              <div>
-                <p class="item-title">Kelowna</p>
-                <p class="label-2 item-subtitle">BC, Canada</p>
-              </div>
-
-              <a href="#" class="item-link has-state" data-search-result></a>
-            </li>
-          </ul>
-        </div>
-
-
       </div>
-
-      <!--header action is location-->
-      <div class="location">
-
-        <button class="icon-btn has-state" data-search-result>
-          <span class="m-icon icon"><i class="ri-focus-3-line"></i></span>
-        </button>
-
-        <a href="#/current-location" class="btn-primary has-state" data-current-location-btn>
-          <span class="m-icon"><i class="ri-focus-3-line"></i></span>
-          <span class="span">My location</span>
-        </a>
-      </div>
-
-    </div>
     </header>
 
     <script src="weather-style.js"></script>
