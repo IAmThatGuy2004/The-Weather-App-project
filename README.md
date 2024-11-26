@@ -11,7 +11,7 @@
   - intial login and registration page layout dev
   
 ## **Progress Relative to Requirements**
-- The project is **very behind schedule**, with key objectives for this milestone not fully met. 
+- The project is **slightly behind schedule**, with key objectives for this milestone not fully met. 
 
 - **Completed Tasks**:
   - layout of city weather page
