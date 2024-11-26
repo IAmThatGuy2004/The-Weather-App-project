@@ -166,7 +166,7 @@ body {
   font-family: "Material Symbols Rounded";
   font-style: normal;
   font-weight: 400;
-  src: url(Web-content\material-symbol-rounded.woff2);
+  src: url(Web-content/material-symbol-rounded.woff2);
 }
 
 .m-icon {
@@ -339,7 +339,7 @@ body {
 
 @keyframes loading {
   0% {
-    trnaform: translateY(50%) rotate(0);
+    transform: translateY(50%) rotate(0);
   }
   100% {
     transform: translateY(-50%) rotate(1turn);
@@ -464,8 +464,8 @@ body {
   MAIN
 \*----------------------------------*/
 main {
-  height: calc(100vh-80px);
-  overflow: hidden;
+  height: calc(100vh- 80px);
+  overflow: auto;
 }
 
 article.container {
@@ -474,8 +474,8 @@ article.container {
   grid-template-columns: minmax(0, 1fr);
   gap: 20px;
   height: auto;
-  overflow-y: auto; /*for firefox*/
-  overflow-y: overlay;
+  overflow-y: overlay; /*for firefox*/
+  overflow-y: auto;
 }
 
 article.container::-webkit-scrollbar-thumb {
@@ -716,6 +716,7 @@ article.container::before {
     overflow: hidden; /* Prevent scrollbars from appearing due to scaling 
 }*/
 @media (min-width: 768px) {
+ 
   .container {
     padding: 24px;
   }
@@ -775,7 +776,7 @@ article.container::before {
   }
 
   .forecast-card .card-item:not(:last-child) {
-    margin-block: 20px;
+    margin-block: 16px;
   }
 
   .highlight-list {
@@ -962,3 +963,9 @@ article.container::before {
     grid-template-columns: 4, 1fr;
   }
 }
+
+
+
+
+
+
