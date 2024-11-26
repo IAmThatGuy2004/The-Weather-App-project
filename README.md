@@ -1,4 +1,4 @@
-# **Weather App Project - Milestone 4 Dashboard Summary**
+# **Weather App Project - Milestone 5 Dashboard Summary**
 
 ## **Tasks Completed (by Owner)**
 - **Jimi**: 
