@@ -80,6 +80,37 @@ export const getHours = function (timeUnix, timezone) {
   };
 
 
+// return (wind) speed in km/h rather than mps
+  export const mps_to_kmh = mps =>{
+    const mph = mps*3600;
+    return mph/1000;
+  }
+
+//aqi air quality index retriaval 
+
+export const aqiText = {
+    1:{
+        level: "Good",
+        message: "The air quality is ideal for all outdoor and indoor activities."
+    },
+    2:{
+        level: "Fair",
+        message:"Air quality poses little to no health risk. Suitable for most outdoor activities."
+    },
+    3:{
+        level: "Moderate",
+        message:"No need to modify your usual outdoor activities unless you experience symptoms such as coughing and throat irritation.",
+    },
+    4:{
+        level:"Poor",
+        message:"Air quality is unhealthy for sensitive groups. Consider reducing prolonged or heavy outdoor exertion. Consider reducing or rescheduling strenuous activities outdoors if you experience symptoms such as coughing and throat irritation"
+    },
+    5:{
+        level:"Very Poor",
+        message:"Air quality is unhealthy for everyone. Limit outdoor activities and stay indoors when possible."
+    }
+}
+
 
 
 
