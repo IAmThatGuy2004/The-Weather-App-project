@@ -87,7 +87,7 @@ By the end of this milestone, the user registration, login, dashboard, and city 
 
 ---
 
-### List of brnaches:
+### List of branches:
 
 - weather-component-body
 - weather-data-implementation
