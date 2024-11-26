@@ -35,7 +35,7 @@
   
   .login-form h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;  
     color: #0c1377;
   }
   .form-group {
@@ -46,12 +46,12 @@
     margin-bottom: 8px;
     color: #0c1377;
     font-weight: 500;
-    width: 90%;
+    width: 100%;
     margin: 0 auto 8px auto;
     text-align: left;
   }
   .form-group input {
-    width: 90%;
+    width: 100%;  
     color: #333;
     padding: 12px 15px;
     border: 1px solid #ccc;
