@@ -16,12 +16,14 @@
 - **Completed Tasks**:
   - layout of city weather page
   - layout of log in page
+  - completion of layout of registration window
+  - backend connection to the log in and registration window using JSP 
+    
 
 - **Pending Tasks**:
   - js implementation and api for the city weather app
-  - backend connection to the log in and registration window 
-  - completion of layout of registration window 
   - creating intial dashboard page layout
+  - adding appropriate tomcat libraries and editing Dockerfile to ensure integration
 
 ### **Next Milestone Plan - User Authentication and Dashboard Integration**
 
