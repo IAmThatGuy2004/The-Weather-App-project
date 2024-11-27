@@ -96,3 +96,39 @@ const container = document.querySelector("[data-container]");
 const loading = document.querySelector("[data-loading]");
 const currentLocationBtn = document.querySelector("[data-current-location-btn]");
 const errorContent = document.querySelector("[data-error-content]");
+
+
+
+
+// Function to extract lat and lon from the hash fragment and log them
+function logCoordinatesFromHash() {
+  const currentURL = window.location.href; // Get the current URL
+  const hashFragment = window.location.hash; // Extract the hash fragment (e.g., #/weather?lat=...&lon=...)
+  
+  // Check if the hash contains query parameters
+  if (hashFragment.includes("?")) {
+    const queryParams = hashFragment.split("?")[1]; // Get the query part after '?'
+    const params = new URLSearchParams(queryParams); // Parse the query parameters
+
+    const latitude = params.get("lat");
+    const longitude = params.get("lon");
+
+    if (latitude && longitude) {
+      console.log(`Hello world, your latitude is: ${latitude} and longitude is: ${longitude}`);
+    } else {
+      console.log("Latitude and longitude not found in the hash fragment.");
+    }
+  } else {
+    console.log("No query parameters found in the hash fragment.");
+  }
+}
+
+// Listen for changes in the hash fragment
+window.addEventListener("hashchange", logCoordinatesFromHash);
+
+// Run the function once on page load to handle the initial hash
+logCoordinatesFromHash();
+
+
+
+console.log(`hello world`);
