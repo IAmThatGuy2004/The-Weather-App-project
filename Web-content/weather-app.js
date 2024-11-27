@@ -1,6 +1,7 @@
+import * as weatherApi from './weather-api.js';
+import * as weatherModule from './weather-module.js';
 
 "use strict";
-
 
 const searchToggler = document.querySelectorAll('[data-search-toggler]');
 const searchView = document.querySelector('[data-search-view]');
