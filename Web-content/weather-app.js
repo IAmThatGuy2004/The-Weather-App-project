@@ -8,6 +8,37 @@ const searchView = document.querySelector('[data-search-view]');
 const searchResult = document.querySelector('[data-search-result]');
 const searchLocation = document.querySelectorAll('[data-search-location]');
 
+
+// Function to set default location based on user's current position
+function setDefaultLocation() {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // Update the URL to include the user's location by latitude and longitude 
+        const defaultURL = `#/weather?lat=${lat}&lon=${lon}`;
+        if (window.location.hash !== defaultURL) {
+          window.location.hash = defaultURL; // Set the hash part of the URL
+        }
+
+      },
+      (error) => {
+        console.error("Geolocation error:", error.message);
+        // Handle location retrieval error (fallback logic)
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    // Handle lack of geolocation support
+  }
+}
+
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", setDefaultLocation);
+
+
 // Toggle search view and result on toggler click
 searchToggler.forEach(toggler => {
   toggler.addEventListener('click', () => {
