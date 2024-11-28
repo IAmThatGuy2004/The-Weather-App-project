@@ -1,28 +1,26 @@
 import { fetchData, url } from "./weather-api.js";
 import * as module from "./weather-module.js";
 
-"use strict";
+("use strict");
 
-const searchToggler = document.querySelectorAll('[data-search-toggler]');
-const searchView = document.querySelector('[data-search-view]');
-const searchResult = document.querySelector('[data-search-result]');
-const searchLocation = document.querySelectorAll('[data-search-location]');
-
+const searchToggler = document.querySelectorAll("[data-search-toggler]");
+const searchView = document.querySelector("[data-search-view]");
+const searchResult = document.querySelector("[data-search-result]");
+const searchLocation = document.querySelectorAll("[data-search-location]");
 
 // Function to set default location based on user's current position
 function setDefaultLocation() {
-  if ('geolocation' in navigator) {
+  if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        // Update the URL to include the user's location by latitude and longitude 
+        // Update the URL to include the user's location by latitude and longitude
         const defaultURL = `#/weather?lat=${lat}&lon=${lon}`;
         if (window.location.hash !== defaultURL) {
           window.location.hash = defaultURL; // Set the hash part of the URL
         }
-
       },
       (error) => {
         console.error("Geolocation error:", error.message);
@@ -38,20 +36,19 @@ function setDefaultLocation() {
 // Call this function when the page loads
 document.addEventListener("DOMContentLoaded", setDefaultLocation);
 
-
 // Toggle search view and result on toggler click
-searchToggler.forEach(toggler => {
-  toggler.addEventListener('click', () => {
-    searchView.classList.toggle('active');
-    searchResult.classList.toggle('active');
+searchToggler.forEach((toggler) => {
+  toggler.addEventListener("click", () => {
+    searchView.classList.toggle("active");
+    searchResult.classList.toggle("active");
   });
 });
 
 // Close search-view and search-result when a location is selected
-searchLocation.forEach(location => {
-  location.addEventListener('click', () => {
-    searchView.classList.remove('active');
-    searchResult.classList.remove('active');
+searchLocation.forEach((location) => {
+  location.addEventListener("click", () => {
+    searchView.classList.remove("active");
+    searchResult.classList.remove("active");
   });
 });
 
@@ -107,12 +104,14 @@ searchField.addEventListener("input", function () {
           <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler></a>
         `;
 
-        searchResult.querySelector("[data-search-list]").appendChild(searchItem);
+        searchResult
+          .querySelector("[data-search-list]")
+          .appendChild(searchItem);
         items.push(searchItem.querySelector("[data-search-toggler]"));
       }
 
       // Add event listeners to search items
-      items.forEach(item => {
+      items.forEach((item) => {
         item.addEventListener("click", () => {
           searchView.classList.remove("active");
           searchResult.classList.remove("active");
@@ -125,12 +124,10 @@ searchField.addEventListener("input", function () {
 // Additional UI elements
 const container = document.querySelector("[data-container]");
 const loading = document.querySelector("[data-loading]");
-const currentLocationBtn = document.querySelector("[data-current-location-btn]");
+const currentLocationBtn = document.querySelector(
+  "[data-current-location-btn]"
+);
 const errorContent = document.querySelector("[data-error-content]");
-
-
-
-
 
 // Function to extract lat and lon from the hash fragment and log them
 function logCoordinatesFromHash() {
@@ -150,7 +147,9 @@ function logCoordinatesFromHash() {
     coordinates.lon = longitude;
 
     if (latitude && longitude) {
-      console.log(`Hello world, your latitude is: ${latitude} and longitude is: ${longitude}`);
+      console.log(
+        `Hello world, your latitude is: ${latitude} and longitude is: ${longitude}`
+      );
     } else {
       console.log("Latitude and longitude not found in the hash fragment.");
     }
@@ -165,12 +164,13 @@ function logCoordinatesFromHash() {
 window.addEventListener("hashchange", logCoordinatesFromHash);
 
 // Run the function once on page load to handle the initial hash
-const coords=logCoordinatesFromHash();
+const coords = logCoordinatesFromHash();
 
 console.log(`hello world  ${coords.lat} ,  ${coords.lon}`);
 
 
 
+/*REtrieving of data */
 
 // Function to log weather details
 function logWeatherDetails(data) {
@@ -179,7 +179,7 @@ function logWeatherDetails(data) {
     main: { temp, feels_like, pressure, humidity },
     visibility,
     sys: { sunrise, sunset },
-    timezone, 
+    timezone,
     dt,
   } = data;
 
@@ -190,115 +190,125 @@ function logWeatherDetails(data) {
   console.log(`- Icon: ${icon}`);
   console.log("Main Metrics:");
   console.log(`- Temperature: ${temp}°C`);
-  console.log(`- Feels Like: ${feels_like}°C`);
-  console.log(`- Pressure: ${pressure} hPa`);
-  console.log(`- Humidity: ${humidity}%`);
-  console.log("Additional Info:");
-  console.log(`- Visibility: ${visibility} meters`);
-  console.log(`- Sunrise: ${module.getTime(sunrise, timezone)}`);
-  console.log(`- Sunset: ${module.getTime(sunset, timezone)}`);
+  
   console.log(`- Date: ${module.getDate(dt, timezone)}`);
-
-
-  /*
-      const cityDisplay = document.createElement("h1");
-      const tempDisplay = document.createElement("p");
-      const humidityDisplay = document.createElement("p");
-      const descDisplay = document.createElement("p");
-      const weatherEmoji = document.createElement("p");
+      
   
-      cityDisplay.textContent = city;
-      tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
-      humidityDisplay.textContent = `Humidity: ${humidity}%`;
-      descDisplay.textContent = description;
-      weatherEmoji.textContent = getWeatherEmoji(id);
-  
-      cityDisplay.classList.add("cityDisplay");
-      tempDisplay.classList.add("tempDisplay");
-      humidityDisplay.classList.add("humidityDisplay");
-      descDisplay.classList.add("descDisplay");
-      weatherEmoji.classList.add("weatherEmoji");
-  
-      geoloc.appendChild(cityDisplay);
-      geoloc.appendChild(tempDisplay);
-      geoloc.appendChild(humidityDisplay);
-      geoloc.appendChild(descDisplay);
-      geoloc.appendChild(weatherEmoji);
+      const weatherdetails = {
+    id,
+    main,
+    description,
+    icon,
+    temp,
+    date: module.getDate(dt, timezone),
+  };
 
-
-*/
+      return weatherdetails;
 
 }
 
 //function to log location details
-function loglocationDetails(data) {
+function logLocationDetails(data) {
   console.log("Raw API response:", data);
 
-  const {
-    name,
-    country,
-    state,
-  } = data[0];
+  const { name, country, state } = data[0];
 
   console.log("cityDetails:");
   console.log(`- City: ${name}`);
   console.log(`- Country: ${country}`);
   console.log(`- State: ${state}`);
- 
+
+
+  const locationdetails = {
+    name,
+    country,
+    state
+  };
+
+      return locationdetails;
 
 }
 
 //function to log highlights details
 function logaqiDetails(data) {
-
   const {
     main: { aqi },
     components: { no2, so2, pm2_5, o3 },
-} = data.list[0];
+  } = data.list[0];
 
-console.log("Air Quality Details:");
-console.log(`- AQI: ${aqi}`);
-console.log(`- NO2: ${no2}`);
-console.log(`- SO2: ${so2}`);
-console.log(`- PM2.5: ${pm2_5}`);
-console.log(`- O3: ${o3}`);
-
-
+  console.log("Air Quality Details:");
+  console.log(`- AQI: ${aqi}`);
+  console.log(`- NO2: ${no2}`);
+  console.log(`- SO2: ${so2}`);
+  console.log(`- PM2.5: ${pm2_5}`);
+  console.log(`- O3: ${o3}`);
 }
-
 
 //log highlights details
 function loghighlightDetails(data) {
-
   const {
     main: { feels_like, pressure, humidity },
     visibility,
-} = data;
+  } = data;
 
-console.log("Weather Details:");
-console.log(`- Feels Like: ${feels_like}°C`);
-console.log(`- Pressure: ${pressure} hPa`);
-console.log(`- Humidity: ${humidity}%`);
-console.log(`- Visibility: ${visibility / 1000} km`);
-
+  console.log("Weather Details:");
+  console.log(`- Feels Like: ${feels_like}°C`);
+  console.log(`- Pressure: ${pressure} hPa`);
+  console.log(`- Humidity: ${humidity}%`);
+  console.log(`- Visibility: ${visibility / 1000} km`);
 }
 
-
-//function to log forecast details 
-function logforecastDetails(data) {
- 
- 
-}
-
-
- 
-
+//function to log forecast details
+function logforecastDetails(data) {}
 
 // Fetch current weather data and log details
-fetchData(url.currentWeather(coords.lat ,  coords.lon), logWeatherDetails);
+//fetchData(url.currentWeather(coords.lat, coords.lon), logWeatherDetails);
 
-fetchData(url.currentWeather(coords.lat ,  coords.lon), loghighlightDetails);
+//fetchData(url.currentWeather(coords.lat, coords.lon), loghighlightDetails);
 
-fetchData(url.airPollution(coords.lat ,  coords.lon), logaqiDetails);
-fetchData(url.reverseGeo(coords.lat ,  coords.lon), loglocationDetails);
+//fetchData(url.airPollution(coords.lat, coords.lon), logaqiDetails);
 
+
+//fetchData(url.reverseGeo(coords.lat, coords.lon), loglocationDetails);
+
+
+
+async function displayLeft(coords) {
+
+  try {
+    // Create promises for both weather and location data
+    const weatherPromise = new Promise((resolve, reject) => {
+      fetchData(url.currentWeather(coords.lat, coords.lon), (weatherData) => {
+        if (weatherData && weatherData.weather) {
+          const weatherDetails = logWeatherDetails(weatherData);
+          resolve(weatherDetails); // Resolve with weather details
+        } else {
+          reject('Invalid weather data received');
+        }
+      });
+    });
+
+    const locationPromise = new Promise((resolve, reject) => {
+      fetchData(url.reverseGeo(coords.lat, coords.lon), (locationData) => {
+        if (locationData && locationData[0]) {
+          const locationDetails = logLocationDetails(locationData);
+          resolve(locationDetails); // Resolve with location details
+        } else {
+          reject('Invalid location data received');
+        }
+      });
+    });
+
+    // Wait for both promises to resolve using Promise.all
+    const [weatherDetails, locationDetails] = await Promise.all([weatherPromise, locationPromise]);
+
+    // Display both weather and location details together
+    console.log('Weather  retrieved:', weatherDetails);
+    console.log('Location retrieved:', locationDetails);
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+displayLeft(coords);
