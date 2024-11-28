@@ -131,11 +131,13 @@ const errorContent = document.querySelector("[data-error-content]");
 
 
 
+
 // Function to extract lat and lon from the hash fragment and log them
 function logCoordinatesFromHash() {
   const currentURL = window.location.href; // Get the current URL
   const hashFragment = window.location.hash; // Extract the hash fragment (e.g., #/weather?lat=...&lon=...)
-  
+  let coordinates = { lat: null, lon: null };
+
   // Check if the hash contains query parameters
   if (hashFragment.includes("?")) {
     const queryParams = hashFragment.split("?")[1]; // Get the query part after '?'
@@ -143,6 +145,9 @@ function logCoordinatesFromHash() {
 
     const latitude = params.get("lat");
     const longitude = params.get("lon");
+
+    coordinates.lat = latitude;
+    coordinates.lon = longitude;
 
     if (latitude && longitude) {
       console.log(`Hello world, your latitude is: ${latitude} and longitude is: ${longitude}`);
@@ -152,14 +157,49 @@ function logCoordinatesFromHash() {
   } else {
     console.log("No query parameters found in the hash fragment.");
   }
+
+  return coordinates;
 }
 
 // Listen for changes in the hash fragment
 window.addEventListener("hashchange", logCoordinatesFromHash);
 
 // Run the function once on page load to handle the initial hash
-logCoordinatesFromHash();
+const coords=logCoordinatesFromHash();
+
+console.log(`hello world  ${coords.lat} ,  ${coords.lon}`);
 
 
 
-console.log(`hello world`);
+
+// Function to log weather details
+function logWeatherDetails(data) {
+  const {
+    weather: [{ id, main, description, icon }],
+    main: { temp, feels_like, pressure, humidity },
+    visibility,
+    sys: { sunrise, sunset },
+    timezone, 
+  } = data;
+
+  console.log("Weather Details:");
+  console.log(`- ID: ${id}`);
+  console.log(`- Main: ${main}`);
+  console.log(`- Description: ${description}`);
+  console.log(`- Icon: ${icon}`);
+  console.log("Main Metrics:");
+  console.log(`- Temperature: ${temp}°C`);
+  console.log(`- Feels Like: ${feels_like}°C`);
+  console.log(`- Pressure: ${pressure} hPa`);
+  console.log(`- Humidity: ${humidity}%`);
+  console.log("Additional Info:");
+  console.log(`- Visibility: ${visibility} meters`);
+  console.log(`- Sunrise: ${module.getTime(sunrise, timezone)}`);
+  console.log(`- Sunset: ${module.getTime(sunset, timezone)}`);
+}
+
+// Coordinates for the API call (example location)
+
+
+// Fetch current weather data and log details
+fetchData(url.currentWeather(coords.lat ,  coords.lon), logWeatherDetails);

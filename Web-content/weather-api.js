@@ -11,19 +11,19 @@ export const fetchData = function (URL, callback) {
 
 export const url = {
   currentWeather(lat, lon) {
-    return `https://api.openweathermap.org/data/2.5/weather?${lat}&${lon}&units=metric`;
+    return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric`;
   },
 
   forecast(lat, lon) {
-    return `https://api.openweathermap.org/data/2.5/forecast?${lat}&${lon}&units=metric`;
+    return `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric`;
   },
 
   airPollution(lat, lon) {
-    return `http://api.openweathermap.org/data/2.5/air_pollution?${lat}&${lon}`;
+    return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}`;
   },
 
   reverseGeo(lat, lon) {
-    return `http://api.openweathermap.org/geo/1.0/reverse?${lat}&${lon}&limit=5`;
+    return `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5`;
   },
 
   /*query is a string , it hould expect a value similar to : "Kelowna"; basically city name*/
@@ -39,3 +39,6 @@ export const url = {
 //air polution: http://api.openweathermap.org/data/2.5/air_pollution?lat=23.251314&lon=90.851784&appid=your_api
 //geocoding: http://api.openweathermap.org/geo/1.0/direct?q=london&limit=5&appid=your_api
 //geocoding-reverse:http://api.openweathermap.org/geo/1.0/reverse?lat=23.7644025&lon=90.389015&limit=5&appid=your_api
+//
+
+//https://api.openweathermap.org/data/2.5/weather?lat=41.9048584&lon=-90.8640346&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
