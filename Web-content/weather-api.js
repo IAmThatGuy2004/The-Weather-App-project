@@ -9,6 +9,21 @@ export const fetchData = function (URL, callback) {
     .then((data) => callback(data)); // Now this will be executed
 };
 
+export const fetchopenData = function (forecastType, lat, lon, callback) {
+  // Check if the forecastType is valid and generate the appropriate URL
+  if (openurl[forecastType]) {
+    const url = openurl[forecastType](lat, lon); // Access the method dynamically
+    fetch(url)
+      .then((res) => res.json())  // Parse the response as JSON
+      .then((data) => callback(data)) // Pass the data to the callback function
+      .catch((error) => {
+        console.error('Error fetching the data:', error);
+      });
+  } else {
+    console.error(`Invalid forecast type: ${forecastType}`);
+  }
+};
+
 export const url = {
   currentWeather(lat, lon) {
     return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric`;

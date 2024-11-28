@@ -1,4 +1,4 @@
-import { fetchData, url, openurl } from "./weather-api.js";
+import { fetchData, url, fetchopenData, openurl } from "./weather-api.js";
 import * as module from "./weather-module.js";
 
 ("use strict");
@@ -250,7 +250,40 @@ function loghighlightDetails(data) {
 }
 
 //function to log forecast details
-function logforecastDetails(data) {}
+function logdailyforecastDetails(data) {
+  const {
+    latitude,
+    longitude,
+    generationtime_ms,
+    utc_offset_seconds,
+    timezone,
+    timezone_abbreviation,
+    elevation,
+    daily: {
+      time,
+      weather_code,
+      temperature_2m_max,
+      temperature_2m_min
+    },
+  } = data;
+
+  console.log("Location:", `Latitude: ${latitude}, Longitude: ${longitude}`);
+  console.log("Generation Time (ms):", generationtime_ms);
+  console.log("UTC Offset (seconds):", utc_offset_seconds);
+  console.log("Timezone:", timezone);
+  console.log("Timezone Abbreviation:", timezone_abbreviation);
+  console.log("Elevation (m):", elevation);
+
+  // Log daily weather data
+  console.log("Daily Forecast:");
+  time.forEach((date, index) => {
+  console.log(`Date: ${date}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
+  });
+}
+
+fetchopenData('daily', coords.lat, coords.lon, logdailyforecastDetails);
+
+
 
 // Fetch current weather data and log details
 //fetchData(url.currentWeather(coords.lat, coords.lon), logWeatherDetails);
