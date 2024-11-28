@@ -273,15 +273,49 @@ function logdailyforecastDetails(data) {
   console.log("Timezone:", timezone);
   console.log("Timezone Abbreviation:", timezone_abbreviation);
   console.log("Elevation (m):", elevation);
-
   // Log daily weather data
   console.log("Daily Forecast:");
+
+
+  const dailyweather = [];
+
+  // Iterate over the time and weather data and push the data to the dailyweather array
   time.forEach((date, index) => {
-  console.log(`Date: ${date}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
+    const dailyData = {
+      date1: module.getDateopen(date),
+      weather_code: weather_code[index],
+      max_temp: Math.round(temperature_2m_max[index]), 
+      min_temp: Math.round(temperature_2m_min[index]),
+    };
+  dailyweather.push(dailyData);
+  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
   });
+
+  return dailyweather;
 }
 
-fetchopenData('daily', coords.lat, coords.lon, logdailyforecastDetails);
+export async function displaydayliforecast(coords) {
+
+  const dailyweatherPromise = new Promise((resolve, reject) => {
+    fetchopenData('daily', coords.lat, coords.lon, (data) => {
+      const dailyweather = logdailyforecastDetails(data); // Process the data inside the callback
+      resolve(dailyweather); // Resolve the promise with the dailyweather data
+    });
+  });
+
+  try {
+    // Wait for the promise to resolve and get the daily weather data
+    const dailyweather = await dailyweatherPromise;
+
+console.log(`MAAAAAAAAAAAAAAAAAAAAAAMAMIAAA: ${dailyweather[1].min_temp}`)
+
+} catch (error) {
+  console.error("Error fetching daily weather data:", error);
+}
+
+}
+
+displaydayliforecast(coords);
 
 
 

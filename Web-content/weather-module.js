@@ -51,6 +51,17 @@ export const getDate = function (dateUnix, timezone) {
   return `${weekDayName} ${date.getUTCDate()}, ${monthName}`;
 };
 
+export function getDateopen(dateString) {
+  const date = new Date(dateString); // Parse the input date string
+  if (isNaN(date)) {
+    console.error("Invalid date string:", dateString);
+    return dateString; // Fallback to the original if parsing fails
+  }
+  const month = monthNames[date.getMonth()]; // Get the month abbreviation
+  const day = date.getDate(); // Get the day of the month
+  return `${month} ${day}`; // Return the formatted string
+}
+
 /*
   getTime follows a similar logic to getDate, but it extracts the clock time 
   instead of the calendar date.
