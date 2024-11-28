@@ -1,45 +1,35 @@
-"use strict";
+// Function to extract lat and lon from the URL and print the message
+function getCoordinatesFromURL() {
+  // Get the current URL
+  const currentURL = window.location.href;
 
-import { updateWeather, error404 } from "weather-app.js";
-const defaultLocation = "#/weather?lat=49.88307&lon=-119.48568"; //lat and lon of Kelowna, will later implement way to auto retrieve
+  // Check if the URL has a hash fragment
+  if (currentURL.includes('#/weather')) {
+    // Extract the part of the URL after the hash '#/weather'
+    const hashFragment = currentURL.split('#/weather')[1];
 
-const currentLocation = function () {
-  window.navigator.geolocation.getCurrentPosition(
-    (res) => {
-      const { latitude, longitude } = res.coords;
+    // Check if hash has the query parameters (lat and lon)
+    if (hashFragment.includes('?')) {
+      const queryParams = hashFragment.split('?')[1]; // Get the query string after '?'
+      const params = new URLSearchParams(queryParams); // Use URLSearchParams to parse query parameters
 
-      updateWeather(`lat=${latitude}`, `lon=${longitude}`);
-    },
-    (err) => {
-      window.location.hash = defaultLocation;
+      const latitude = params.get('lat');
+      const longitude = params.get('lon');
+
+      // Check if both latitude and longitude are available
+      if (latitude && longitude) {
+        console.log(`yellow world: your latitude is: ${latitude} and longitude is: ${longitude}`);
+      } else {
+        console.log('Latitude and/or Longitude not found in the URL');
+      }
+    } else {
+      console.log('Query parameters not found in the hash fragment');
     }
-  );
-};
-
-const searchedLocation = (query) => updateWeather(...query.split("&"));
-// updateWeather("lat=49", "lon=-119")
-
-const routes = new Map([
-  ["/current-location", currentLocation],
-  ["/weather", searchedLocation],
-]);
-
-const checkHash = function () {
-  const requestURL = window.location.hash.slice(1);
-
-  const [route, query] = requestURL.includes
-    ? requestURL.split("?")
-    : [requestURL];
-
-  routes.get(route) ? routes.get(route)(query) : error404();
-};
-
-window.addEventListener("hashchange", checkHash);
-
-window.addEventListener("load", function () {
-  if (!window.location.hash) {
-    window.location.hash = "#/current-location";
   } else {
-    checkHash();
+    console.log('No weather page in the URL');
   }
-});
+}
+
+// Call the function to retrieve the coordinates and print them
+getCoordinatesFromURL();
+

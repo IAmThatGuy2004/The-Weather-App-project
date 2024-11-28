@@ -11,35 +11,6 @@ const searchLocation = document.querySelectorAll("[data-search-location]");
 const currentweather = document.querySelector("[data-current-weather]");
 const fivedays = document.querySelectorAll("[data-5-day-forecast]");
 
-
-// Function to set default location based on user's current position
-function setDefaultLocation() {
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        // Update the URL to include the user's location by latitude and longitude
-        const defaultURL = `#/weather?lat=${lat}&lon=${lon}`;
-        if (window.location.hash !== defaultURL) {
-          window.location.hash = defaultURL; // Set the hash part of the URL
-        }
-      },
-      (error) => {
-        console.error("Geolocation error:", error.message);
-        // Handle location retrieval error (fallback logic)
-      }
-    );
-  } else {
-    console.error("Geolocation is not supported by this browser.");
-    // Handle lack of geolocation support
-  }
-}
-
-// Call this function when the page loads
-document.addEventListener("DOMContentLoaded", setDefaultLocation);
-
 // Toggle search view and result on toggler click
 searchToggler.forEach((toggler) => {
   toggler.addEventListener("click", () => {
@@ -61,7 +32,7 @@ searchLocation.forEach((location) => {
  */
 const searchField = document.querySelector("[data-search-field]");
 let searchTimeout = null;
-const serachTimeoutDuration = 500;
+const searchTimeoutDuration = 500;
 
 searchField.addEventListener("input", function () {
   // Clear the existing timeout if it exists
@@ -119,12 +90,11 @@ searchField.addEventListener("input", function () {
         item.addEventListener("click", () => {
           searchView.classList.remove("active");
           searchResult.classList.remove("active");
-
-          
         });
       });
+      
     });
-  }, serachTimeoutDuration);
+  }, searchTimeoutDuration);
 });
 
 // Additional UI elements
@@ -356,6 +326,7 @@ async function displayLeft(coords) {
 }
 
 displayLeft(coords);
+
 
 
 
