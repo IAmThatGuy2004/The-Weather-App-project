@@ -230,15 +230,22 @@ function loghighlightDetails(data) {
   const {
     main: { feels_like, pressure, humidity },
     visibility,
+    sys: { sunrise, sunset },
+    timezone,
   } = data;
+
+  const sunriset = module.getTime(sunrise, timezone);
+  const sunsett = module.getTime(sunset, timezone);
 
   console.log("Weather Details:");
   console.log(`- Feels Like: ${feels_like}°C`);
   console.log(`- Pressure: ${pressure} hPa`);
   console.log(`- Humidity: ${humidity}%`);
   console.log(`- Visibility: ${visibility / 1000} km`);
+  console.log(`- Sunrise: ${sunriset} `);
+  console.log(`- Sunset: ${sunsett} `);
 
-  const highlight={feels_like, pressure, humidity, visibility:(visibility/1000)};
+  const highlight={feels_like, pressure, humidity, visibility:(visibility/1000), sunriset, sunsett};
   return highlight;
 }
 
@@ -364,6 +371,137 @@ export async function displayRight(coords) {
     // Log the results
     console.log("AQI Details Array:", aqi);
     console.log("Highlight Details Array:", highlight);
+
+
+
+
+    const cardhighlight = document.createElement("div");
+    cardhighlight.classList.add("card", "card-lg", "current-weather-card");
+
+    cardhighlight.innerHTML = `<div class="card card-lg">
+              <h2 class="title-2" id="highlights-label">Today's Highlights</h2>
+              
+              <div class="highlight-list">
+
+                <div class="card card-sm highlight-card one">
+                  <h3 class="title-3">Air Quality Index</h3>
+
+                  <div class="wrapper2">
+                    <span class="m-icon"><i class="ri-windy-line"></i></span>
+
+                    <ul class="card-list">
+                      <li class="card-item">
+                        <p class="title-1">${aqi.pm}</p>
+                        <p class="label-1">PM<sub>2.5</sub></p><!--particule matter in air-->
+                        
+                      </li>
+
+                      <li class="card-item">
+                        <p class="title-1">${aqi.so}</p>
+
+                        <p class="label-1">SO<sub>2</sub></p><!--particule matter in air-->
+                        
+                      </li>
+
+                      <li class="card-item">
+                        <p class="title-1">${aqi.no}</p>
+                        <p class="label-1">NO<sub>2</sub></p><!--particule matter in air-->
+                        
+                      </li>
+
+                      <li class="card-item">
+                        <p class="title-1">${aqi.o}</p>
+                        <p class="label-1">O<sub>2</sub></p><!--particule matter in air-->
+                        
+                      </li>
+                    </ul>
+                  </div>
+
+                  <span class="badge aqi-${aqi.aqi} label-1" title="${module.aqiText[aqi.aqi].message}">
+                  ${module.aqiText[aqi.aqi].level}
+                  </span>
+
+
+                </div>
+
+                <div class="card card-sm highlight-card two">
+                  <h3 class="title-3">Sunrise & Sunset</h3>
+                  <div class="card-list">
+
+                    <div class="card-item">
+                      <span class="m-icon"><i class="ri-sun-line"></i></span><!--Change icon to fit sunrise-->
+
+                      <div>
+                        <p class="label-1">Sunrise</p>
+                        <p class="title-1">${highlight.sunriset}</p>
+                      </div>
+                    </div>
+
+                    
+                    <div class="card-item">
+                      <span class="m-icon"><i class="ri-moon-line"></i></span><!--Change icon to fit sunset-->
+
+                      <div>
+                        <p class="label-1">Sunset</p>
+                        <p class="title-1">${highlight.sunsett}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card card-sm highlight-card">
+
+                  <h3 class="title-3">Humidity</h3>
+
+                  <div class="wrapper2">
+                    <span class="m-icon"><i class="ri-water-percent-line"></i></span>
+                    <p class="title-1">${highlight.humidity}<sub>%</sub></p>
+                  </div>
+
+                </div>
+
+                <div class="card card-sm highlight-card">
+
+                  <h3 class="title-3">Pressure</h3>
+
+                  <div class="wrapper2">
+                    <span class="m-icon"><i class="ri-align-bottom"></i></span>
+                    <p class="title-1">${highlight.pressure}<sub>hPa</sub></p>
+                  </div>
+
+                </div>
+
+                <div class="card card-sm highlight-card">
+
+                  <h3 class="title-3">Visibility</h3>
+
+                  <div class="wrapper2">
+                    <span class="m-icon"><i class="ri-eye-line"></i></span>
+                    <p class="title-1">${highlight.visibility}<sub>km</sub></p>
+                  </div>
+
+                </div>
+
+                <div class="card card-sm highlight-card">
+
+                  <h3 class="title-3">Feels Like</h3>
+
+                  <div class="wrapper2">
+                    <span class="m-icon"><i class="ri-temp-cold-line"></i></span>
+                    <p class="title-1">${highlight.feels_like}&deg;<sub>C</sub></p>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>`;
+
+
+        const currenthighlight = document.querySelector("[data-highlights]");
+        currenthighlight.appendChild(cardhighlight);
+
+
 
     // Return the arrays
     return { aqi, highlight };
