@@ -427,7 +427,7 @@ const card5 = document.createElement("div");
 
 }
 
-displaydayliforecast(coords);
+
 
 
 

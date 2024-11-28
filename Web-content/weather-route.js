@@ -50,6 +50,7 @@ const coord = getCoordinatesFromURL();
 
 app.displayLeft(coord);
 app.displayRight(coord);
+app.displaydayliforecast(coord);
 
 window.addEventListener("hashchange", () => {
   // Reload the page whenever the link changes
