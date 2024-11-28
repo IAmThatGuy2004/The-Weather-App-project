@@ -218,6 +218,11 @@ function logaqiDetails(data) {
   console.log(`- SO2: ${so2}`);
   console.log(`- PM2.5: ${pm2_5}`);
   console.log(`- O3: ${o3}`);
+
+  const aqiinfo={aqi, no:no2, so:so2, pm:pm2_5,o:o3};
+  return aqiinfo;
+
+
 }
 
 //log highlights details
@@ -232,6 +237,9 @@ function loghighlightDetails(data) {
   console.log(`- Pressure: ${pressure} hPa`);
   console.log(`- Humidity: ${humidity}%`);
   console.log(`- Visibility: ${visibility / 1000} km`);
+
+  const highlight={feels_like, pressure, humidity, visibility:(visibility/1000)};
+  return highlight;
 }
 
 //function to log forecast details
@@ -326,6 +334,45 @@ export async function displayLeft(coords) {
 
   
 }
+
+
+
+export async function displayRight(coords) {
+
+  // Create two promises for fetching weather and air quality data
+  const weatherPromise = new Promise((resolve, reject) => {
+    fetchData(url.currentWeather(coords.lat, coords.lon), (data) => resolve(data));
+  });
+
+  const airQualityPromise = new Promise((resolve, reject) => {
+    fetchData(url.airPollution(coords.lat, coords.lon), (data) => resolve(data));
+  });
+
+  try {
+    // Await both promises to resolve
+    const weatherData = await weatherPromise;
+    const airQualityData = await airQualityPromise;
+
+    // Now process the data
+    const aqiDetails = logaqiDetails(airQualityData);
+    const highlightDetails = loghighlightDetails(weatherData);
+
+    // Store the arrays
+    const aqi = aqiDetails;
+    const highlight = highlightDetails;
+
+    // Log the results
+    console.log("AQI Details Array:", aqi);
+    console.log("Highlight Details Array:", highlight);
+
+    // Return the arrays
+    return { aqi, highlight };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+displayRight(coords);
 
 
 
