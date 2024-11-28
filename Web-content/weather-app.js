@@ -180,6 +180,7 @@ function logWeatherDetails(data) {
     visibility,
     sys: { sunrise, sunset },
     timezone, 
+    dt,
   } = data;
 
   console.log("Weather Details:");
@@ -196,10 +197,108 @@ function logWeatherDetails(data) {
   console.log(`- Visibility: ${visibility} meters`);
   console.log(`- Sunrise: ${module.getTime(sunrise, timezone)}`);
   console.log(`- Sunset: ${module.getTime(sunset, timezone)}`);
+  console.log(`- Date: ${module.getDate(dt, timezone)}`);
+
+
+  /*
+      const cityDisplay = document.createElement("h1");
+      const tempDisplay = document.createElement("p");
+      const humidityDisplay = document.createElement("p");
+      const descDisplay = document.createElement("p");
+      const weatherEmoji = document.createElement("p");
+  
+      cityDisplay.textContent = city;
+      tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
+      humidityDisplay.textContent = `Humidity: ${humidity}%`;
+      descDisplay.textContent = description;
+      weatherEmoji.textContent = getWeatherEmoji(id);
+  
+      cityDisplay.classList.add("cityDisplay");
+      tempDisplay.classList.add("tempDisplay");
+      humidityDisplay.classList.add("humidityDisplay");
+      descDisplay.classList.add("descDisplay");
+      weatherEmoji.classList.add("weatherEmoji");
+  
+      geoloc.appendChild(cityDisplay);
+      geoloc.appendChild(tempDisplay);
+      geoloc.appendChild(humidityDisplay);
+      geoloc.appendChild(descDisplay);
+      geoloc.appendChild(weatherEmoji);
+
+
+*/
+
 }
 
-// Coordinates for the API call (example location)
+//function to log location details
+function loglocationDetails(data) {
+  console.log("Raw API response:", data);
+
+  const {
+    name,
+    country,
+    state,
+  } = data[0];
+
+  console.log("cityDetails:");
+  console.log(`- City: ${name}`);
+  console.log(`- Country: ${country}`);
+  console.log(`- State: ${state}`);
+ 
+
+}
+
+//function to log highlights details
+function logaqiDetails(data) {
+
+  const {
+    main: { aqi },
+    components: { no2, so2, pm2_5, o3 },
+} = data.list[0];
+
+console.log("Air Quality Details:");
+console.log(`- AQI: ${aqi}`);
+console.log(`- NO2: ${no2}`);
+console.log(`- SO2: ${so2}`);
+console.log(`- PM2.5: ${pm2_5}`);
+console.log(`- O3: ${o3}`);
+
+
+}
+
+
+//log highlights details
+function loghighlightDetails(data) {
+
+  const {
+    main: { feels_like, pressure, humidity },
+    visibility,
+} = data;
+
+console.log("Weather Details:");
+console.log(`- Feels Like: ${feels_like}°C`);
+console.log(`- Pressure: ${pressure} hPa`);
+console.log(`- Humidity: ${humidity}%`);
+console.log(`- Visibility: ${visibility / 1000} km`);
+
+}
+
+
+//function to log forecast details 
+function logforecastDetails(data) {
+ 
+ 
+}
+
+
+ 
 
 
 // Fetch current weather data and log details
 fetchData(url.currentWeather(coords.lat ,  coords.lon), logWeatherDetails);
+
+fetchData(url.currentWeather(coords.lat ,  coords.lon), loghighlightDetails);
+
+fetchData(url.airPollution(coords.lat ,  coords.lon), logaqiDetails);
+fetchData(url.reverseGeo(coords.lat ,  coords.lon), loglocationDetails);
+

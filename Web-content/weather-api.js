@@ -41,4 +41,13 @@ export const url = {
 //geocoding-reverse:http://api.openweathermap.org/geo/1.0/reverse?lat=23.7644025&lon=90.389015&limit=5&appid=your_api
 //
 
-//https://api.openweathermap.org/data/2.5/weather?lat=41.9048584&lon=-90.8640346&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+
+//current-whether:https://api.openweathermap.org/data/2.5/weather?lat=49.8879177&lon=-119.495902&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+
+//5 days forecast: https://api.openweathermap.org/data/2.5/forecast?lat=49.8879177&lon=-119.495902&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+
+//air polution: http://api.openweathermap.org/data/2.5/air_pollution?lat=49.8879177&lon=-119.495902&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+//geocoding: http://api.openweathermap.org/geo/1.0/direct?q=kelowna&limit=5&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+//geocoding-reverse:http://api.openweathermap.org/geo/1.0/reverse?lat=49.8879177&lon=-119.495902&limit=5&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
+
+//  https://api.openweathermap.org/data/2.5/forecast/hourly? lat=49.8879177&lon=-119.495902&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd 
