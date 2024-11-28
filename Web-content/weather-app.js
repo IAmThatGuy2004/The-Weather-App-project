@@ -283,12 +283,12 @@ function logdailyforecastDetails(data) {
   time.forEach((date, index) => {
     const dailyData = {
       date1: module.getDateopen(date),
-      weather_code: weather_code[index],
+      weather_code: module.openicon[weather_code[index]].image,
       max_temp: Math.round(temperature_2m_max[index]), 
       min_temp: Math.round(temperature_2m_min[index]),
     };
   dailyweather.push(dailyData);
-  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
+  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${dailyweather[index].weather_code}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
   });
 
   return dailyweather;
@@ -301,6 +301,12 @@ export async function displaydayliforecast(coords) {
       const dailyweather = logdailyforecastDetails(data); // Process the data inside the callback
       resolve(dailyweather); // Resolve the promise with the dailyweather data
     });
+
+
+
+
+
+    
   });
 
   try {
