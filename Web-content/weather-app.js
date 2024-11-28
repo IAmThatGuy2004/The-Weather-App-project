@@ -301,12 +301,6 @@ export async function displaydayliforecast(coords) {
       const dailyweather = logdailyforecastDetails(data); // Process the data inside the callback
       resolve(dailyweather); // Resolve the promise with the dailyweather data
     });
-
-
-
-
-
-    
   });
 
   try {
@@ -314,6 +308,115 @@ export async function displaydayliforecast(coords) {
     const dailyweather = await dailyweatherPromise;
 
 console.log(`MAAAAAAAAAAAAAAAAAAAAAAMAMIAAA: ${dailyweather[1].min_temp}`)
+
+
+
+const card5 = document.createElement("div");
+        card5.classList.add("card", "card-lg", "forecast-card");
+
+        card5.innerHTML = `
+
+            
+              <ul>
+
+                <!--Day 1-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[1].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[1].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[1].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;${dailyweather[1].date1}</p>
+                  
+                </li>
+
+                <!--Day 2-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[2].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[2].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[2].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;${dailyweather[2].date1}</p>
+                  
+                </li>
+
+                <!--Day 3-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[3].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[3].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[3].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;${dailyweather[3].date1}</p>
+                  
+                </li>
+
+                <!--Day 4-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[4].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[4].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[4].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;${dailyweather[4].date1}</p>
+                  
+                </li>
+
+                <!--Day 5-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[5].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[5].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[5].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;${dailyweather[5].date1}</p>
+                  
+                </li>
+
+              </ul>
+            </div>`;
+
+
+            const dayly5forecast = document.querySelector("[data-5-day-forecast]");
+            dayly5forecast.appendChild(card5);
+
+
 
 } catch (error) {
   console.error("Error fetching daily weather data:", error);
