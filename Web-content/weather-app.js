@@ -293,7 +293,7 @@ export async function displayLeft(coords) {
 
 
               <div class="wrapper">
-                <p class="heading">${weatherDetails.temp}&deg;<sup>C</sup></p>
+                <p class="heading">${Math.floor(weatherDetails.temp)}&deg;<sup>C</sup></p>
 
                 <img src="images/${weatherDetails.icon}.png" width="64" height="64" class="weather-icon">
               </div>
