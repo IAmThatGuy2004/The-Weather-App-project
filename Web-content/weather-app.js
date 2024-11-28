@@ -510,7 +510,7 @@ export async function displayRight(coords) {
   }
 }
 
-displayRight(coords);
+
 
 
 

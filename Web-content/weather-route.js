@@ -49,6 +49,7 @@ const coord = getCoordinatesFromURL();
 
 
 app.displayLeft(coord);
+app.displayRight(coord);
 
 window.addEventListener("hashchange", () => {
   // Reload the page whenever the link changes
