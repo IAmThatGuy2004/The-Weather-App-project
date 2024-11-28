@@ -1,4 +1,4 @@
-import { fetchData, url } from "./weather-api.js";
+import { fetchData, url, openurl } from "./weather-api.js";
 import * as module from "./weather-module.js";
 
 ("use strict");
