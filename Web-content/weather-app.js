@@ -281,14 +281,17 @@ function logdailyforecastDetails(data) {
 
   // Iterate over the time and weather data and push the data to the dailyweather array
   time.forEach((date, index) => {
+    const code = weather_code[index];
+  console.log("Weather Code at index", index, ":", code);
     const dailyData = {
       date1: module.getDateopen(date),
-      weather_code: module.openicon[weather_code[index]].image,
+      weather_code: code ? module.openicon[code]?.image : "images/default",
       max_temp: Math.round(temperature_2m_max[index]), 
       min_temp: Math.round(temperature_2m_min[index]),
     };
+     
   dailyweather.push(dailyData);
-  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${dailyweather[index].weather_code}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
+  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
   });
 
   return dailyweather;
@@ -307,7 +310,7 @@ export async function displaydayliforecast(coords) {
     // Wait for the promise to resolve and get the daily weather data
     const dailyweather = await dailyweatherPromise;
 
-console.log(`MAAAAAAAAAAAAAAAAAAAAAAMAMIAAA: ${dailyweather[1].min_temp}`)
+
 
 
 

@@ -231,5 +231,9 @@ export const openicon = {
   99: {
     description: "Thunderstorm with heavy hail",
     image: "images/11d"
+  },
+  default: {
+    description: "Unknown weather",
+    image: "images/unsure.png" // Default image if the weather code doesn't match
   }
 };
