@@ -249,7 +249,7 @@ function logforecastDetails(data) {}
 
 
 
-async function displayLeft(coords) {
+export async function displayLeft(coords) {
 
   try {
     // Create promises for both weather and location data
@@ -323,9 +323,11 @@ async function displayLeft(coords) {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
+
+  
 }
 
-displayLeft(coords);
+
 
 
 

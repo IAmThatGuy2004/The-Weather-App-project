@@ -1,7 +1,13 @@
+import * as app  from "./weather-app.js";
+
+
 // Function to extract lat and lon from the URL and print the message
 function getCoordinatesFromURL() {
   // Get the current URL
   const currentURL = window.location.href;
+
+  // Initialize an empty coordinates object
+  const coordinates = { lat: null, lon: null };
 
   // Check if the URL has a hash fragment
   if (currentURL.includes('#/weather')) {
@@ -16,6 +22,10 @@ function getCoordinatesFromURL() {
       const latitude = params.get('lat');
       const longitude = params.get('lon');
 
+      // Update the coordinates object
+      coordinates.lat = latitude;
+      coordinates.lon = longitude;
+
       // Check if both latitude and longitude are available
       if (latitude && longitude) {
         console.log(`yellow world: your latitude is: ${latitude} and longitude is: ${longitude}`);
@@ -28,8 +38,28 @@ function getCoordinatesFromURL() {
   } else {
     console.log('No weather page in the URL');
   }
+
+  
+
+  return coordinates;
 }
 
 // Call the function to retrieve the coordinates and print them
-getCoordinatesFromURL();
+const coord = getCoordinatesFromURL();
+
+
+app.displayLeft(coord);
+
+window.addEventListener("hashchange", () => {
+  // Reload the page whenever the link changes
+  location.reload();
+});
+
+
+
+
+
+
+
+
 
