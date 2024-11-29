@@ -316,11 +316,16 @@ function loghourlyforecastDetails(data){
     }
   } = data;
 
-  const hourlyweather =[];
+  const hourlyweather = {
+    tz: utc_offset_seconds, // Include utc_offset_seconds as tz
+    data: [], // Store hourly data here
+  };
+  
 
   // Logging hourly forecast data
   console.log("Hourly Forecast:");
   time.forEach((t, index) => {
+    console.log("-----------------------------------------------------------------------");
 
     const code = weather_code[index];
 
@@ -333,10 +338,11 @@ function loghourlyforecastDetails(data){
       wind_dir: wind_direction_180m[index],
     };
 
-    hourlyweather.push(hourlydata);
-    console.log(hourlyweather[index].weather_code);
+    hourlyweather.data.push(hourlydata);
+    console.log(hourlyweather.data[index].weather_code);
 
   });
+  
 
   return hourlyweather;
 }
@@ -354,14 +360,33 @@ try {
   // Wait for the promise to resolve and get the daily weather data
   const hourlyweather = await hourlyweatherPromise;
 
-  
-  console.log("this is wind spedd , sonic speed",hourlyweather[1].wind_speed);
+  console.log("TIME OFFSET:", hourlyweather.tz); // Correctly logs 32400
+
+
+let now = new Date();
+let utcHours = now.getUTCHours();
+let currenttime = utcHours + (hourlyweather.tz / 3600); // Convert tz (in seconds) to hours
+
+// Handle the rollover for times beyond 24 hours
+if (currenttime >= 24) {
+  currenttime = currenttime - 24;  // Reset to a 24-hour cycle
+}
+if (currenttime < 0) {
+  currenttime = 24 + currenttime;  // Handle negative time (e.g., UTC-1)
+}
+
+let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
+  console.log(formattedTime);
 
 
   const hourlytempforecast = document.querySelector("[data-temp]");
+  let i=0;
 
-  hourlyweather.forEach((hourlyData, index) => {
+  hourlyweather.data.forEach((hourlyData, index) => {
 
+    
+  if (hourlyData.time >= formattedTime && i<=24 ) {
+    i++;
   const liforecasttemp = document.createElement("li");
   liforecasttemp.classList.add("slider-item");
 
@@ -380,6 +405,8 @@ try {
   
              
              hourlytempforecast .appendChild(liforecasttemp);
+
+  }
   
             });
 
