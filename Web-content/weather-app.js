@@ -92,7 +92,6 @@ searchField.addEventListener("input", function () {
           searchResult.classList.remove("active");
         });
       });
-      
     });
   }, searchTimeoutDuration);
 });
@@ -144,8 +143,6 @@ const coords = logCoordinatesFromHash();
 
 console.log(`hello world  ${coords.lat} ,  ${coords.lon}`);
 
-
-
 /*REtrieving of data */
 
 // Function to log weather details
@@ -166,11 +163,10 @@ function logWeatherDetails(data) {
   console.log(`- Icon: ${icon}`);
   console.log("Main Metrics:");
   console.log(`- Temperature: ${temp}°C`);
-  
+
   console.log(`- Date: ${module.getDate(dt, timezone)}`);
-      
-  
-      const weatherdetails = {
+
+  const weatherdetails = {
     id,
     main,
     description,
@@ -179,8 +175,7 @@ function logWeatherDetails(data) {
     date: module.getDate(dt, timezone),
   };
 
-      return weatherdetails;
-
+  return weatherdetails;
 }
 
 //function to log location details
@@ -194,15 +189,13 @@ function logLocationDetails(data) {
   console.log(`- Country: ${country}`);
   console.log(`- State: ${state}`);
 
-
   const locationdetails = {
     name,
     country,
-    state
+    state,
   };
 
-      return locationdetails;
-
+  return locationdetails;
 }
 
 //function to log highlights details
@@ -219,10 +212,8 @@ function logaqiDetails(data) {
   console.log(`- PM2.5: ${pm2_5}`);
   console.log(`- O3: ${o3}`);
 
-  const aqiinfo={aqi, no:no2, so:so2, pm:pm2_5,o:o3};
+  const aqiinfo = { aqi, no: no2, so: so2, pm: pm2_5, o: o3 };
   return aqiinfo;
-
-
 }
 
 //log highlights details
@@ -245,7 +236,14 @@ function loghighlightDetails(data) {
   console.log(`- Sunrise: ${sunriset} `);
   console.log(`- Sunset: ${sunsett} `);
 
-  const highlight={feels_like, pressure, humidity, visibility:(visibility/1000), sunriset, sunsett};
+  const highlight = {
+    feels_like,
+    pressure,
+    humidity,
+    visibility: visibility / 1000,
+    sunriset,
+    sunsett,
+  };
   return highlight;
 }
 
@@ -259,12 +257,7 @@ function logdailyforecastDetails(data) {
     timezone,
     timezone_abbreviation,
     elevation,
-    daily: {
-      time,
-      weather_code,
-      temperature_2m_max,
-      temperature_2m_min
-    },
+    daily: { time, weather_code, temperature_2m_max, temperature_2m_min },
   } = data;
 
   console.log("Location:", `Latitude: ${latitude}, Longitude: ${longitude}`);
@@ -276,29 +269,29 @@ function logdailyforecastDetails(data) {
   // Log daily weather data
   console.log("Daily Forecast:");
 
-
   const dailyweather = [];
 
   // Iterate over the time and weather data and push the data to the dailyweather array
   time.forEach((date, index) => {
     const code = weather_code[index];
-  console.log("Weather Code at index", index, ":", code);
+    console.log("Weather Code at index", index, ":", code);
     const dailyData = {
       date1: module.getDateopen(date),
       weather_code: code ? module.openicon[code]?.image : "images/default",
-      max_temp: Math.floor(temperature_2m_max[index]), 
+      max_temp: Math.floor(temperature_2m_max[index]),
       min_temp: Math.floor(temperature_2m_min[index]),
     };
-     
-  dailyweather.push(dailyData);
-  console.log(`Date: ${dailyweather[index].date1}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`);
+
+    dailyweather.push(dailyData);
+    console.log(
+      `Date: ${dailyweather[index].date1}, Weather Code: ${weather_code[index]}, Max Temp: ${temperature_2m_max[index]}°C, Min Temp: ${temperature_2m_min[index]}°C`
+    );
   });
 
   return dailyweather;
 }
 
-
-function loghourlyforecastDetails(data){
+function loghourlyforecastDetails(data) {
   const {
     latitude,
     longitude,
@@ -312,89 +305,81 @@ function loghourlyforecastDetails(data){
       weather_code,
       temperature_180m,
       wind_speed_180m,
-      wind_direction_180m
-    }
+      wind_direction_180m,
+    },
   } = data;
 
   const hourlyweather = {
     tz: utc_offset_seconds, // Include utc_offset_seconds as tz
     data: [], // Store hourly data here
   };
-  
 
   // Logging hourly forecast data
   console.log("Hourly Forecast:");
   time.forEach((t, index) => {
-    console.log("-----------------------------------------------------------------------");
+    console.log(
+      "-----------------------------------------------------------------------"
+    );
 
     const code = weather_code[index];
 
-    const hourlydata ={
-      time: t.split('T')[1],
+    const hourlydata = {
+      time: t.split("T")[1],
       //weather_code: code ? module.openicon[code]?.image : "images/default",
       weather_code: module.openicon[code].image,
-      temp:temperature_180m[index],
+      temp: temperature_180m[index],
       wind_speed: wind_speed_180m[index],
       wind_dir: wind_direction_180m[index],
     };
 
     hourlyweather.data.push(hourlydata);
     console.log(hourlyweather.data[index].weather_code);
-
   });
-  
 
   return hourlyweather;
 }
 
 export async function displayhourlyforecast(coords) {
-
   const hourlyweatherPromise = new Promise((resolve, reject) => {
-  fetchopenData("hourly", coords.lat, coords.lon, (data) => {
-    const hourlyweather = loghourlyforecastDetails(data); // Process the data inside the callback
-    resolve(hourlyweather); // Resolve the promise with the hourly weather data
+    fetchopenData("hourly", coords.lat, coords.lon, (data) => {
+      const hourlyweather = loghourlyforecastDetails(data); // Process the data inside the callback
+      resolve(hourlyweather); // Resolve the promise with the hourly weather data
+    });
   });
-});
 
-try {
-  // Wait for the promise to resolve and get the daily weather data
-  const hourlyweather = await hourlyweatherPromise;
+  try {
+    // Wait for the promise to resolve and get the daily weather data
+    const hourlyweather = await hourlyweatherPromise;
 
-  console.log("TIME OFFSET:", hourlyweather.tz); // Correctly logs 32400
+    console.log("TIME OFFSET:", hourlyweather.tz); // Correctly logs 32400
 
+    let now = new Date();
+    let utcHours = now.getUTCHours();
+    let currenttime = utcHours + hourlyweather.tz / 3600; // Convert tz (in seconds) to hours
 
-let now = new Date();
-let utcHours = now.getUTCHours();
-let currenttime = utcHours + (hourlyweather.tz / 3600); // Convert tz (in seconds) to hours
+    // Handle the rollover for times beyond 24 hours
+    if (currenttime >= 24) {
+      currenttime = currenttime - 24; // Reset to a 24-hour cycle
+    }
+    if (currenttime < 0) {
+      currenttime = 24 + currenttime; // Handle negative time (e.g., UTC-1)
+    }
 
-// Handle the rollover for times beyond 24 hours
-if (currenttime >= 24) {
-  currenttime = currenttime - 24;  // Reset to a 24-hour cycle
-}
-if (currenttime < 0) {
-  currenttime = 24 + currenttime;  // Handle negative time (e.g., UTC-1)
-}
+    let formattedTime = String(currenttime).padStart(2, "0") + ":00";
+    console.log(formattedTime);
 
-let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
-  console.log(formattedTime);
+    const hourlytempforecast = document.querySelector("[data-temp]");
+    const hourlywindforecast = document.querySelector("[data-wind]");
 
+    let i = 0;
 
-  const hourlytempforecast = document.querySelector("[data-temp]");
-  const hourlywindforecast = document.querySelector("[data-wind]");
+    hourlyweather.data.forEach((hourlyData, index) => {
+      if (hourlyData.time >= formattedTime && i <= 24) {
+        i++;
+        const liforecasttemp = document.createElement("li");
+        liforecasttemp.classList.add("slider-item");
 
-
-  let i=0;
-
-  hourlyweather.data.forEach((hourlyData, index) => {
-
-    
-  if (hourlyData.time >= formattedTime && i<=24 ) {
-    i++;
-  const liforecasttemp = document.createElement("li");
-  liforecasttemp.classList.add("slider-item");
-
-
-   liforecasttemp.innerHTML = `
+        liforecasttemp.innerHTML = `
                 <li class="slider-item">
                   <div class="card card-sm slider-card">
                     <p class="body-3">${hourlyData.time}</p>
@@ -405,27 +390,20 @@ let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
                 </li>
                 
              `;
-  
-             hourlytempforecast .appendChild(liforecasttemp);
 
-  }
-  
-            });
+        hourlytempforecast.appendChild(liforecasttemp);
+      }
+    });
 
+    i = 0;
 
+    hourlyweather.data.forEach((hourlyData, index) => {
+      if (hourlyData.time >= formattedTime && i <= 24) {
+        i++;
+        const liforecastwind = document.createElement("li");
+        liforecastwind.classList.add("slider-item");
 
-   i=0;
-
-  hourlyweather.data.forEach((hourlyData, index) => {
-
-    
-  if (hourlyData.time >= formattedTime && i<=24 ) {
-    i++;
-  const liforecastwind = document.createElement("li");
-  liforecastwind.classList.add("slider-item");
-
-
-   liforecastwind.innerHTML = `
+        liforecastwind.innerHTML = `
                 <li class="slider-item">
                   <div class="card card-sm slider-card">
 
@@ -439,29 +417,18 @@ let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
                 </li>
                 
              `;
-  
-             hourlywindforecast .appendChild(liforecastwind);
 
+        hourlywindforecast.appendChild(liforecastwind);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching daily weather data:", error);
   }
-  
-            });
-
-
-
-}catch (error) {
-  console.error("Error fetching daily weather data:", error);
 }
-
-}
-
-
-
-
 
 export async function displaydayliforecast(coords) {
-
   const dailyweatherPromise = new Promise((resolve, reject) => {
-    fetchopenData('daily', coords.lat, coords.lon, (data) => {
+    fetchopenData("daily", coords.lat, coords.lon, (data) => {
       const dailyweather = logdailyforecastDetails(data); // Process the data inside the callback
       resolve(dailyweather); // Resolve the promise with the dailyweather data
     });
@@ -471,10 +438,10 @@ export async function displaydayliforecast(coords) {
     // Wait for the promise to resolve and get the daily weather data
     const dailyweather = await dailyweatherPromise;
 
-const card5 = document.createElement("div");
-        card5.classList.add("card", "card-lg", "forecast-card");
+    const card5 = document.createElement("div");
+    card5.classList.add("card", "card-lg", "forecast-card");
 
-        card5.innerHTML = `
+    card5.innerHTML = `
 
             
               <ul>
@@ -593,21 +560,12 @@ const card5 = document.createElement("div");
               </ul>
             </div>`;
 
-
-            const dayly5forecast = document.querySelector("[data-5-day-forecast]");
-            dayly5forecast.appendChild(card5);
-
-
-
-} catch (error) {
-  console.error("Error fetching daily weather data:", error);
+    const dayly5forecast = document.querySelector("[data-5-day-forecast]");
+    dayly5forecast.appendChild(card5);
+  } catch (error) {
+    console.error("Error fetching daily weather data:", error);
+  }
 }
-
-}
-
-
-
-
 
 // Fetch current weather data and log details
 //fetchData(url.currentWeather(coords.lat, coords.lon), logWeatherDetails);
@@ -616,13 +574,9 @@ const card5 = document.createElement("div");
 
 //fetchData(url.airPollution(coords.lat, coords.lon), logaqiDetails);
 
-
 //fetchData(url.reverseGeo(coords.lat, coords.lon), loglocationDetails);
 
-
-
 export async function displayLeft(coords) {
-
   try {
     // Create promises for both weather and location data
     const weatherPromise = new Promise((resolve, reject) => {
@@ -631,7 +585,7 @@ export async function displayLeft(coords) {
           const weatherDetails = logWeatherDetails(weatherData);
           resolve(weatherDetails); // Resolve with weather details
         } else {
-          reject('Invalid weather data received');
+          reject("Invalid weather data received");
         }
       });
     });
@@ -642,32 +596,38 @@ export async function displayLeft(coords) {
           const locationDetails = logLocationDetails(locationData);
           resolve(locationDetails); // Resolve with location details
         } else {
-          reject('Invalid location data received');
+          reject("Invalid location data received");
         }
       });
     });
 
     // Wait for both promises to resolve using Promise.all
-    const [weatherDetails, locationDetails] = await Promise.all([weatherPromise, locationPromise]);
+    const [weatherDetails, locationDetails] = await Promise.all([
+      weatherPromise,
+      locationPromise,
+    ]);
 
     // Display both weather and location details together
-    console.log('Weather  retrieved:', weatherDetails);
-    console.log('Location retrieved:', locationDetails);
-
+    console.log("Weather  retrieved:", weatherDetails);
+    console.log("Location retrieved:", locationDetails);
 
     const card = document.createElement("div");
-        card.classList.add("card", "card-lg", "current-weather-card");
+    card.classList.add("card", "card-lg", "current-weather-card");
 
-        card.innerHTML = `
+    card.innerHTML = `
          
               <h2 class="title-2 card-title">Now in:</h2>
              
 
 
               <div class="wrapper">
-                <p class="heading">${Math.floor(weatherDetails.temp)}&deg;<sup>C</sup></p>
+                <p class="heading">${Math.floor(
+                  weatherDetails.temp
+                )}&deg;<sup>C</sup></p>
 
-                <img src="images/${weatherDetails.icon}.png" width="64" height="64" class="weather-icon">
+                <img src="images/${
+                  weatherDetails.icon
+                }.png" width="64" height="64" class="weather-icon">
               </div>
 
               <p class="body-3">${weatherDetails.description}</p>
@@ -682,34 +642,33 @@ export async function displayLeft(coords) {
                 <li class="meta-item">
                   <span class="m-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z"></path></svg></span>
 
-                  <p class="title-3 meta-text">${locationDetails.name} ${locationDetails.state}, ${locationDetails.country}</p>
+                  <p class="title-3 meta-text">${locationDetails.name} ${
+      locationDetails.state
+    }, ${locationDetails.country}</p>
                 </li>
               </ul>
         
         `;
 
-        const currentweather = document.querySelector("[data-current-weather]");
-        currentweather.appendChild(card);
-
-
+    const currentweather = document.querySelector("[data-current-weather]");
+    currentweather.appendChild(card);
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
-
-  
 }
 
-
-
 export async function displayRight(coords) {
-
   // Create two promises for fetching weather and air quality data
   const weatherPromise = new Promise((resolve, reject) => {
-    fetchData(url.currentWeather(coords.lat, coords.lon), (data) => resolve(data));
+    fetchData(url.currentWeather(coords.lat, coords.lon), (data) =>
+      resolve(data)
+    );
   });
 
   const airQualityPromise = new Promise((resolve, reject) => {
-    fetchData(url.airPollution(coords.lat, coords.lon), (data) => resolve(data));
+    fetchData(url.airPollution(coords.lat, coords.lon), (data) =>
+      resolve(data)
+    );
   });
 
   try {
@@ -728,9 +687,6 @@ export async function displayRight(coords) {
     // Log the results
     console.log("AQI Details Array:", aqi);
     console.log("Highlight Details Array:", highlight);
-
-
-
 
     const cardhighlight = document.createElement("div");
     cardhighlight.classList.add("card", "card-lg", "current-weather-card");
@@ -774,7 +730,9 @@ export async function displayRight(coords) {
                     </ul>
                   </div>
 
-                  <span class="badge aqi-${aqi.aqi} label-1" title="${module.aqiText[aqi.aqi].message}">
+                  <span class="badge aqi-${aqi.aqi} label-1" title="${
+      module.aqiText[aqi.aqi].message
+    }">
                   ${module.aqiText[aqi.aqi].level}
                   </span>
 
@@ -845,7 +803,9 @@ export async function displayRight(coords) {
 
                   <div class="wrapper2">
                     <span class="m-icon"><i class="ri-temp-cold-line"></i></span>
-                    <p class="title-1">${highlight.feels_like}&deg;<sub>C</sub></p>
+                    <p class="title-1">${
+                      highlight.feels_like
+                    }&deg;<sub>C</sub></p>
                   </div>
 
                 </div>
@@ -854,23 +814,12 @@ export async function displayRight(coords) {
 
             </div>`;
 
-
-        const currenthighlight = document.querySelector("[data-highlights]");
-        currenthighlight.appendChild(cardhighlight);
-
-
+    const currenthighlight = document.querySelector("[data-highlights]");
+    currenthighlight.appendChild(cardhighlight);
 
     // Return the arrays
     return { aqi, highlight };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
   }
 }
-
-
-
-
-
-
-
-

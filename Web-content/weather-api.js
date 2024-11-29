@@ -14,10 +14,10 @@ export const fetchopenData = function (forecastType, lat, lon, callback) {
   if (openurl[forecastType]) {
     const url = openurl[forecastType](lat, lon); // Access the method dynamically
     fetch(url)
-      .then((res) => res.json())  // Parse the response as JSON
+      .then((res) => res.json()) // Parse the response as JSON
       .then((data) => callback(data)) // Pass the data to the callback function
       .catch((error) => {
-        console.error('Error fetching the data:', error);
+        console.error("Error fetching the data:", error);
       });
   } else {
     console.error(`Invalid forecast type: ${forecastType}`);
@@ -48,15 +48,13 @@ export const url = {
 };
 
 export const openurl = {
-
-  hourly(lat,lon){
+  hourly(lat, lon) {
     return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_180m,weather_code,wind_speed_180m,wind_direction_180m&timezone=auto`;
   },
-  
-  daily(lat,lon){
+
+  daily(lat, lon) {
     return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min`;
   },
-
 };
 
 //current-whether: https://api.openweathermap.org/data/2.5/weather?lat=23.7644025&lon=90.389015&units=metric&appid=your_api
@@ -68,7 +66,6 @@ export const openurl = {
 //geocoding-reverse:http://api.openweathermap.org/geo/1.0/reverse?lat=23.7644025&lon=90.389015&limit=5&appid=your_api
 //
 
-
 //current-whether:https://api.openweathermap.org/data/2.5/weather?lat=49.8879177&lon=-119.495902&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
 
 //5 days forecast: https://api.openweathermap.org/data/2.5/forecast?lat=49.8879177&lon=-119.495902&units=metric&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
@@ -77,8 +74,7 @@ export const openurl = {
 //geocoding: http://api.openweathermap.org/geo/1.0/direct?q=kelowna&limit=5&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
 //geocoding-reverse:http://api.openweathermap.org/geo/1.0/reverse?lat=49.8879177&lon=-119.495902&limit=5&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
 
-//  https://api.openweathermap.org/data/2.5/forecast/hourly? lat=49.8879177&lon=-119.495902&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd 
-
+//  https://api.openweathermap.org/data/2.5/forecast/hourly? lat=49.8879177&lon=-119.495902&appid=6d7d8491e5e2c3a0173e9d4c2ff5ddbd
 
 /*
 WMO Weather interpretation codes (WW)

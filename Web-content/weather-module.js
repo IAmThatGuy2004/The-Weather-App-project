@@ -71,12 +71,11 @@ export const getTime = function (timeUnix, timezone) {
 
   const hours = date.getUTCHours();
 
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const minutes = date.getUTCMinutes().toString().padStart(2, "0");
 
   const period = hours >= 12 ? "PM" : "AM";
 
   return `${hours % 12 || 12}:${minutes} ${period}`;
-  
 };
 
 export const getHours = function (timeUnix, timezone) {
@@ -124,120 +123,120 @@ export const aqiText = {
   },
 };
 export const openicon = {
-  0:{
+  0: {
     description: "Clear Sky",
-    image: "images/01d"
+    image: "images/01d",
   },
   1: {
     description: "Mainly clear",
-    image: "images/01d"
+    image: "images/01d",
   },
   2: {
     description: "Partly cloudy",
-    image: "images/02d"
+    image: "images/02d",
   },
   3: {
     description: "Overcast",
-    image: "images/04d"
+    image: "images/04d",
   },
   45: {
     description: "Fog",
-    image: "images/50d"
+    image: "images/50d",
   },
   48: {
     description: "Depositing rime fog",
-    image: "images/50d"
+    image: "images/50d",
   },
   51: {
     description: "Drizzle: Light intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   53: {
     description: "Drizzle: Moderate intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   55: {
     description: "Drizzle: Dense intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   56: {
     description: "Freezing Drizzle: Light intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   57: {
     description: "Freezing Drizzle: Dense intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   61: {
     description: "Rain: Slight intensity",
-    image: "images/10d"
+    image: "images/10d",
   },
   63: {
     description: "Rain: Moderate intensity",
-    image: "images/10d"
+    image: "images/10d",
   },
   65: {
     description: "Rain: Heavy intensity",
-    image: "images/10d"
+    image: "images/10d",
   },
   66: {
     description: "Freezing Rain: Light intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   67: {
     description: "Freezing Rain: Heavy intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   71: {
     description: "Snow fall: Slight intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   73: {
     description: "Snow fall: Moderate intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   75: {
     description: "Snow fall: Heavy intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   77: {
     description: "Snow grains",
-    image: "images/13d"
+    image: "images/13d",
   },
   80: {
     description: "Rain showers: Slight intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   81: {
     description: "Rain showers: Moderate intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   82: {
     description: "Rain showers: Violent intensity",
-    image: "images/09d"
+    image: "images/09d",
   },
   85: {
     description: "Snow showers: Slight intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   86: {
     description: "Snow showers: Heavy intensity",
-    image: "images/13d"
+    image: "images/13d",
   },
   95: {
     description: "Thunderstorm: Slight or moderate",
-    image: "images/11d"
+    image: "images/11d",
   },
   96: {
     description: "Thunderstorm with slight hail",
-    image: "images/11d"
+    image: "images/11d",
   },
   99: {
     description: "Thunderstorm with heavy hail",
-    image: "images/11d"
+    image: "images/11d",
   },
   default: {
     description: "Unknown weather",
-    image: "images/unsure" // Default image if the weather code doesn't match
-  }
+    image: "images/unsure", // Default image if the weather code doesn't match
+  },
 };
