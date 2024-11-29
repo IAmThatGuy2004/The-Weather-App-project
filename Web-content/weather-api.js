@@ -50,7 +50,7 @@ export const url = {
 export const openurl = {
 
   hourly(lat,lon){
-    return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weather_code,wind_speed_10m`;
+    return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_180m,weather_code,wind_speed_180m,wind_direction_180m`;
   },
   
   daily(lat,lon){

@@ -286,8 +286,8 @@ function logdailyforecastDetails(data) {
     const dailyData = {
       date1: module.getDateopen(date),
       weather_code: code ? module.openicon[code]?.image : "images/default",
-      max_temp: Math.round(temperature_2m_max[index]), 
-      min_temp: Math.round(temperature_2m_min[index]),
+      max_temp: Math.floor(temperature_2m_max[index]), 
+      min_temp: Math.floor(temperature_2m_min[index]),
     };
      
   dailyweather.push(dailyData);
@@ -296,6 +296,73 @@ function logdailyforecastDetails(data) {
 
   return dailyweather;
 }
+
+
+function loghourlyforecastDetails(data){
+  const {
+    latitude,
+    longitude,
+    generationtime_ms,
+    utc_offset_seconds,
+    timezone,
+    timezone_abbreviation,
+    elevation,
+    hourly: {
+      time,
+      weather_code,
+      temperature_180m,
+      wind_speed_180m,
+      wind_direction_180m
+    }
+  } = data;
+
+  const hourlyweather =[];
+
+  // Logging hourly forecast data
+  console.log("Hourly Forecast:");
+  time.forEach((t, index) => {
+    const hourlydata ={
+      time: t.split('T')[1],
+      temp:temperature_180m[index],
+      wind_speed: wind_speed_180m[index],
+      wind_dir: wind_direction_180m[index],
+    };
+
+    hourlyweather.push(hourlydata);
+
+  });
+
+  return hourlyweather;
+}
+
+export async function displayhourlyforecast(coords) {
+
+  const hourlyweatherPromise = new Promise((resolve, reject) => {
+  fetchopenData("hourly", coords.lat, coords.lon, (data) => {
+    const hourlyweather = loghourlyforecastDetails(data); // Process the data inside the callback
+    resolve(hourlyweather); // Resolve the promise with the hourly weather data
+  });
+});
+
+try {
+  // Wait for the promise to resolve and get the daily weather data
+  const hourlyweather = await hourlyweatherPromise;
+
+  
+  console.log("this is wind spedd , sonic speed",hourlyweather[1].wind_speed);
+
+
+
+}catch (error) {
+  console.error("Error fetching daily weather data:", error);
+}
+
+}
+
+
+
+
+displayhourlyforecast(coords);
 
 export async function displaydayliforecast(coords) {
 
@@ -310,10 +377,6 @@ export async function displaydayliforecast(coords) {
     // Wait for the promise to resolve and get the daily weather data
     const dailyweather = await dailyweatherPromise;
 
-
-
-
-
 const card5 = document.createElement("div");
         card5.classList.add("card", "card-lg", "forecast-card");
 
@@ -321,6 +384,27 @@ const card5 = document.createElement("div");
 
             
               <ul>
+
+              <!--Day 0-->
+                <li class="card-item">
+
+                  <div class="icon-wrapper">
+                    <img src="${dailyweather[0].weather_code}.png" width="36" height="36" class="weather-icon">
+                  
+                  <p class="title-4" style="color: #AFEEEE;">Min:</p>
+                  <span class="span"><p class="title-2" style="color: #AFEEEE;">${dailyweather[0].min_temp}</p></span>
+                  <i class="ri-expand-horizontal-s-fill"></i>
+                  <p class="title-4" style="color: #F08080;">Max:</p>
+                  <span class="span"><p class="title-2" style="color: #F08080;">${dailyweather[0].max_temp}</p></span>
+                  </div>
+
+
+                  <p class="label-1">&nbsp;Today</p>
+                  
+                  
+                </li>
+                
+                <hr>
 
                 <!--Day 1-->
                 <li class="card-item">
