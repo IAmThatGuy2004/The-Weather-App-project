@@ -73,8 +73,14 @@
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          // Redirect to the new URL with latitude and longitude
-          const url = `http://127.0.0.1:5500/Web-content/weather.html#/weather?lat=${latitude}&lon=${longitude}`;
+
+          // Retrieve the base URL dynamically
+          const baseURL = `${window.location.origin}${window.location.pathname}`;
+
+          // Construct the full URL
+          const url = `${baseURL}#/weather?lat=${latitude}&lon=${longitude}`;
+          
+          // Redirect to the constructed URL
           window.location.href = url;
         },
         (error) => {
