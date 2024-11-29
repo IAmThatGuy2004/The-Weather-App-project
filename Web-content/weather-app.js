@@ -453,7 +453,7 @@ let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
 }
 
 }
-displayhourlyforecast(coords);
+
 
 
 
