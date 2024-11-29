@@ -380,6 +380,9 @@ let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
 
 
   const hourlytempforecast = document.querySelector("[data-temp]");
+  const hourlywindforecast = document.querySelector("[data-wind]");
+
+
   let i=0;
 
   hourlyweather.data.forEach((hourlyData, index) => {
@@ -403,8 +406,41 @@ let formattedTime = String((currenttime)).padStart(2, '0') + ":00";
                 
              `;
   
-             
              hourlytempforecast .appendChild(liforecasttemp);
+
+  }
+  
+            });
+
+
+
+   i=0;
+
+  hourlyweather.data.forEach((hourlyData, index) => {
+
+    
+  if (hourlyData.time >= formattedTime && i<=24 ) {
+    i++;
+  const liforecastwind = document.createElement("li");
+  liforecastwind.classList.add("slider-item");
+
+
+   liforecastwind.innerHTML = `
+                <li class="slider-item">
+                  <div class="card card-sm slider-card">
+
+                    <p class="body-3">${hourlyData.time}</p>
+                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="" style="transform: rotate(${hourlyData.wind_dir}deg);>
+
+                    <p class="body-3">${hourlyData.wind_speed} km/h </p>
+
+                  </div>
+
+                </li>
+                
+             `;
+  
+             hourlywindforecast .appendChild(liforecastwind);
 
   }
   
