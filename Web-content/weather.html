@@ -49,19 +49,44 @@
 
         <!--header action is location-->
         <div class="location">
-          <button class="icon-btn has-state" data-search-toggler>
-            <span class="m-icon icon"><i class="ri-search-line"></i></i></span>
-          </button>
+  <button class="icon-btn has-state" data-search-toggler>
+    <span class="m-icon icon"><i class="ri-search-line"></i></span>
+  </button>
 
-          <a
-            href="#/current-location"
-            class="btn-primary has-state"
-            data-current-location-btn 
-          >
-            <span class="m-icon"><i class="ri-focus-3-line"></i></span>
-            <span class="span">My location</span>
-          </a>
-        </div>
+  <a
+    href="javascript:void(0);" 
+    class="btn-primary has-state"
+    data-current-location-btn 
+    id="location-btn"
+  >
+    <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+    <span class="span">My location</span>
+  </a>
+</div>
+
+<script>
+  // Function to get user's location
+  const locationBtn = document.getElementById('location-btn');
+
+  locationBtn.addEventListener('click', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // Redirect to the new URL with latitude and longitude
+          const url = `http://127.0.0.1:5500/Web-content/weather.html#/weather?lat=${latitude}&lon=${longitude}`;
+          window.location.href = url;
+        },
+        (error) => {
+          console.error("Error fetching location:", error.message);
+          alert("Unable to retrieve your location. Please check your browser settings.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  });
+</script>
       </div>
     </header>
 
