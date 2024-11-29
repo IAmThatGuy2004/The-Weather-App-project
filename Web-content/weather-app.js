@@ -321,14 +321,20 @@ function loghourlyforecastDetails(data){
   // Logging hourly forecast data
   console.log("Hourly Forecast:");
   time.forEach((t, index) => {
+
+    const code = weather_code[index];
+
     const hourlydata ={
       time: t.split('T')[1],
+      //weather_code: code ? module.openicon[code]?.image : "images/default",
+      weather_code: module.openicon[code].image,
       temp:temperature_180m[index],
       wind_speed: wind_speed_180m[index],
       wind_dir: wind_direction_180m[index],
     };
 
     hourlyweather.push(hourlydata);
+    console.log(hourlyweather[index].weather_code);
 
   });
 
@@ -352,17 +358,42 @@ try {
   console.log("this is wind spedd , sonic speed",hourlyweather[1].wind_speed);
 
 
+  const hourlytempforecast = document.querySelector("[data-temp]");
+
+  hourlyweather.forEach((hourlyData, index) => {
+
+  const liforecasttemp = document.createElement("li");
+  liforecasttemp.classList.add("slider-item");
+
+
+   liforecasttemp.innerHTML = `
+                <li class="slider-item">
+                  <div class="card card-sm slider-card">
+                    <p class="body-3">${hourlyData.time}</p>
+                    <img src="${hourlyData.weather_code}.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
+
+                    <p class="body-3">${hourlyData.temp}&deg;</p>
+                  </div>
+                </li>
+                
+             `;
+  
+             
+             hourlytempforecast .appendChild(liforecasttemp);
+  
+            });
+
+
 
 }catch (error) {
   console.error("Error fetching daily weather data:", error);
 }
 
 }
-
-
-
-
 displayhourlyforecast(coords);
+
+
+
 
 export async function displaydayliforecast(coords) {
 

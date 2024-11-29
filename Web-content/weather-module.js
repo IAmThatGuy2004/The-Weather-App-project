@@ -124,6 +124,10 @@ export const aqiText = {
   },
 };
 export const openicon = {
+  0:{
+    description: "Clear Sky",
+    image: "images/01d"
+  },
   1: {
     description: "Mainly clear",
     image: "images/01d"
@@ -134,7 +138,7 @@ export const openicon = {
   },
   3: {
     description: "Overcast",
-    image: "images/03d"
+    image: "images/04d"
   },
   45: {
     description: "Fog",
@@ -234,6 +238,6 @@ export const openicon = {
   },
   default: {
     description: "Unknown weather",
-    image: "images/unsure.png" // Default image if the weather code doesn't match
+    image: "images/unsure" // Default image if the weather code doesn't match
   }
 };
