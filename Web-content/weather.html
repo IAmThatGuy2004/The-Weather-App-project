@@ -65,10 +65,8 @@
 </div>
 
 <script>
-  // Function to get user's location
-  const locationBtn = document.getElementById('location-btn');
-
-  locationBtn.addEventListener('click', () => {
+ 
+  const updateURLWithLocation = (redirect = true) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -79,9 +77,16 @@
 
           // Construct the full URL
           const url = `${baseURL}#/weather?lat=${latitude}&lon=${longitude}`;
-          
-          // Redirect to the constructed URL
-          window.location.href = url;
+
+          if (redirect) {
+            // Redirect to the constructed URL
+            window.location.href = url;
+          } else {
+            // Update the URL without redirecting
+            if (!window.location.hash.includes("lat=") && !window.location.hash.includes("lon=")) {
+              window.location.replace(url);
+            }
+          }
         },
         (error) => {
           console.error("Error fetching location:", error.message);
@@ -91,7 +96,14 @@
     } else {
       alert("Geolocation is not supported by your browser.");
     }
-  });
+  };
+
+  // Attach the function to the button click
+  const locationBtn = document.getElementById('location-btn');
+  locationBtn.addEventListener('click', () => updateURLWithLocation(true));
+
+  // Call the function on page load to update the URL by default
+  window.addEventListener("load", () => updateURLWithLocation(false));
 </script>
       </div>
     </header>
