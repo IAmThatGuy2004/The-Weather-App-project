@@ -1,0 +1,52 @@
+<!-- dashboard.html -->
+<!DOCTYPE html> <!-- Declares the document type and version of HTML -->
+<html lang="en"> <!--Serves as the root element of an HTML document and declares primary language as english -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Enusures page scales correctly depending on different designs -->
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css"> <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><!-- Link to an external icon library (Font Awesome for icons) -->
+</head>
+<body>
+
+
+  <!-- Header Section -->
+
+
+  <header class="header"> <!-- Typically containing navigational elements and branding-->
+    <div class="header-left">
+      <i class="fas fa-bars menu-icon" id="menu-icon"></i> <!-- Sidebar Toggle Icon used alot with icons, setting id as menu-icon to attach event listners to it-->
+      <h1>Welcome to your dashboard</h1>
+    </div>
+    <div class="header-right">
+      <img src="Images/Profile picture.jpg" alt="Profile" class="profile-logo" id="profile-logo"> <!-- Profile Logo, note: Class is for styling, id is for event listners -->
+      <!-- Dropdown Menu -->
+      <div class="dropdown-menu" id="dropdown-menu">
+        <a href="#">Profile</a>
+        <a href="#">Settings</a>        <!--Placeholder links as not decided what the profile icon shoulc contain -->
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar Section -->
+  <aside class="sidebar" id="sidebar"> <!-- Defines the sidebar section and indicates that it is still part of the main page-->
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link">Home</a>             <!--Set of links that lead to other pages, still not decided what they are going to be-->
+      <a href="#" class="sidebar-link">Analytics</a>
+      <a href="#" class="sidebar-link">Reports</a>
+      <a href="#" class="sidebar-link">Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Add your main dashboard content here -->
+    <p>Favourite lists</p>
+  </main>
+
+  <!-- Link to the external JavaScript file -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
