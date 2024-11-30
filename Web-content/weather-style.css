@@ -34,7 +34,7 @@
   --on-primary: #100e17;
   --background: #131214;
   --on-background: #eae6f2;
-  --surface: rgba(29, 28, 31, 0.5);
+  --surface: rgba(29, 28, 31, 1);
   --on-surface: #dddae5;
   --on-surface-variant: #7b7980;
   --on-surface-variant-2: #b9b6bf;
@@ -414,7 +414,7 @@ body {
 \*----------------------------------*/
 
 .card {/*comeehere*/
-  background-color: var(--surface);
+  background-color: rgba(29, 28, 31, 0.5);
   color: var(--on-surface);
   backdrop-filter: blur(20px);
 }
