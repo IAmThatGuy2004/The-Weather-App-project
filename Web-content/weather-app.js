@@ -374,7 +374,7 @@ export async function displayhourlyforecast(coords) {
     let i = 0;
 
     hourlyweather.data.forEach((hourlyData, index) => {
-      if (hourlyData.time >= formattedTime && i <= 24) {
+      if (index>= currenttime && i <= 24) {
         i++;
         const liforecasttemp = document.createElement("li");
         liforecasttemp.classList.add("slider-item");
@@ -398,7 +398,7 @@ export async function displayhourlyforecast(coords) {
     i = 0;
 
     hourlyweather.data.forEach((hourlyData, index) => {
-      if (hourlyData.time >= formattedTime && i <= 24) {
+      if (index >= currenttime && i <= 24) {
         i++;
         const liforecastwind = document.createElement("li");
         liforecastwind.classList.add("slider-item");
