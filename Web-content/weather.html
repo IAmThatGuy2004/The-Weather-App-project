@@ -64,46 +64,54 @@
   </a>
 </div>
 
-<script>
- 
-  const updateURLWithLocation = (redirect = true) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
+<script type="module">
+ // 1st array: Default latitude and longitude for New York
+const defaultLocation = [40.7128, -74.0060];  // [latitude, longitude]
 
-          // Retrieve the base URL dynamically
-          const baseURL = `${window.location.origin}${window.location.pathname}`;
+// 2nd array: User's location (initially set to New York)
+let userLocation = [...defaultLocation];  // Clone the defaultLocation to initialize
 
-          // Construct the full URL
-          const url = `${baseURL}#/weather?lat=${latitude}&lon=${longitude}`;
-
-          if (redirect) {
-            // Redirect to the constructed URL
-            window.location.href = url;
-          } else {
-            // Update the URL without redirecting
-            if (!window.location.hash.includes("lat=") && !window.location.hash.includes("lon=")) {
-              window.location.replace(url);
-            }
-          }
-        },
-        (error) => {
-          console.error("Error fetching location:", error.message);
-          alert("Unable to retrieve your location. Please check your browser settings.");
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by your browser.");
+// Function to get the user's current location and return it as an array
+async function getUserLocation() {
+  if (navigator.geolocation) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      // Get latitude and longitude from the position object
+      userLocation = [position.coords.latitude, position.coords.longitude];
+      return userLocation;  // Return the user's location array
+    } catch (error) {
+      console.error("Error getting user location:", error);
+      return defaultLocation;  // Return default location in case of error
     }
-  };
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    return defaultLocation;  // Return default location if geolocation is not supported
+  }
+}
 
-  // Attach the function to the button click
-  const locationBtn = document.getElementById('location-btn');
-  locationBtn.addEventListener('click', () => updateURLWithLocation(true));
+console.log("Initial Location (New York):", defaultLocation);
+userLocation = await getUserLocation();
+console.log("Updated Location (User):", userLocation);
 
-  // Call the function on page load to update the URL by default
-  window.addEventListener("load", () => updateURLWithLocation(false));
+document.getElementById('location-btn').addEventListener('click', function() {
+      // Extract lat and lon from the userLocation array
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+      
+      // Get the current page's URL (without query parameters)
+      const currentUrl = window.location.href;
+      // Split the URL into base URL and hash
+      const baseUrl = currentUrl.split('#')[0]; // Part before the '#'
+      // Construct the new hash with lat and lon
+      const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+      // Construct the new URL by combining the base URL and the new hash
+      const newUrl = baseUrl + newHash;
+      // Redirect the page to the new URL
+      window.location.href = newUrl;
+    });
+
 </script>
       </div>
     </header>
