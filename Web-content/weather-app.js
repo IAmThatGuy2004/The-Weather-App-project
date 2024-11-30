@@ -611,6 +611,14 @@ export async function displayLeft(coords) {
     console.log("Weather  retrieved:", weatherDetails);
     console.log("Location retrieved:", locationDetails);
 
+    
+
+    document.body.style.backgroundImage = `url('images/${weatherDetails.icon}.gif')`;
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+
     const card = document.createElement("div");
     card.classList.add("card", "card-lg", "current-weather-card");
 
@@ -689,7 +697,7 @@ export async function displayRight(coords) {
     console.log("Highlight Details Array:", highlight);
 
     const cardhighlight = document.createElement("div");
-    cardhighlight.classList.add("card", "card-lg", "current-weather-card");
+    cardhighlight.classList.add( "card-lg", "current-weather-card2");
 
     cardhighlight.innerHTML = `<div class="card card-lg">
               <h2 class="title-2" id="highlights-label">Today's Highlights</h2>
