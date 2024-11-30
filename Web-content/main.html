@@ -1,13 +1,3 @@
-<%@ page import="javax.servlet.http.*" %>
-<%@ page import="javax.servlet.*" %>
-<%
-    HttpSession session = request.getSession(false);
-    if (session == null || session.getAttribute("username") == null) {
-        response.sendRedirect("login.html");
-        return;
-    }
-%>
-
 <!DOCTYPE html>
 
 <html>
