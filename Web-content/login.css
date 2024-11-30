@@ -38,6 +38,19 @@
     margin-bottom: 50px;  
     color: #0c1377;
   }
+
+  .error-message {
+    color: #FFFFFF; /* White text for better contrast */
+    background-color: rgba(255, 0, 0, 0.8); /* Semi-transparent red background */
+    border: 2px solid #FF0000; /* Solid red border */
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+
+
   .form-group {
     margin-bottom: 20px;
   }
