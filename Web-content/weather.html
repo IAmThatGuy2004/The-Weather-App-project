@@ -71,6 +71,31 @@ const defaultLocation = [40.7128, -74.0060];  // [latitude, longitude]
 // 2nd array: User's location (initially set to New York)
 let userLocation = [...defaultLocation];  // Clone the defaultLocation to initialize
 
+function checkAndUpdateLocation() {
+      const currentUrl = window.location.href;  // Get current page URL
+      const currentHash = window.location.hash; // Get hash part of the URL
+
+      // Check if the hash contains lat and lon parameters
+      if (!currentHash.includes('#/weather?lat=') || !currentHash.includes('&lon=')) {
+        console.log("Setting default location (lat and lon).");
+
+        // Set lat and lon to default if not already present in the URL
+        const lat = userLocation[0];
+        const lon = userLocation[1];
+
+        // Construct the new hash with lat and lon
+        const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+
+        // Update the URL hash (without reloading the page)
+        window.location.hash = newHash;
+      } else {
+        console.log("Weather location already in URL.");
+      }
+    }
+
+    // Call the function on page load
+    window.onload = checkAndUpdateLocation;
+
 // Function to get the user's current location and return it as an array
 async function getUserLocation() {
   if (navigator.geolocation) {
@@ -95,11 +120,12 @@ console.log("Initial Location (New York):", defaultLocation);
 userLocation = await getUserLocation();
 console.log("Updated Location (User):", userLocation);
 
+
 document.getElementById('location-btn').addEventListener('click', function() {
       // Extract lat and lon from the userLocation array
       const lat = userLocation[0];
       const lon = userLocation[1];
-      
+
       // Get the current page's URL (without query parameters)
       const currentUrl = window.location.href;
       // Split the URL into base URL and hash
