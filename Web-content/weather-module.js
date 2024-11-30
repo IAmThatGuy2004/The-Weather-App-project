@@ -60,12 +60,12 @@ export const getTime = function (timeUnix, timezone) {
 
   const hours = date.getUTCHours();
 
-  const minutes = date.getUTCMinutes();
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
 
   const period = hours >= 12 ? "PM" : "AM";
 
   return `${hours % 12 || 12}:${minutes} ${period}`;
-  //might add 0 padding for mins ${minutes.toString().padStart(2, "0")}
+  
 };
 
 export const getHours = function (timeUnix, timezone) {
