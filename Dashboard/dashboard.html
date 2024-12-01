@@ -17,7 +17,6 @@
   <header class="header"> <!-- Typically containing navigational elements and branding-->
     <div class="header-left">
       <i class="fas fa-bars menu-icon" id="menu-icon"></i> <!-- Sidebar Toggle Icon used alot with icons, setting id as menu-icon to attach event listners to it-->
-      <h1>Welcome to your dashboard</h1>
     </div>
     <h1>Welcome to your dashboard</h1>
     <div class="header-right">
@@ -35,7 +34,10 @@
   <aside class="sidebar" id="sidebar"> <!-- Defines the sidebar section and indicates that it is still part of the main page-->
     <nav class="sidebar-nav">
       <a href="#" class="sidebar-link">Home</a>             <!--Set of links that lead to other pages, still not decided what they are going to be-->
-      <a href="#" class="sidebar-link">Analytics</a>
+      <a href="#" class="sidebar-link" id="toggle-dark-mode">  
+        <span id="dark-mode-text">Dark Mode</span>          <!-- To color the text "Dark mode" -->  
+    <i class="fas fa-moon" id="dark-mode-icon"></i>    <!-- Icon tag for the dark mode button -->
+  </a>
       <a href="#" class="sidebar-link">Reports</a>
       <a href="#" class="sidebar-link">Settings</a>
     </nav>
