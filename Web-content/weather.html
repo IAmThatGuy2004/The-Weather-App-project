@@ -49,19 +49,62 @@
 
         <!--header action is location-->
         <div class="location">
-          <button class="icon-btn has-state" data-search-toggler>
-            <span class="m-icon icon"><i class="ri-search-line"></i></i></span>
-          </button>
+  <button class="icon-btn has-state" data-search-toggler>
+    <span class="m-icon icon"><i class="ri-search-line"></i></span>
+  </button>
 
-          <a
-            href="#/current-location"
-            class="btn-primary has-state"
-            data-current-location-btn 
-          >
-            <span class="m-icon"><i class="ri-focus-3-line"></i></span>
-            <span class="span">My location</span>
-          </a>
-        </div>
+  <a
+    href="javascript:void(0);" 
+    class="btn-primary has-state"
+    data-current-location-btn 
+    id="location-btn"
+  >
+    <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+    <span class="span">My location</span>
+  </a>
+</div>
+
+<script>
+ 
+  const updateURLWithLocation = (redirect = true) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+
+          // Retrieve the base URL dynamically
+          const baseURL = `${window.location.origin}${window.location.pathname}`;
+
+          // Construct the full URL
+          const url = `${baseURL}#/weather?lat=${latitude}&lon=${longitude}`;
+
+          if (redirect) {
+            // Redirect to the constructed URL
+            window.location.href = url;
+          } else {
+            // Update the URL without redirecting
+            if (!window.location.hash.includes("lat=") && !window.location.hash.includes("lon=")) {
+              window.location.replace(url);
+            }
+          }
+        },
+        (error) => {
+          console.error("Error fetching location:", error.message);
+          alert("Unable to retrieve your location. Please check your browser settings.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  };
+
+  // Attach the function to the button click
+  const locationBtn = document.getElementById('location-btn');
+  locationBtn.addEventListener('click', () => updateURLWithLocation(true));
+
+  // Call the function on page load to update the URL by default
+  window.addEventListener("load", () => updateURLWithLocation(false));
+</script>
       </div>
     </header>
 
