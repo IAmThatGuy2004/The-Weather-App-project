@@ -10,10 +10,33 @@ services:
       MYSQL_ROOT_PASSWORD: '310rootpw'
     ports:
       - '3306:3306'
+    expose:
+      - '3306' 
     volumes:
       - mysql-db:/var/lib/mysql
-      - ./ddl:/docker-entrypoint-initdb.d
+      - ./Milestone4-BackEndDesign/ddl:/docker-entrypoint-initdb.d
+    networks:
+        network310:
+            aliases:
+              - cosc310_mysql
 
-
-volumes:
-  mysql-db:
+  app:
+      build:
+            context: ./
+            dockerfile: Dockerfile
+      image: cosc310-java
+      depends_on:
+            - WeatherApp-mysql
+      container_name: cosc310-java
+      volumes:
+            - ./WebContent:/usr/local/tomcat/webapps/WeatherApp/
+      networks:
+            network310:
+                aliases:
+                    - cosc310-java
+      ports:
+            - 80:8080
+volumes: 
+    mysql-db:
+networks:
+    network310:   
