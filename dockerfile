@@ -1,11 +1,8 @@
-FROM tomcat:11-jdk21
-
-COPY ./Web-content/WEB-INF/lib/mysql-connector-java-8.0.27.jar   /usr/local/tomcat/lib/mysql-connector-java-8.0.27.jar
-
-# Copy your project files into the Docker image
-COPY . /usr/local/tomcat/webapps/the-project-ja-2m/
+FROM tomcat:9-jdk11
 
 EXPOSE 8080
+
+COPY ./Web-content   /usr/local/tomcat/webapps/WeatherApp/
 
 CMD ["catalina.sh", "run"]
 
