@@ -34,7 +34,7 @@
   --on-primary: #100e17;
   --background: #131214;
   --on-background: #eae6f2;
-  --surface: #1d1c1f;
+  --surface: rgba(29, 28, 31, 1);
   --on-surface: #dddae5;
   --on-surface-variant: #7b7980;
   --on-surface-variant-2: #b9b6bf;
@@ -135,7 +135,7 @@ body {
     background-position: center;
     background-size: cover;  */
 
-  background-color: var(--background);
+  /*background-color: var(--background);*/
 
   font-size: var(--body-3);
   overflow: auto;
@@ -191,6 +191,10 @@ body {
 /*----------------------------------*\
     Header
 \*----------------------------------*/
+
+.header {
+    background-color: rgba(19, 18, 20, 0.75); /* Replace with your desired color */
+  }
 
 .container {
   max-width: 1600px;
@@ -409,9 +413,10 @@ body {
   BODY
 \*----------------------------------*/
 
-.card {
-  background-color: var(--surface);
+.card {/*comeehere*/
+  background-color: rgba(29, 28, 31, 0.5);
   color: var(--on-surface);
+  backdrop-filter: blur(20px);
 }
 
 .card-lg {
@@ -514,6 +519,10 @@ article.container::before {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.current-weather-card2{
+background-color: rgba(29, 28, 31, 0);
 }
 
 .current-weather-card .weather-icon {
@@ -753,6 +762,8 @@ article.container::before {
   .header .btn-primary .span { display: block; }
 
   .search-view { clip-path: circle(3% at calc(100% - 273px) 6%); }
+
+  
 
 
 

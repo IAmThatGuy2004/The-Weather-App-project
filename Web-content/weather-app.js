@@ -307,11 +307,17 @@ function loghourlyforecastDetails(data) {
       wind_speed_180m,
       wind_direction_180m,
     },
+    daily: {
+      sunset,
+      sunrise,
+    }
   } = data;
 
   const hourlyweather = {
     tz: utc_offset_seconds, // Include utc_offset_seconds as tz
     data: [], // Store hourly data here
+    sunset: sunset[0].split("T")[1],
+    sunrise: sunrise[0].split("T")[1]
   };
 
   // Logging hourly forecast data
@@ -336,6 +342,8 @@ function loghourlyforecastDetails(data) {
     console.log(hourlyweather.data[index].weather_code);
   });
 
+  console.log("HHHHHHHH sunset: ", hourlyweather.sunset);
+  console.log("HHHHHHHH sunrise: ", hourlyweather.sunrise);
   return hourlyweather;
 }
 
@@ -374,8 +382,17 @@ export async function displayhourlyforecast(coords) {
     let i = 0;
 
     hourlyweather.data.forEach((hourlyData, index) => {
-      if (hourlyData.time >= formattedTime && i <= 24) {
+      if (index>= currenttime && i <= 24) {
         i++;
+
+        if(hourlyweather.sunset>hourlyData.time && hourlyData.time<hourlyweather.sunrise){
+
+          hourlyData.weather_code = hourlyData.weather_code.slice(0, -1) + 'n';
+
+        }
+
+
+
         const liforecasttemp = document.createElement("li");
         liforecasttemp.classList.add("slider-item");
 
@@ -398,7 +415,7 @@ export async function displayhourlyforecast(coords) {
     i = 0;
 
     hourlyweather.data.forEach((hourlyData, index) => {
-      if (hourlyData.time >= formattedTime && i <= 24) {
+      if (index >= currenttime && i <= 24) {
         i++;
         const liforecastwind = document.createElement("li");
         liforecastwind.classList.add("slider-item");
@@ -611,6 +628,14 @@ export async function displayLeft(coords) {
     console.log("Weather  retrieved:", weatherDetails);
     console.log("Location retrieved:", locationDetails);
 
+    
+
+    document.body.style.backgroundImage = `url('images/${weatherDetails.icon}.gif')`;
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+
     const card = document.createElement("div");
     card.classList.add("card", "card-lg", "current-weather-card");
 
@@ -689,7 +714,7 @@ export async function displayRight(coords) {
     console.log("Highlight Details Array:", highlight);
 
     const cardhighlight = document.createElement("div");
-    cardhighlight.classList.add("card", "card-lg", "current-weather-card");
+    cardhighlight.classList.add( "card-lg", "current-weather-card2");
 
     cardhighlight.innerHTML = `<div class="card card-lg">
               <h2 class="title-2" id="highlights-label">Today's Highlights</h2>
