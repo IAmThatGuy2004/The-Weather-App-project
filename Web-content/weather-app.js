@@ -307,11 +307,17 @@ function loghourlyforecastDetails(data) {
       wind_speed_180m,
       wind_direction_180m,
     },
+    daily: {
+      sunset,
+      sunrise,
+    }
   } = data;
 
   const hourlyweather = {
     tz: utc_offset_seconds, // Include utc_offset_seconds as tz
     data: [], // Store hourly data here
+    sunset: sunset[0].split("T")[1],
+    sunrise: sunrise[0].split("T")[1]
   };
 
   // Logging hourly forecast data
@@ -336,6 +342,8 @@ function loghourlyforecastDetails(data) {
     console.log(hourlyweather.data[index].weather_code);
   });
 
+  console.log("HHHHHHHH sunset: ", hourlyweather.sunset);
+  console.log("HHHHHHHH sunrise: ", hourlyweather.sunrise);
   return hourlyweather;
 }
 
@@ -376,6 +384,15 @@ export async function displayhourlyforecast(coords) {
     hourlyweather.data.forEach((hourlyData, index) => {
       if (index>= currenttime && i <= 24) {
         i++;
+
+        if(hourlyweather.sunset>hourlyData.time && hourlyData.time<hourlyweather.sunrise){
+
+          hourlyData.weather_code = hourlyData.weather_code.slice(0, -1) + 'n';
+
+        }
+
+
+
         const liforecasttemp = document.createElement("li");
         liforecasttemp.classList.add("slider-item");
 
