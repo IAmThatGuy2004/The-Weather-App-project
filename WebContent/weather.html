@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- favicon image-->
+    <link rel="icon" type="image/png" href="images/weather-icon.png" />
+
+    <!--remix icon link: will give us free to use icon img-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!--links to our css stylinkg file -->
+    <link rel="stylesheet" href="weather-style.css" />
+
+    <!-- title of website-->
+    <title>JA^2M Weather</title>
+  </head>
+  <body>
+
+    <header class="header">
+      <div class="container">
+        <h2>JA<sup>2</sup>M Weather</h2>
+
+        <div class="search-view " data-search-view>
+          <div class="search-wrapper">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search city name..."
+              autocomplete="off"
+              class="search-field"
+              
+              data-search-field
+            />
+
+            <span class="m-icon leading-icon"><i class="ri-search-line"></i></span>
+
+            <button class="icon-btn leading-icon has-state" data-search-toggler>
+              <span class="m-icon"><i class="ri-arrow-left-line"></i></span>
+            </button>
+          </div>
+
+          <div class="search-result " data-search-result>
+            
+          </div>
+        </div>
+
+        <!--header action is location-->
+        <div class="location">
+  <button class="icon-btn has-state" data-search-toggler>
+    <span class="m-icon icon"><i class="ri-search-line"></i></span>
+  </button>
+
+  <a
+    href="javascript:void(0);" 
+    class="btn-primary has-state"
+    data-current-location-btn 
+    id="location-btn"
+  >
+    <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+    <span class="span">My location</span>
+  </a>
+</div>
+
+<script type="module">
+ // 1st array: Default latitude and longitude for New York
+const defaultLocation = [64.750997,-147.349319];  // [latitude, longitude]
+
+// 2nd array: User's location (initially set to New York)
+let userLocation = [...defaultLocation];  // Clone the defaultLocation to initialize
+
+function checkAndUpdateLocation(lat, lon) {
+      const currentUrl = window.location.href;  // Get current page URL
+      const currentHash = window.location.hash; // Get hash part of the URL
+
+      // Check if the hash contains lat and lon parameters
+      if (!currentHash.includes('#/weather?lat=') || !currentHash.includes('&lon=')) {
+        console.log("Setting default location (lat and lon).");
+
+       
+
+        // Construct the new hash with lat and lon
+        const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+
+        // Update the URL hash (without reloading the page)
+        window.location.hash = newHash;
+
+        
+      } else {
+        console.log("Weather location already in URL.");
+      }
+    }
+
+    // Call the function on page load
+    
+
+// Function to get the user's current location and return it as an array
+ async function getUserLocation() {
+  if (navigator.geolocation) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      // Get latitude and longitude from the position object
+      
+
+      userLocation = [position.coords.latitude, position.coords.longitude];
+
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+    
+      checkAndUpdateLocation(lat,lon);
+      
+      return userLocation;  // Return the user's location array
+    } catch (error) {
+      checkAndUpdateLocation(userLocation[0],userLocation[1]);
+      console.error("Error getting user location:", error);
+      return defaultLocation;  // Return default location in case of error
+    }
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    return defaultLocation;  // Return default location if geolocation is not supported
+  }
+}
+
+
+
+console.log("Initial Location (New York):", defaultLocation);
+userLocation = await getUserLocation();
+console.log("Updated Location (User):", userLocation);
+
+
+document.getElementById('location-btn').addEventListener('click', function() {
+      // Extract lat and lon from the userLocation array
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+      // Get the current page's URL (without query parameters)
+      const currentUrl = window.location.href;
+      // Split the URL into base URL and hash
+      const baseUrl = currentUrl.split('#')[0]; // Part before the '#'
+      // Construct the new hash with lat and lon
+      const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+      // Construct the new URL by combining the base URL and the new hash
+      const newUrl = baseUrl + newHash;
+      // Redirect the page to the new URL
+      window.location.href = newUrl;
+    });
+
+</script>
+      </div>
+    </header>
+
+
+    <main>
+      <article class="container" data-container>
+        
+        <!--Content left will contain the momement main info as well as weathe rof next 5 days-->
+        <div class="content-left">
+          <!---In this segment we will have current weather-->
+
+          <section class="section current-weather" data-current-weather>
+            
+          </section>
+
+
+
+          <!--This section will be for weather forecasting-->
+          <section class="section forecast" data-5-day-forecast>
+            <h2 class="title-2" id="forecast-label">5 Days Forecast</h2>
+            
+          </section>
+
+
+
+        </div>
+
+        <!--Content Right will contain the detail info from hourly weather to wind direction-->
+        <div class="content-right" >
+
+          <!--Section for hourly prediction-->
+          <div class="section hourly-forecast" data-hourly-forecast>
+            <h2 class="title-2">Today at:</h2>
+
+            <div class="slider-container">
+              <ul class="slider-list" data-temp>
+                
+              </ul>
+
+              <ul class="slider-list" data-wind>
+                
+
+              </ul>
+            </div>
+          </div>
+
+          <section class="section highlights" data-highlights>
+            
+          </section>
+
+
+
+          
+
+        </div>
+
+      </article>
+    </main>
+    
+    
+    
+
+    <script type="module" src="weather-api.js"></script>
+    <script type="module" src="weather-module.js"></script>
+    <script type="module" src="weather-route.js"></script>
+    <script type="module" src="weather-app.js"></script>
+  </body>
+</html>

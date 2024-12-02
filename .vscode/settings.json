@@ -14,6 +14,7 @@
         "c:\\Users\\maddy\\tomcat-11\\apache-tomcat-11.0.1\\webapps\\the-project-ja-2m\\lib\\mysql-connector-java-8.0.27.jar",
         "c:\\Users\\maddy\\tomcat-11\\apache-tomcat-11.0.1\\webapps\\the-project-ja-2m\\WebContent\\WebContent\\WEB-INF\\lib\\commons-codec-1.11.jar",
         "c:\\Users\\maddy\\tomcat-11\\apache-tomcat-11.0.1\\webapps\\the-project-ja-2m\\lib\\hamcrest-core-1.3.jar",
-        "c:\\Users\\maddy\\tomcat-11\\apache-tomcat-11.0.1\\webapps\\the-project-ja-2m\\lib\\junit-4.13.2.jar"
+        "c:\\Users\\maddy\\tomcat-11\\apache-tomcat-11.0.1\\webapps\\the-project-ja-2m\\lib\\junit-4.13.2.jar",
+        "test-lib\\**\\*.jar"
     ]
 }
