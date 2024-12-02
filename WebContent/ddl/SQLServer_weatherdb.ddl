@@ -1,7 +1,3 @@
-CREATE DATABASE Users;
-GO
-
-
 USE Users;
 GO
 
