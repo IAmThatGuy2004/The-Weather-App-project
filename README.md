@@ -11,7 +11,7 @@
   - Dashboard page and connecting features
   
 ## **Progress Relative to Requirements**
-- The project is ** approximately 80% complete**, with a few objectives for this milestone not fully met. 
+- The project is **approximately 80% complete**, with a few objectives for this milestone not fully met. 
 
 - **Completed Tasks**:
   - layout of city weather page
