@@ -14,9 +14,9 @@
         boolean isValidUser = false;
 
         // Database connection details
-        String uid = "testuser";
-        String url = "jdbc:mysql://localhost/testuser";
-        String pw = "310testpw";
+       	 String url = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=users;TrustServerCertificate=True";
+	       String uid = "sa";
+	       String pw = "310#sa#pw";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -27,7 +27,7 @@
             connection = DriverManager.getConnection(url, uid, pw);
 
             // Query to validate user
-            String query = "SELECT * FROM User WHERE (Username = ? OR Email = ?) AND Password = ?";
+            String query = "SELECT * FROM [User] WHERE (Username = ? OR Email = ?) AND [Password] = ?";
             preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, identifier);     // identifier is username
