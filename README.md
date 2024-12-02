@@ -1,22 +1,23 @@
-# **Weather App Project - Milestone 5 Dashboard Summary**
+# **Weather App Project - Milestone 6 Dashboard Summary**
 
 ## **Tasks Completed (by Owner)**
 - **Jimi**: 
-  - Registration page layout development
+  - Registration page testing
 - **Mandira**: 
-  - Log-in page layout development 
+  - Log-in page testing and connection to back-end 
 - **Ali**: 
-  -  City weather page layout development
+  -  Chanegs to wetaher.html file to gain info from API
 - **Aliasgar**:
-  - intial login and registration page layout dev
+  - Dashboard page and connecting features
   
 ## **Progress Relative to Requirements**
-- The project is **slightly behind schedule**, with key objectives for this milestone not fully met. 
+- The project is **approximately 80% complete**, with a few objectives for this milestone not fully met. 
 
 - **Completed Tasks**:
   - layout of city weather page
   - layout of log in page
-  - completion of layout of registration window
+  - completion of layout of dashbaord page and connectino to other features
+  - Dark mode features added in daashboard
   - backend connection to the log in and registration window using JSP 
     
 
