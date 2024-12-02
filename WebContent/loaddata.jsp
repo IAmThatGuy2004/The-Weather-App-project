@@ -21,9 +21,9 @@ catch (java.lang.ClassNotFoundException e)
     throw new SQLException("ClassNotFoundException: " +e);
 }
 
-- ./WebContent:/usr/local/tomcat/webapps/WeatherApp/
 
-String fileName = "/usr/local/tomcat/webapps/WeatherApp/WebContent/ddl/SQLServer_orderdb.ddl";
+
+String fileName = "/usr/local/tomcat/webapps/WeatherApp/ddl/SQLServer_weatherdb.ddl";
 
 try ( Connection con = DriverManager.getConnection(urlForLoadData, uid, pw); )
 {      
@@ -42,18 +42,13 @@ try ( Connection con = DriverManager.getConnection(urlForLoadData, uid, pw); )
         if (command.trim().indexOf("go") == 0)
             command = command.substring(3, command.length());
 
-        // Hack to make sure variable is declared
-        if (command.contains("INSERT INTO ordersummary") && !command.contains("DECLARE @orderId"))
-            command = "DECLARE @orderId int \n"+command;
-
-        out.print(command+"<br>");        // Uncomment if want to see commands executed
         try
         {
             stmt.execute(command);
         }
         catch (Exception e)
         {	// Keep running on exception.  This is mostly for DROP TABLE if table does not exist.
-            if (!e.toString().contains("Database 'orders' already exists"))    // Ignore error when database already exists
+            if (!e.toString().contains("Database 'users' already exists"))    // Ignore error when database already exists
                 out.println(e+"<br>");
         }
     }	 
