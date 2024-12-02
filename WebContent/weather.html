@@ -23,7 +23,7 @@
       <div class="container">
         <h2>JA<sup>2</sup>M Weather</h2>
 
-        <div class="search-view active" data-search-view>
+        <div class="search-view " data-search-view>
           <div class="search-wrapper">
             <input
               type="search"
@@ -42,78 +42,128 @@
             </button>
           </div>
 
-          <div class="search-result" data-search-result>
-            <ul class="view-list" data-search-list>
-
-              <li class="view-item">
-                <span class="m-icon"><i class="ri-map-pin-line"></i></span>
-
-                <div>
-                  <p class="item-title">Kelowna</p>
-                  <p class="label-2 item-subtitle">BC, Canada</p>
-                </div>
-
-                <a href="#" class="item-link has-state" data-search-result></a>
-              </li>
-            </ul>
+          <div class="search-result " data-search-result>
+            
           </div>
         </div>
 
         <!--header action is location-->
         <div class="location">
-          <button class="icon-btn has-state" data-search-toggler>
-            <span class="m-icon icon"><i class="ri-search-line"></i></i></span>
-          </button>
+  <button class="icon-btn has-state" data-search-toggler>
+    <span class="m-icon icon"><i class="ri-search-line"></i></span>
+  </button>
 
-          <a
-            href="#/current-location"
-            class="btn-primary has-state"
-            data-current-location-btn 
-          >
-            <span class="m-icon"><i class="ri-focus-3-line"></i></span>
-            <span class="span">My location</span>
-          </a>
-        </div>
+  <a
+    href="javascript:void(0);" 
+    class="btn-primary has-state"
+    data-current-location-btn 
+    id="location-btn"
+  >
+    <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+    <span class="span">My location</span>
+  </a>
+</div>
+
+<script type="module">
+ // 1st array: Default latitude and longitude for New York
+const defaultLocation = [64.750997,-147.349319];  // [latitude, longitude]
+
+// 2nd array: User's location (initially set to New York)
+let userLocation = [...defaultLocation];  // Clone the defaultLocation to initialize
+
+function checkAndUpdateLocation(lat, lon) {
+      const currentUrl = window.location.href;  // Get current page URL
+      const currentHash = window.location.hash; // Get hash part of the URL
+
+      // Check if the hash contains lat and lon parameters
+      if (!currentHash.includes('#/weather?lat=') || !currentHash.includes('&lon=')) {
+        console.log("Setting default location (lat and lon).");
+
+       
+
+        // Construct the new hash with lat and lon
+        const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+
+        // Update the URL hash (without reloading the page)
+        window.location.hash = newHash;
+
+        
+      } else {
+        console.log("Weather location already in URL.");
+      }
+    }
+
+    // Call the function on page load
+    
+
+// Function to get the user's current location and return it as an array
+ async function getUserLocation() {
+  if (navigator.geolocation) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      // Get latitude and longitude from the position object
+      
+
+      userLocation = [position.coords.latitude, position.coords.longitude];
+
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+    
+      checkAndUpdateLocation(lat,lon);
+      
+      return userLocation;  // Return the user's location array
+    } catch (error) {
+      checkAndUpdateLocation(userLocation[0],userLocation[1]);
+      console.error("Error getting user location:", error);
+      return defaultLocation;  // Return default location in case of error
+    }
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    return defaultLocation;  // Return default location if geolocation is not supported
+  }
+}
+
+
+
+console.log("Initial Location (New York):", defaultLocation);
+userLocation = await getUserLocation();
+console.log("Updated Location (User):", userLocation);
+
+
+document.getElementById('location-btn').addEventListener('click', function() {
+      // Extract lat and lon from the userLocation array
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+      // Get the current page's URL (without query parameters)
+      const currentUrl = window.location.href;
+      // Split the URL into base URL and hash
+      const baseUrl = currentUrl.split('#')[0]; // Part before the '#'
+      // Construct the new hash with lat and lon
+      const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+      // Construct the new URL by combining the base URL and the new hash
+      const newUrl = baseUrl + newHash;
+      // Redirect the page to the new URL
+      window.location.href = newUrl;
+    });
+
+</script>
       </div>
     </header>
 
 
     <main>
-      <article class="container">
+      <article class="container" data-container>
         
         <!--Content left will contain the momement main info as well as weathe rof next 5 days-->
         <div class="content-left">
           <!---In this segment we will have current weather-->
 
           <section class="section current-weather" data-current-weather>
-            <div class="card card-lg current-weather-card">
-
-              <h2 class="title-2 card-title">Now</h2>
-              <h2 class="title-2 meta-text">Kelowna BC, CA</h2>
-
-              <div class="wrapper">
-                <p class="heading">11&deg;<sup>C</sup></p>
-
-                <img src="images/01n.png" width="64" height="64" class="weather-icon">
-              </div>
-
-              <p class="body-3">Clear Sky</p>
-
-              <ul class="meta-list">
-                <li class="meta-item">
-                  <span class="m-icon"><i class="ri-calendar-event-line"></i></span>
-
-                  <p class="title-3 meta-text">Saturday 24, Nov</p>
-                </li>
-
-                <li class="meta-item">
-                  <span class="m-icon"><i class="ri-map-pin-line"></i></i></span>
-
-                  <p class="title-3 meta-text">Kelowna BC, CA</p>
-                </li>
-              </ul>
-
-            </div>
+            
           </section>
 
 
@@ -121,84 +171,7 @@
           <!--This section will be for weather forecasting-->
           <section class="section forecast" data-5-day-forecast>
             <h2 class="title-2" id="forecast-label">5 Days Forecast</h2>
-
-            <div class="card card-lg forecast-card">
-              <ul>
-
-                <!--Day 1-->
-                <li class="card-item">
-
-                  <div class="icon-wrapper">
-                    <img src="images/01n.png" width="36" height="36" class="weather-icon">
-                  
-                  <span class="span"><p class="title-2">11</p></span>
-                  </div>
-
-
-                  <p class="label-1">Nov 24</p>
-                  <p class="label-1">Saturday</p>
-                </li>
-
-                <!--Day 2-->
-                <li class="card-item">
-
-                  <div class="icon-wrapper">
-                    <img src="images/01n.png" width="36" height="36" class="weather-icon">
-                  
-                  <span class="span"><p class="title-2">11</p></span>
-                  </div>
-
-
-                  <p class="label-1">Nov 24</p>
-                  <p class="label-1">Saturday</p>
-                </li>
-
-                <!--Day 3-->
-                <li class="card-item">
-
-                  <div class="icon-wrapper">
-                    <img src="images/01n.png" width="36" height="36" class="weather-icon">
-                  
-                  <span class="span"><p class="title-2">11</p></span>
-                  </div>
-
-
-                  <p class="label-1">Nov 24</p>
-                  <p class="label-1">Saturday</p>
-                </li>
-
-                <!--Day 4-->
-                <li class="card-item">
-
-                  <div class="icon-wrapper">
-                    <img src="images/01n.png" width="36" height="36" class="weather-icon">
-                  
-                  <span class="span"><p class="title-2">11</p></span>
-                  </div>
-
-
-                  <p class="label-1">Nov 24</p>
-                  <p class="label-1">Saturday</p>
-                </li>
-
-                <!--Day 5-->
-                <li class="card-item">
-
-                  <div class="icon-wrapper">
-                    <img src="images/01n.png" width="36" height="36" class="weather-icon">
-                  
-                  <span class="span"><p class="title-2">11</p></span>
-                  </div>
-
-
-                  <p class="label-1">Nov 24</p>
-                  <p class="label-1">Saturday</p>
-                </li>
-
-
-
-              </ul>
-            </div>
+            
           </section>
 
 
@@ -206,130 +179,7 @@
         </div>
 
         <!--Content Right will contain the detail info from hourly weather to wind direction-->
-        <div class="content-right">
-
-          <section class="section highlights" data-highlights>
-            <div class="card card-lg">
-              <h2 class="title-2" id="highlights-label">Today's Highlights</h2>
-              
-              <div class="highlight-list">
-
-                <div class="card card-sm highlight-card one">
-                  <h3 class="title-3">Air Quality Index</h3>
-
-                  <div class="wrapper2">
-                    <span class="m-icon"><i class="ri-windy-line"></i></span>
-
-                    <ul class="card-list">
-                      <li class="card-item">
-                        <p class="title-1">12.21</p>
-                        <p class="label-1">PM<sub>2.5</sub></p><!--particule matter in air-->
-                        
-                      </li>
-
-                      <li class="card-item">
-                        <p class="title-1">12.21</p>
-
-                        <p class="label-1">SO<sub>2</sub></p><!--particule matter in air-->
-                        
-                      </li>
-
-                      <li class="card-item">
-                        <p class="title-1">12.21</p>
-                        <p class="label-1">NO<sub>2</sub></p><!--particule matter in air-->
-                        
-                      </li>
-
-                      <li class="card-item">
-                        <p class="title-1">12.21</p>
-                        <p class="label-1">O<sub>2</sub></p><!--particule matter in air-->
-                        
-                      </li>
-                    </ul>
-                  </div>
-
-                  <span class="badge aqi-1 label-1" title="aqi message">
-                    Good
-                  </span>
-
-
-                </div>
-
-                <div class="card card-sm highlight-card two">
-                  <h3 class="title-3">Sunrise & Sunset</h3>
-                  <div class="card-list">
-
-                    <div class="card-item">
-                      <span class="m-icon"><i class="ri-sun-line"></i></span><!--Change icon to fit sunrise-->
-
-                      <div>
-                        <p class="label-1">Sunrise</p>
-                        <p class="title-1">6:30 AM</p>
-                      </div>
-                    </div>
-
-                    
-                    <div class="card-item">
-                      <span class="m-icon"><i class="ri-moon-line"></i></span><!--Change icon to fit sunset-->
-
-                      <div>
-                        <p class="label-1">Sunset</p>
-                        <p class="title-1">4:30 PM</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card card-sm highlight-card">
-
-                  <h3 class="title-3">Humidity</h3>
-
-                  <div class="wrapper2">
-                    <span class="m-icon"><i class="ri-water-percent-line"></i></span>
-                    <p class="title-1">35<sub>%</sub></p>
-                  </div>
-
-                </div>
-
-                <div class="card card-sm highlight-card">
-
-                  <h3 class="title-3">Pressure</h3>
-
-                  <div class="wrapper2">
-                    <span class="m-icon"><i class="ri-align-bottom"></i></span>
-                    <p class="title-1">1025<sub>hPa</sub></p>
-                  </div>
-
-                </div>
-
-                <div class="card card-sm highlight-card">
-
-                  <h3 class="title-3">Visibility</h3>
-
-                  <div class="wrapper2">
-                    <span class="m-icon"><i class="ri-eye-line"></i></span>
-                    <p class="title-1">4<sub>km</sub></p>
-                  </div>
-
-                </div>
-
-                <div class="card card-sm highlight-card">
-
-                  <h3 class="title-3">Feels Like</h3>
-
-                  <div class="wrapper2">
-                    <span class="m-icon"><i class="ri-temp-cold-line"></i></span>
-                    <p class="title-1">1&deg;<sub>C</sub></p>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-          </section>
-
-
+        <div class="content-right" >
 
           <!--Section for hourly prediction-->
           <div class="section hourly-forecast" data-hourly-forecast>
@@ -337,218 +187,23 @@
 
             <div class="slider-container">
               <ul class="slider-list" data-temp>
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-                    <p class="body-3">02 AM</p>
-                    <img src="images/01n.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">25&deg;</p>
-                  </div>
-                </li>
+                
               </ul>
 
               <ul class="slider-list" data-wind>
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
-
-                <li class="slider-item">
-                  <div class="card card-sm slider-card">
-
-                    <p class="body-3">02 AM</p>
-                    <img src="images/direction.png" width="48" height="48" loading="lazy" class="weather-icon" title="">
-
-                    <p class="body-3">5 km/h</p>
-
-                  </div>
-
-                </li>
+                
 
               </ul>
             </div>
           </div>
+
+          <section class="section highlights" data-highlights>
+            
+          </section>
+
+
+
+          
 
         </div>
 
@@ -558,6 +213,9 @@
     
     
 
-    <script src="weather-style.js"></script>
+    <script type="module" src="weather-api.js"></script>
+    <script type="module" src="weather-module.js"></script>
+    <script type="module" src="weather-route.js"></script>
+    <script type="module" src="weather-app.js"></script>
   </body>
 </html>
