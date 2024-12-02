@@ -1,9 +1,95 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.Scanner" %>
+<%@ page import="java.io.File" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="javax.servlet.*" %>
 
 <%
     boolean showInvalidLoginMessage = false;
+
+    // Database connection details
+    String dbName = "Users";
+    String url = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=" + dbName + ";TrustServerCertificate=True";
+    String uid = "sa";
+    String pw = "310#sa#pw";
+
+    // Load driver class
+    try {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    } catch (ClassNotFoundException e) {
+        throw new SQLException("ClassNotFoundException: " + e);
+    }
+
+    // Check if the database and tables exist
+    boolean dbInitialized = false;
+    try (Connection connCheck = DriverManager.getConnection(url, uid, pw)) {
+        DatabaseMetaData dbMeta = connCheck.getMetaData();
+        ResultSet rs = dbMeta.getTables(null, null, "[User]", null);
+        if (rs.next()) {
+            dbInitialized = true; // Table exists
+        }
+        rs.close();
+    } catch (SQLException e) {
+        // Database might not exist; proceed to create it
+        dbInitialized = false;
+    }
+
+    // Initialize database if not already done
+    if (!dbInitialized) {
+        // Connect to master database to create Users database
+        String masterUrl = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=master;TrustServerCertificate=True";
+        try (Connection connMaster = DriverManager.getConnection(masterUrl, uid, pw);
+             Statement stmtMaster = connMaster.createStatement()) {
+
+            // Create Users database if it doesn't exist
+            String createDbSQL = "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'" + dbName + "') BEGIN CREATE DATABASE [" + dbName + "]; END";
+            stmtMaster.execute(createDbSQL);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Now connect to Users database and run DDL script
+        try (Connection connUsers = DriverManager.getConnection(url, uid, pw);
+             Statement stmtUsers = connUsers.createStatement()) {
+
+            // Path to your DDL file
+            String fileName = "/usr/local/tomcat/webapps/WeatherApp/ddl/SQLServer_weatherdb.ddl";
+
+            // Read the DDL file content
+            Scanner scanner = new Scanner(new File(fileName));
+            scanner.useDelimiter("(?i)\\bGO\\b"); // Use regex to split on 'GO', case-insensitive
+
+            while (scanner.hasNext()) {
+                String command = scanner.next();
+                command = command.trim();
+
+                if (command.isEmpty()) {
+                    continue;
+                }
+
+                try {
+                    stmtUsers.execute(command);
+                } catch (SQLException e) {
+                    // Ignore errors about objects already existing
+                    String message = e.getMessage();
+                    if (message.contains("already exists")) {
+                        // Object already exists, ignore error
+                    } else {
+                        // Output the error message for debugging
+                        out.println("Error executing command:<br>");
+                        out.println("<pre>" + command + "</pre><br>");
+                        out.println("SQLException: " + e.getMessage() + "<br><br>");
+                    }
+                }
+            }
+            scanner.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.print("An error occurred during database initialization: " + e.getMessage());
+        }
+    }
 
     if (request.getMethod().equalsIgnoreCase("POST")) {
 
@@ -13,17 +99,12 @@
 
         boolean isValidUser = false;
 
-        // Database connection details
-       	 String url = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=users;TrustServerCertificate=True";
-	       String uid = "sa";
-	       String pw = "310#sa#pw";
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            // Connect to the database
+            // Connect to the Users database
             connection = DriverManager.getConnection(url, uid, pw);
 
             // Query to validate user
@@ -58,8 +139,8 @@
             session = request.getSession();
             session.setAttribute("username", identifier);
 
-            // Redirect to main.html
-            response.sendRedirect("main.html");
+            // Redirect to weather.html
+            response.sendRedirect("weather.html");
             return; // Stop further processing
         } else {
             showInvalidLoginMessage = true;
@@ -113,7 +194,7 @@
           <button type="submit" class="login-button">
             Login
           </button>
-          <button type="button" class="register-button">
+          <button type="button" class="register-button" onclick="window.location.href='register.jsp'">
             Register
           </button>
         </div>
