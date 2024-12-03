@@ -14,22 +14,24 @@
 - The project is **approximately 80% complete**, with a few objectives for this milestone not fully met. 
 
 - **Completed Tasks**:
-  - layout of city weather page
-  - layout of log in page
+  - Add weather information using API to complete weather layout
   - completion of layout of dashbaord page and connectino to other features
   - Dark mode features added in daashboard
-  - backend connection to the log in and registration window using JSP 
+  - backend connection to the log in and registration window using JSP
+  - Testing to ensure retrievals for format, weather and dates are correct
+  - Ensure containers and packages are set up correctky using Dockerization
     
 
 - **Pending Tasks**:
-  - js implementation and api for the city weather app
-  - creating intial dashboard page layout
-  - adding appropriate tomcat libraries and editing Dockerfile to ensure integration
+  - adding favourite lists to the dashboard page
+  - implement share dashboard with other users
+  - Ensure docker-compose file is configured to work on all platforms
+  - ensure correct addition of user to database using register.jsp page
 
-### **Next Milestone Plan - User Authentication and Dashboard Integration**
+### **Next Milestone Plan - Registration Finalization and Application Integration**
 
 **Objective:**
-The focus for this milestone will be to fully integrate the user registration, login, and dashboard functionalities, ensuring a seamless flow between user authentication and personalized data display.
+The focus for this milestone will be to fully integrate the user registration. Additionally, we will complete the dashboard by adding favourite lists, links to weather information and full integration of all features.
 
 #### **Connecting Registration, Login, and Dashboard:**
 
@@ -81,20 +83,24 @@ By the end of this milestone, the user registration, login, dashboard, and city 
   - No new tests have been created.
 
 - **Next Steps for Testing**:
-  - Ensure that these areas are tested in the upcoming phase for comprehensive quality assurance.
+  - Ensure that registration of users works as expected innext implementatioin.
+  - Perform regression tests 
 
 ## **Release Candidate**
 - **Status**:
-  - No release candidate is ready yet.
-  - Aiming for a functional release candidate very soon.
+  - Will present in class. Current flow is from login -> dashboard -> weather but may be changed in the future.
 
 ---
 
 ### List of branches:
 
-- weather-component-body
-- weather-data-implementation
-- Log-in-page
+- WEB_DEV-FrontEnd
+- connect-Dashboard-to-Weather
+- registration-testing-and-backend
+- DB-change(MSSQL)
+- test-for-weather
+- Dashboard
+- Dashboard-NightMode
 
 [file containing link to view prototype on Figma](prototype-link.md)  
 [file containing wanted development flow](Development-flow.md)  
