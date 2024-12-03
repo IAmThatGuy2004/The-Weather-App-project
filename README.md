@@ -3,12 +3,19 @@
 ## **Tasks Completed (by Owner)**
 - **Jimi**: 
   - Registration page testing
+  - Registration page Layout
+  - Registration page transfer and links to other pages 
 - **Mandira**: 
   - Log-in page testing and connection to back-end 
+  - Log-in page layout
+  - log in link to dashboard
 - **Ali**: 
-  -  Chanegs to wetaher.html file to gain info from API
+  - finialised weather.html layout
+  - weather retrival for hourly, daily, current highlight temps and all & display
+  - Testing for weather module functions
 - **Aliasgar**:
-  - Dashboard page and connecting features
+  - Dashboard page layout 
+  - darkmode feature for layout
   
 ## **Progress Relative to Requirements**
 - The project is **approximately 80% complete**, with a few objectives for this milestone not fully met. 
@@ -33,23 +40,25 @@
 **Objective:**
 The focus for this milestone will be to fully integrate the user registration. Additionally, we will complete the dashboard by adding favourite lists, links to weather information and full integration of all features.
 
-#### **Connecting Registration, Login, and Dashboard:**
+#### **Connecting Registration, Login, and Dashboard Pages:**
 
 - **User Authentication Process:**
   - The registration and login pages will be linked to a session-based system that keeps the user logged in throughout their session. This will be achieved using a session cookie or JWT token for maintaining login state across pages.
   - Upon successful login, users will be directed to their personalized dashboard page, where they can view their profile and other user-specific data.
   - If the user logs out, they will be redirected back to the city search page, and the session will be invalidated, ensuring the user is no longer considered logged in.
 
-#### **Dashboard Web Page:**
-- The dashboard page will be created to display the user's personal information (e.g., username, email, etc.). This will be fetched from the database after the user logs in.
-- The page must be **fully functional**, with a responsive layout that adapts to different screen sizes.
-- The dashboard will also display a list of the **user's favorite cities**, retrieved from the database based on the logged-in user’s ID. Each city in the list will be clickable, allowing the user to view the weather details for that city.
-
 #### **Dashboard Features:**
+
+- **Implementing a Favourites List:**
+  - The dashboard page will include a list of favourites and upon the click they will transfer the user to a weather layout which is in their specified favourtie city
+  - The page must be **fully functional**, with a responsive layout that adapts to different screen sizes.
+  - The dashboard will also display a list of the **user's favorite cities**, retrieved from the database based on the logged-in user’s ID. Each city in the list will be clickable, allowing the user to view the weather details for that city.
+
 - **Logout Button:** 
-  - A button will be added to the dashboard, allowing users to log out. Clicking this button will destroy the session and return the user to the city search page.
+  - A button exists within the dashboard underneath the profile icon which allows the user to logout. In the next implementation the user will be able to fully destroy the session and it will no longer exist as a placeholder.
 - **Menu Bar for Layout Customization:**
   - The dashboard will feature a menu bar with options to change the layout or appearance of the page (e.g., switching between a light/dark theme, changing font size, or rearranging sections of the dashboard).
+  - This menu bar currently has some features included dark mode and a link to the weather page, however in future implementations an option to edit user preferences will be added.
 - **Active User Validation:**
   - During the user session, the login status will be validated on each page, ensuring that if the user is logged out or the session has expired, they will be redirected to the login page. This will prevent unauthorized access to the dashboard.
   
@@ -61,10 +70,6 @@ The focus for this milestone will be to fully integrate the user registration. A
     3. The database will store the user’s ID and the city’s name in a table that links users to their favorite cities.
   - This functionality will be implemented in the backend to ensure that only logged-in users can add cities to their list of favorites.
 
-#### **Implementation Details:**
-- **Backend Integration:**
-  - Upon user login, a session will be established on the backend to verify the user’s identity. This session will be carried across all pages, including the dashboard, ensuring that the user is authenticated before accessing personal data or making changes to their favorite cities list.
-  - When the user adds a city to their favorites, the backend will handle the request by inserting the city into the database under the correct user ID, ensuring that the user's favorites are securely updated.
 
 By the end of this milestone, the user registration, login, dashboard, and city favorites functionality will be seamlessly integrated, providing a smooth user experience.
 
@@ -76,14 +81,19 @@ By the end of this milestone, the user registration, login, dashboard, and city 
 - **Challenges**:
   - **Communication issues** due to members being busy with various responsibilities outside the project.
   - The project pace has not met expectations, as not all objectives were completed.
+  - Differing user platforms held up our process as different methods of Dockerization had to be applied.
 
 ## **Testing and Quality Assurance**
 - **Current Status**:
-  - All completed tests have passed.
-  - No new tests have been created.
+  - All prior tests still pass.
+  - New tests:
+    - Test login with valid / invalid information (PASS)
+    - Test registration of mock user in database (FAIL)
+    - Test retrival of API information and verify associated icons match (PASS)
 
 - **Next Steps for Testing**:
-  - Ensure that registration of users works as expected innext implementatioin.
+  - Ensure that registration of users works as expected in next implementation.
+  - Ensure fvaourites list is for correct users as expected
   - Perform regression tests 
 
 ## **Release Candidate**
