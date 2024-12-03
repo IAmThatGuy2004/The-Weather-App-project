@@ -3,7 +3,7 @@ package WebContent;
 import org.junit.*;
 import java.sql.*;
 
-public class Testing {
+public class ResgisterJspTest {
     // Database connection details
     private static final String DB_URL = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=Users;TrustServerCertificate=True";
     private static final String USERNAME = "sa";
