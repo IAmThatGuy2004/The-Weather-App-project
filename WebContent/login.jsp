@@ -140,7 +140,7 @@
             session.setAttribute("username", identifier);
 
             // Redirect to weather.html
-            response.sendRedirect("weather.html");
+            response.sendRedirect("Dashboard/dashboard.html");
             return; // Stop further processing
         } else {
             showInvalidLoginMessage = true;
