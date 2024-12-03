@@ -4,26 +4,51 @@ import org.junit.*;
 import java.sql.*;
 
 public class Testing {
-    // The below tests check if the code used in the register.jsp file are viable for adding code to the database
-    
     // Database connection details
     private static final String DB_URL = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=Users;TrustServerCertificate=True";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "310#sa#pw";
-    
+
     private Connection connection;
 
     @Before
     public void setUp() throws SQLException {
-        // Establish a connection to the database
-        connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+        try {
+            // Establish a connection to the database
+            connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            System.out.println("Database connection established.");
+
+            // Clean up any existing test user before the test
+            deleteTestUser();
+        } catch (SQLException e) {
+            System.err.println("Failed to establish database connection.");
+            e.printStackTrace();
+            throw e; // Re-throw the exception to fail the test
+        }
     }
 
     @After
     public void tearDown() throws SQLException {
-        // Clean up the connection
+        // Clean up the test user after the test
         if (connection != null) {
+            deleteTestUser();
+
+            // Close the connection
             connection.close();
+            connection = null;
+        }
+    }
+
+    private void deleteTestUser() throws SQLException {
+        if (connection == null) {
+            // Connection was not established; nothing to clean up
+            return;
+        }
+        String deleteQuery = "DELETE FROM [User] WHERE Username = ? OR Email = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setString(1, "testUser");
+            preparedStatement.setString(2, "testUser@example.com");
+            preparedStatement.executeUpdate();
         }
     }
 
@@ -62,4 +87,3 @@ public class Testing {
         }
     }
 }
-
