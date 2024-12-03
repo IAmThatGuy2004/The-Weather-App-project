@@ -20,10 +20,11 @@ html, body {
   background-repeat: no-repeat;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Clean font */
   position: relative;
+  overflow: hidden;
 }
 .registration-form {
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 50px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -33,6 +34,7 @@ html, body {
 
 .registration-form h2 {
   text-align: center;
+  margin-top: 0px;
   margin-bottom: 30px;
   color: #0c1377;
 }
@@ -44,12 +46,12 @@ html, body {
   margin-bottom: 8px;
   color: #0c1377;
   font-weight: 500;
-  width: 90%;
+  width: 100%;
   margin: 0 auto 8px auto;
   text-align: left;
 }
 .form-group input {
-  width: 90%;
+  width: 100%;
   color: #333;
   padding: 12px 15px;
   border: 1px solid #ccc;
@@ -76,6 +78,19 @@ html, body {
   gap: 10px; /* Optional: Space between buttons */
   width: 100%; /* Span the full width of the form */
 }
+
+.error-message {
+  color: #ff0000; /* Bright red color for visibility */
+  font-weight: bold; /* Bold font */
+  font-size: 18px; /* Larger font size */
+  text-align: center; /* Centered text */
+  margin-bottom: 20px; /* Space below the message */
+  padding: 10px; /* Add padding for a box-like appearance */
+  background-color: #ffe6e6; /* Light red background for better visibility */
+  border: 1px solid #ff0000; /* Red border */
+  border-radius: 5px; /* Rounded corners for a modern look */
+}
+
 
 .registration-button,
 .register-button {
