@@ -1,0 +1,1 @@
+# Documentation of weather-module.js
