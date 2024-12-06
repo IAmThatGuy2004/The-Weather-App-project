@@ -1,5 +1,8 @@
 # Documentation of weather-app.js
 
+This document manages all dynamic element of thee app, from the search implementation to the retrival and loggin of api data and its displayability.
+
+
 ## **Imports**
 
 1. **`weather-api.js`**:

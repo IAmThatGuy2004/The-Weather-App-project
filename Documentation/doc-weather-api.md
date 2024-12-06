@@ -1,5 +1,7 @@
 # Documentation of weather-api.js
 
+This document is made to manage all api keys and calls accordingly. We try to avoid mixing up functions and the god class anti pattern via these seperations. here we have urls and function responsible to call those api responses to fetch needed data and submit to caller functions.
+
 ## `fetchopenData(URL, callback)`
 **Purpose:** This function is a generic data-fetching utility designed to interact with APIs. It takes a URL and a callback function, fetches data from the provided URL, and passes the resulting JSON data to the callback.
 
