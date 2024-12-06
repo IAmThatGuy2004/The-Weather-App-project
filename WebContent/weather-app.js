@@ -1,7 +1,16 @@
 import { fetchData, url, fetchopenData, openurl } from "./weather-api.js";
 import * as module from "./weather-module.js";
 
-("use strict");
+"use strict";
+let currentCity = {         //Tracks the currently displayed cities
+  name: "",  
+  state: "",
+  country: "",
+  lat: null,
+  lon: null,
+};
+
+let favoriteCities = [];  //Array to keep track of favourites list.
 
 const searchToggler = document.querySelectorAll("[data-search-toggler]");
 const searchView = document.querySelector("[data-search-view]");
@@ -624,11 +633,20 @@ export async function displayLeft(coords) {
       locationPromise,
     ]);
 
+        currentCity = {     //After searching the current city, object is updated with the latest city information
+          name: locationDetails.name,
+          state: locationDetails.state || "",
+          country: locationDetails.country,
+          lat: coords.lat,
+          lon: coords.lon,
+        };
+
+        updateFavoriteButton();   //Reflects if city is favourtied or not
+
     // Display both weather and location details together
     console.log("Weather  retrieved:", weatherDetails);
     console.log("Location retrieved:", locationDetails);
 
-    
 
     document.body.style.backgroundImage = `url('images/${weatherDetails.icon}.gif')`;
     document.body.style.backgroundRepeat = "no-repeat";
@@ -847,4 +865,65 @@ export async function displayRight(coords) {
   } catch (error) {
     console.error("Error fetching data:", error);
   }
+
 }
+
+const favoriteBtn = document.getElementById("favorite-btn");
+function isFavorited(city) {   //Function to check if city is favourtied by checking 'favouriteCities' list.
+  return favoriteCities.some(
+    (fav) =>
+      fav.name === city.name &&
+      fav.state === city.state &&
+      fav.country === city.country &&
+      fav.lat === city.lat &&
+      fav.lon === city.lon
+  );
+}
+// Function to update the favorite button's appearance
+function updateFavoriteButton() {
+  if (isFavorited(currentCity)) {
+    favoriteBtn.classList.add('favorited');
+    favoriteBtn.innerHTML = `<span class="m-icon"><i class="ri-heart-fill"></i></span>`;
+    favoriteBtn.setAttribute('title', 'Remove from Favorites');
+  } else {
+    favoriteBtn.classList.remove('favorited');
+    favoriteBtn.innerHTML = `<span class="m-icon"><i class="ri-heart-line"></i></span>`;
+    favoriteBtn.setAttribute('title', 'Add to Favorites');
+  }
+}
+
+
+// Event Listener for Favorite Button Click
+favoriteBtn.addEventListener('click', function() {
+  if (!currentCity.name) {
+    alert("Please search for a city first.");
+    return;
+  }
+
+  if (isFavorited(currentCity)) {
+    //If city is favourited, we remove it from the array
+
+    favoriteCities = favoriteCities.filter(
+      (fav) =>
+        !(
+          fav.name === currentCity.name &&
+          fav.state === currentCity.state &&
+          fav.country === currentCity.country &&
+          fav.lat === currentCity.lat &&
+          fav.lon === currentCity.lon
+        )
+    );
+    alert(`${currentCity.name} has been removed from your favorites.`);
+  } else {
+    // else Add to favorites
+    favoriteCities.push({ ...currentCity }); // Clone currentCity to avoid reference issues
+    alert(`${currentCity.name} has been added to your favorites.`);
+  }
+
+  updateFavoriteButton(); // Update the favorite button's appearance for new appearance
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateFavoriteButton();   //Ensures the the fav button reflects the current state of the city.
+});
