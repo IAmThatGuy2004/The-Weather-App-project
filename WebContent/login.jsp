@@ -21,75 +21,77 @@
     }
 
     // Check if the database and tables exist
-    boolean dbInitialized = false;
-    try (Connection connCheck = DriverManager.getConnection(url, uid, pw)) {
-        DatabaseMetaData dbMeta = connCheck.getMetaData();
-        ResultSet rs = dbMeta.getTables(null, null, "[User]", null);
-        if (rs.next()) {
-            dbInitialized = true; // Table exists
-        }
-        rs.close();
+boolean dbInitialized = false;
+try (Connection connCheck = DriverManager.getConnection(url, uid, pw)) {
+    DatabaseMetaData dbMeta = connCheck.getMetaData();
+
+    // Specify the schema and use the table name without square brackets
+    ResultSet rs = dbMeta.getTables(null, "dbo", "User", null);
+    if (rs.next()) {
+        dbInitialized = true; // Table exists
+    }
+    rs.close();
+} catch (SQLException e) {
+    // Database might not exist; proceed to create it
+    dbInitialized = false;
+}
+
+// Initialize database if not already done
+if (!dbInitialized) {
+    // Connect to master database to create Users database
+    String masterUrl = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=master;TrustServerCertificate=True";
+    try (Connection connMaster = DriverManager.getConnection(masterUrl, uid, pw);
+         Statement stmtMaster = connMaster.createStatement()) {
+
+        // Create Users database if it doesn't exist
+        String createDbSQL = "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'" + dbName + "') BEGIN CREATE DATABASE [" + dbName + "]; END";
+        stmtMaster.execute(createDbSQL);
+
     } catch (SQLException e) {
-        // Database might not exist; proceed to create it
-        dbInitialized = false;
+        e.printStackTrace();
     }
 
-    // Initialize database if not already done
-    if (!dbInitialized) {
-        // Connect to master database to create Users database
-        String masterUrl = "jdbc:sqlserver://cosc310_sqlserver:1433;DatabaseName=master;TrustServerCertificate=True";
-        try (Connection connMaster = DriverManager.getConnection(masterUrl, uid, pw);
-             Statement stmtMaster = connMaster.createStatement()) {
+    // Now connect to Users database and run DDL script
+    try (Connection connUsers = DriverManager.getConnection(url, uid, pw);
+         Statement stmtUsers = connUsers.createStatement()) {
 
-            // Create Users database if it doesn't exist
-            String createDbSQL = "IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'" + dbName + "') BEGIN CREATE DATABASE [" + dbName + "]; END";
-            stmtMaster.execute(createDbSQL);
+        // Path to your DDL file
+        String fileName = "/usr/local/tomcat/webapps/WeatherApp/ddl/SQLServer_weatherdb.ddl";
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Read the DDL file content
+        Scanner scanner = new Scanner(new File(fileName));
+        scanner.useDelimiter("(?i)\\bGO\\b"); // Use regex to split on 'GO', case-insensitive
 
-        // Now connect to Users database and run DDL script
-        try (Connection connUsers = DriverManager.getConnection(url, uid, pw);
-             Statement stmtUsers = connUsers.createStatement()) {
+        while (scanner.hasNext()) {
+            String command = scanner.next();
+            command = command.trim();
 
-            // Path to your DDL file
-            String fileName = "/usr/local/tomcat/webapps/WeatherApp/ddl/SQLServer_weatherdb.ddl";
+            if (command.isEmpty()) {
+                continue;
+            }
 
-            // Read the DDL file content
-            Scanner scanner = new Scanner(new File(fileName));
-            scanner.useDelimiter("(?i)\\bGO\\b"); // Use regex to split on 'GO', case-insensitive
-
-            while (scanner.hasNext()) {
-                String command = scanner.next();
-                command = command.trim();
-
-                if (command.isEmpty()) {
-                    continue;
-                }
-
-                try {
-                    stmtUsers.execute(command);
-                } catch (SQLException e) {
-                    // Ignore errors about objects already existing
-                    String message = e.getMessage();
-                    if (message.contains("already exists")) {
-                        // Object already exists, ignore error
-                    } else {
-                        // Output the error message for debugging
-                        out.println("Error executing command:<br>");
-                        out.println("<pre>" + command + "</pre><br>");
-                        out.println("SQLException: " + e.getMessage() + "<br><br>");
-                    }
+            try {
+                stmtUsers.execute(command);
+            } catch (SQLException e) {
+                // Ignore errors about objects already existing
+                String message = e.getMessage();
+                if (message.contains("already exists")) {
+                    // Object already exists, ignore error
+                } else {
+                    // Output the error message for debugging
+                    out.println("Error executing command:<br>");
+                    out.println("<pre>" + command + "</pre><br>");
+                    out.println("SQLException: " + e.getMessage() + "<br><br>");
                 }
             }
-            scanner.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.print("An error occurred during database initialization: " + e.getMessage());
         }
+        scanner.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.print("An error occurred during database initialization: " + e.getMessage());
     }
+}
 
     if (request.getMethod().equalsIgnoreCase("POST")) {
 

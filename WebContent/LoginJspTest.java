@@ -42,7 +42,7 @@ public class LoginJspTest {
             Assert.assertEquals(302, statusCode); // Expecting a redirect
 
             String location = response.getFirstHeader("Location").getValue();
-            Assert.assertTrue(location.endsWith("weather.html"));
+            Assert.assertTrue(location.endsWith("dashboard.html"));
         }
     }
 
