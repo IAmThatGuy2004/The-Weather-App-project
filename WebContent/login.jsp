@@ -93,6 +93,14 @@ if (!dbInitialized) {
     }
 }
 
+    // Check if the user is already logged in
+    session = request.getSession();
+    Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+    if (isLoggedIn != null && isLoggedIn) {
+        response.sendRedirect("dashboard.html");
+        return;
+    }
+
     if (request.getMethod().equalsIgnoreCase("POST")) {
 
         // Retrieve username and password from the form
@@ -140,12 +148,14 @@ if (!dbInitialized) {
             // Create a session and set the username
             session = request.getSession();
             session.setAttribute("username", identifier);
+            session.setAttribute("isLoggedIn", true);
 
             // Redirect to weather.html
             response.sendRedirect("Dashboard/dashboard.html");
             return; // Stop further processing
         } else {
             showInvalidLoginMessage = true;
+            session.setAttribute("isLoggedIn", false);
             // The form will be displayed again with the error message
         }
     } // End of POST processing
