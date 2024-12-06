@@ -22,8 +22,9 @@ services:
 
               
   cosc310-sqlserver:
-        image:  mcr.microsoft.com/mssql/server:2019-latest  # to accomadate all platforms  mcr.microsoft.com/mssql/server:2019-latest  #mcr.microsoft.com/azure-sql-edge 
+        image: mcr.microsoft.com/azure-sql-edge
         container_name: cosc310-sqlserver
+        platform: linux/amd64
         restart: always
         environment:
             ACCEPT_EULA: 'Y'
@@ -70,7 +71,7 @@ services:
             dockerfile: dockerfile
       image: cosc310-java
       depends_on:
-            - WeatherApp-mysql
+            - cosc310-sqlserver
       container_name: cosc310-java
       volumes:
             - ./WebContent:/usr/local/tomcat/webapps/WeatherApp/
