@@ -97,7 +97,7 @@ if (!dbInitialized) {
     session = request.getSession();
     Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
     if (isLoggedIn != null && isLoggedIn) {
-        response.sendRedirect("dashboard.html");
+        response.sendRedirect("Dashboard/dashboard.jsp");
         return;
     }
 
@@ -151,7 +151,7 @@ if (!dbInitialized) {
             session.setAttribute("isLoggedIn", true);
 
             // Redirect to weather.html
-            response.sendRedirect("Dashboard/dashboard.html");
+            response.sendRedirect("Dashboard/dashboard.jsp");
             return; // Stop further processing
         } else {
             showInvalidLoginMessage = true;
