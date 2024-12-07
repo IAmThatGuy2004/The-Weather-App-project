@@ -151,16 +151,16 @@ The team developed a **Weather App** with the following key features:
 
 ## Branching Workflow
 - **Strategy**:
- - At first *feature branching*, for every different feature or component of the system we had a "main branch for that specific feature or component" then made new branches from that new main to develop sub features or new implementations for it 
+  - At first *feature branching*, for every different feature or component of the system we had a "main branch for that specific feature or component" then made new branches from that new main to develop sub features or new implementations for it 
 
- - later on when the project was almost done we transfered to *release branching* where we would have a main branch where all new features branch off will merge back to to create current release update 
+  - later on when the project was almost done we transfered to *release branching* where we would have a main branch where all new features branch off will merge back to to create current release update 
 
-- once project was complete only then was everything retuned to true main 
+  - once project was complete only then was everything retuned to true main 
 
 - **Code Reviews**:
-- The *review process'* were good, at first we weren't as strict as it was more general and simple tasks being implemented and completed but as progress was made , there was an empahasis on always having 2 reviewers, and as project developed *pr* request and reviews became better, more structured and constructive 
+  - The *review process'* were good, at first we weren't as strict as it was more general and simple tasks being implemented and completed but as progress was made , there was an empahasis on always having 2 reviewers, and as project developed *pr* request and reviews became better, more structured and constructive 
 
-- The *pr system* allowed for better sharing of developemnt process and keeping up to date with system and different coding part in an pro active manner such that all the team understood other memebers work at all times 
+  - The *pr system* allowed for better sharing of developemnt process and keeping up to date with system and different coding part in an pro active manner such that all the team understood other memebers work at all times 
 
 ---
 
@@ -214,7 +214,7 @@ The team developed a **Weather App** with the following key features:
 
 ## Role of AI
 - **Usage**:
-  - =AI played a significant role in our success, assisting in various aspects of development. It supported Docker commands and troubleshooting, helped with code formatting, bug detection, and bug fixes, and even generated some code where needed *(if code was redundant, or trouble personaly configuring)* as well as logic support. 
+  - AI played a significant role in our success, assisting in various aspects of development. It supported Docker commands and troubleshooting, helped with code formatting, bug detection, and bug fixes, and even generated some code where needed *(if code was redundant, or trouble personaly configuring)* as well as logic support. 
   - AI was also instrumental in constructive pull request (PR) formatting, helping us better understand the structure and presentation of PRs. 
   - Additionally, it aided in documentation formatting and review. 
   
@@ -222,6 +222,6 @@ The team developed a **Weather App** with the following key features:
 - **Impact**:
   - Overall, AI proved to be an invaluable tool, accelerating the development process remarkably when approached with well-crafted, detailed queries. Its efficiency and usefulness continue to fascinate us.
 
----
+
 
 
