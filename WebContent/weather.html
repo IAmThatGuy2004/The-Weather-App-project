@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- favicon image-->
+    <link rel="icon" type="image/png" href="images/weather-icon.png" />
+
+    <!--remix icon link: will give us free to use icon img-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!--links to our css stylinkg file -->
+    <link rel="stylesheet" href="weather-style.css" />
+
+    <!-- title of website-->
+    <title>JA^2M Weather</title>
+  </head>
+  <body>
+
+    <header class="header">
+      <div class="container">
+        <h2>JA<sup>2</sup>M Weather</h2>
+
+        <div class="search-view " data-search-view>
+          <div class="search-wrapper">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search city name..."
+              autocomplete="off"
+              class="search-field"
+              
+              data-search-field
+            />
+
+            <span class="m-icon leading-icon"><i class="ri-search-line"></i></span>
+
+            <button class="icon-btn leading-icon has-state" data-search-toggler>
+              <span class="m-icon"><i class="ri-arrow-left-line"></i></span>
+            </button>
+          </div>
+
+          <div class="search-result " data-search-result>
+            
+          </div>
+        </div>
+
+        <!--header action is location-->
+        <div class="location">
+  <button class="icon-btn has-state" data-search-toggler>
+    <span class="m-icon icon"><i class="ri-search-line"></i></span>
+  </button>
+
+  <a
+    href="javascript:void(0);" 
+    class="btn-primary has-state"
+    data-current-location-btn 
+    id="location-btn"
+  >
+    <span class="m-icon"><i class="ri-focus-3-line"></i></span>
+    <span class="span">My location</span>
+  </a>
+
+  <button class="icon-btn has-state" id="favorite-btn" title="Add to Favorites">    <!-- Button for favourite icon-->
+    <span class="m-icon"><i class="ri-heart-line"></i></span>
+  </button>
+</div>
+
+<script type="module">
+ // 1st array: Default latitude and longitude for New York
+const defaultLocation = [64.750997,-147.349319];  // [latitude, longitude]
+
+// 2nd array: User's location (initially set to New York)
+let userLocation = [...defaultLocation];  // Clone the defaultLocation to initialize
+
+function checkAndUpdateLocation(lat, lon) {
+      const currentUrl = window.location.href;  // Get current page URL
+      const currentHash = window.location.hash; // Get hash part of the URL
+
+      // Check if the hash contains lat and lon parameters
+      if (!currentHash.includes('#/weather?lat=') || !currentHash.includes('&lon=')) {
+        console.log("Setting default location (lat and lon).");
+
+       
+
+        // Construct the new hash with lat and lon
+        const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+
+        // Update the URL hash (without reloading the page)
+        window.location.hash = newHash;
+
+        
+      } else {
+        console.log("Weather location already in URL.");
+      }
+    }
+
+    // Call the function on page load
+    
+
+// Function to get the user's current location and return it as an array
+ async function getUserLocation() {
+  if (navigator.geolocation) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      // Get latitude and longitude from the position object
+      
+
+      userLocation = [position.coords.latitude, position.coords.longitude];
+
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+    
+      checkAndUpdateLocation(lat,lon);
+      
+      return userLocation;  // Return the user's location array
+    } catch (error) {
+      checkAndUpdateLocation(userLocation[0],userLocation[1]);
+      console.error("Error getting user location:", error);
+      return defaultLocation;  // Return default location in case of error
+    }
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+    return defaultLocation;  // Return default location if geolocation is not supported
+  }
+}
+
+
+
+console.log("Initial Location (New York):", defaultLocation);
+userLocation = await getUserLocation();
+console.log("Updated Location (User):", userLocation);
+
+
+document.getElementById('location-btn').addEventListener('click', function() {
+      // Extract lat and lon from the userLocation array
+      const lat = userLocation[0];
+      const lon = userLocation[1];
+
+      // Get the current page's URL (without query parameters)
+      const currentUrl = window.location.href;
+      // Split the URL into base URL and hash
+      const baseUrl = currentUrl.split('#')[0]; // Part before the '#'
+      // Construct the new hash with lat and lon
+      const newHash = `#/weather?lat=${lat}&lon=${lon}`;
+      // Construct the new URL by combining the base URL and the new hash
+      const newUrl = baseUrl + newHash;
+      // Redirect the page to the new URL
+      window.location.href = newUrl;
+    });
+
+</script>
+<div class="login-button">
+  <button
+    class="icon-btn btn-login"
+    onclick="window.location.href='http://localhost/WeatherApp/login.jsp';"
+  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12.1597 16C10.1243 16 8.29182 16.8687 7.01276 18.2556C8.38039 19.3474 10.114 20 12 20C13.9695 20 15.7727 19.2883 17.1666 18.1081C15.8956 16.8074 14.1219 16 12.1597 16ZM12 4C7.58172 4 4 7.58172 4 12C4 13.8106 4.6015 15.4807 5.61557 16.8214C7.25639 15.0841 9.58144 14 12.1597 14C14.6441 14 16.8933 15.0066 18.5218 16.6342C19.4526 15.3267 20 13.7273 20 12C20 7.58172 16.4183 4 12 4ZM12 5C14.2091 5 16 6.79086 16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9C8 6.79086 9.79086 5 12 5ZM12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7Z"></path></svg>
+  </button>
+
+</div>
+
+      </div>
+
+      
+    </header>
+
+
+    <main>
+      <article class="container" data-container>
+        
+        <!--Content left will contain the momement main info as well as weathe rof next 5 days-->
+        <div class="content-left">
+          <!---In this segment we will have current weather-->
+
+          <section class="section current-weather" data-current-weather>
+            
+          </section>
+
+
+
+          <!--This section will be for weather forecasting-->
+          <section class="section forecast" data-5-day-forecast>
+            <h2 class="title-2" id="forecast-label">5 Days Forecast</h2>
+            
+          </section>
+
+
+
+        </div>
+
+        <!--Content Right will contain the detail info from hourly weather to wind direction-->
+        <div class="content-right" >
+
+          <!--Section for hourly prediction-->
+          <div class="section hourly-forecast" data-hourly-forecast>
+            <h2 class="title-2">Today at:</h2>
+
+            <div class="slider-container">
+              <ul class="slider-list" data-temp>
+                
+              </ul>
+
+              <ul class="slider-list" data-wind>
+                
+
+              </ul>
+            </div>
+          </div>
+
+          <section class="section highlights" data-highlights>
+            
+          </section>
+
+
+
+          
+
+        </div>
+
+      </article>
+    </main>
+    
+    
+    
+
+    <script type="module" src="weather-api.js"></script>
+    <script type="module" src="weather-module.js"></script>
+    <script type="module" src="weather-route.js"></script>
+    <script type="module" src="weather-app.js"></script>
+  </body>
+</html>
