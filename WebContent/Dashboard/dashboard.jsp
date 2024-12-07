@@ -32,7 +32,7 @@
       <div class="dropdown-menu" id="dropdown-menu">
         <a href="#">Profile</a>
         <a href="#">Settings</a> <!-- Placeholder links as not decided what the profile icon should contain -->
-        <a href="logout.jsp">Logout</a>
+        <a href="../logout.jsp">Logout</a>
       </div>
     </div>
   </header>
