@@ -108,6 +108,8 @@ if (!dbInitialized) {
         String password = request.getParameter("password");
 
         boolean isValidUser = false;
+        int userId = 0; // Declared userId
+        String retrievedUsername = null; // Declared retrievedUsername
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -130,6 +132,8 @@ if (!dbInitialized) {
             // Check if user exists
             if (resultSet.next()) {
                 isValidUser = true;
+                userId = resultSet.getInt("UserId");
+                retrievedUsername = resultSet.getString("Username");
             }
         } catch (Exception e) {
             e.printStackTrace();
