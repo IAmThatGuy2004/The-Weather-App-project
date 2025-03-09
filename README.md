@@ -2,7 +2,7 @@
 
 A user-friendly weather application that delivers real-time weather updates for any location across the globe. Designed to be simple, accurate, and accessible for everyone.
 
-## **Watch a quick demo of the app in action [hhttps://youtu.be/\_TUGzFgXBxM](#)**
+## **Watch a quick demo of the app in action [here](https://www.youtube.com/watch?v=_TUGzFgXBxM)**
 
 ## Key Features ✨
 
