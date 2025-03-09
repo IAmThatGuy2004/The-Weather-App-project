@@ -11,3 +11,4 @@ A user-friendly weather application that delivers real-time weather updates for 
 - **5-Day Forecast**: Plan ahead with a detailed weather forecast for the next five days.
 - **Responsive Design**: Works perfectly on desktops, tablets, and mobile devices.
 - **Dark/Light Mode**: Switch between themes for a comfortable viewing experience.
+- **Login/Logout**: Saves user information within a database, used for login/Signup
